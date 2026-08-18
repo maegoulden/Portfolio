@@ -62,8 +62,8 @@
   .border-hair { border-color: var(--border); }
 
   .fs-display { font-size: clamp(2.25rem, 8vw, 78px); font-weight: 500; line-height: 1.15; letter-spacing: -0.025em; }
-  .fs-h2 { font-size: clamp(2rem, 6vw, 60px); line-height: 1.1; letter-spacing: -0.025em; }
-  .fs-lead { font-size: clamp(1.85rem, 4.4vw, 48px); line-height: 1.2083; }
+  .fs-h2 { font-size: clamp(2rem, 6vw, 60px); font-weight: 500; line-height: 1.1; letter-spacing: -0.025em; }
+  .fs-lead { font-size: clamp(1.85rem, 4.4vw, 48px); font-weight: 500; line-height: 1.2083; }
   .fs-body { font-size: 20px; line-height: 30px; max-width: 46ch; }
 
   /* ---------- Nav ---------- */
@@ -118,28 +118,18 @@
 
   .em-word { color: var(--text); font-weight: 600; }
 
-  /* ---------- Device mockups ---------- */
-  .device-screen { position: relative; border-radius: 10px; overflow: hidden; background: var(--placeholder-bg); }
+  /* ---------- Case study images ---------- */
+  .device-screen {
+    position: relative; border-radius: 14px; overflow: hidden; background: var(--placeholder-bg);
+    box-shadow: 0 24px 48px -24px rgba(20,20,20,0.28);
+  }
   .device-placeholder {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center;
-    padding: 1rem; border: 1.5px dashed var(--placeholder-border); border-radius: 10px;
+    padding: 1rem; border: 1.5px dashed var(--placeholder-border); border-radius: 14px;
     font-size: 0.78rem; color: var(--text-faint); line-height: 1.5;
   }
   .device-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
   .device-img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block; }
-
-  .laptop-frame {
-    border-radius: 12px; background: #1a1a1a; padding: 0.55rem 0.55rem 0;
-    box-shadow: 0 30px 60px -30px rgba(20,20,20,0.35);
-  }
-  .laptop-frame .device-screen { aspect-ratio: 16 / 10; border-radius: 4px; }
-  .laptop-base { height: 0.7rem; background: linear-gradient(#232323, #161616); border-radius: 0 0 8px 8px; margin-top: 0.55rem; }
-
-  .phone-frame {
-    border-radius: 26px; background: #1a1a1a; padding: 0.4rem;
-    box-shadow: 0 20px 40px -18px rgba(20,20,20,0.35);
-  }
-  .phone-frame .device-screen { aspect-ratio: 9 / 19.5; border-radius: 20px; }
 
   .work-row-media { position: relative; }
 
@@ -205,7 +195,7 @@
 </header>
 
 <!-- ================= HERO ================= -->
-<section id="home" class="relative overflow-hidden pt-32 md:pt-40" style="min-height: 100vh; min-height: 100svh;">
+<section id="home" class="relative overflow-hidden" style="min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center;">
   <div id="dot-field" class="dot-field" aria-hidden="true"></div>
 
   <div class="container-page relative">
@@ -227,7 +217,7 @@
     <!-- Coping With School -->
     <article class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
       <div data-reveal>
-        <h2 class="fs-h2 font-display font-extrabold mb-5">Coping With School</h2>
+        <h2 class="fs-h2 font-display mb-5">Coping With School</h2>
         <p class="fs-body text-muted mb-7">
           A support tool designed with students who find school days genuinely difficult, helping them recognise triggers, build coping strategies, and know when to ask for help.
         </p>
@@ -237,12 +227,9 @@
         </a>
       </div>
       <div class="work-row-media" data-reveal>
-        <div class="laptop-frame max-w-lg mx-auto">
-          <div class="device-screen">
-            <div class="device-placeholder">Add <code>coping-with-school.png</code> to <code>assets/projects/</code></div>
-            <img class="device-img" alt="Coping With School preview" src="assets/projects/coping-with-school.png" onerror="this.style.display='none'" />
-          </div>
-          <div class="laptop-base"></div>
+        <div class="device-screen max-w-lg mx-auto" style="aspect-ratio: 16 / 10;">
+          <div class="device-placeholder">Add <code>coping-with-school.png</code> to <code>assets/projects/</code></div>
+          <img class="device-img" alt="Coping With School preview" src="assets/projects/coping-with-school.png" onerror="this.style.display='none'" />
         </div>
       </div>
     </article>
@@ -250,16 +237,13 @@
     <!-- ADHD UK -->
     <article class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
       <div class="work-row-media md:order-1" data-reveal>
-        <div class="laptop-frame max-w-lg mx-auto">
-          <div class="device-screen">
-            <div class="device-placeholder">Add <code>adhd-uk.png</code> to <code>assets/projects/</code></div>
-            <img class="device-img" alt="ADHD UK preview" src="assets/projects/adhd-uk.png" onerror="this.style.display='none'" />
-          </div>
-          <div class="laptop-base"></div>
+        <div class="device-screen max-w-lg mx-auto" style="aspect-ratio: 16 / 10;">
+          <div class="device-placeholder">Add <code>adhd-uk.png</code> to <code>assets/projects/</code></div>
+          <img class="device-img" alt="ADHD UK preview" src="assets/projects/adhd-uk.png" onerror="this.style.display='none'" />
         </div>
       </div>
       <div class="md:order-2" data-reveal>
-        <h2 class="fs-h2 font-display font-extrabold mb-5">ADHD UK</h2>
+        <h2 class="fs-h2 font-display mb-5">ADHD UK</h2>
         <p class="fs-body text-muted mb-7">
           A responsive website redesign that made support clearer, more accessible, and easier to navigate for people affected by ADHD.
         </p>
@@ -273,7 +257,7 @@
     <!-- TutorTrust -->
     <article class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
       <div data-reveal>
-        <h2 class="fs-h2 font-display font-extrabold mb-5">TutorTrust</h2>
+        <h2 class="fs-h2 font-display mb-5">TutorTrust</h2>
         <p class="fs-body text-muted mb-7">
           A mobile app design giving parents confidence through smarter, personalised tutor matching, with safeguarding-first flows that feel simple, not bureaucratic.
         </p>
@@ -284,23 +268,17 @@
       </div>
       <div class="work-row-media" data-reveal>
         <div class="flex justify-center gap-[-2rem]">
-          <div class="phone-frame w-32 md:w-36 rotate-[-6deg] -mr-6 md:-mr-8 mt-6">
-            <div class="device-screen">
-              <div class="device-placeholder" style="font-size:0.65rem;">Add <code>tutortrust-1.png</code></div>
-              <img class="device-img" alt="TutorTrust preview 1" src="assets/projects/tutortrust-1.png" onerror="this.style.display='none'" />
-            </div>
+          <div class="device-screen w-32 md:w-36 rotate-[-6deg] -mr-6 md:-mr-8 mt-6" style="aspect-ratio: 9 / 19.5;">
+            <div class="device-placeholder" style="font-size:0.65rem;">Add <code>tutortrust-1.png</code></div>
+            <img class="device-img" alt="TutorTrust preview 1" src="assets/projects/tutortrust-1.png" onerror="this.style.display='none'" />
           </div>
-          <div class="phone-frame w-36 md:w-40 z-10">
-            <div class="device-screen">
-              <div class="device-placeholder" style="font-size:0.68rem;">Add <code>tutortrust-2.png</code></div>
-              <img class="device-img" alt="TutorTrust preview 2" src="assets/projects/tutortrust-2.png" onerror="this.style.display='none'" />
-            </div>
+          <div class="device-screen w-36 md:w-40 z-10" style="aspect-ratio: 9 / 19.5;">
+            <div class="device-placeholder" style="font-size:0.68rem;">Add <code>tutortrust-2.png</code></div>
+            <img class="device-img" alt="TutorTrust preview 2" src="assets/projects/tutortrust-2.png" onerror="this.style.display='none'" />
           </div>
-          <div class="phone-frame w-32 md:w-36 rotate-[6deg] -ml-6 md:-ml-8 mt-6">
-            <div class="device-screen">
-              <div class="device-placeholder" style="font-size:0.65rem;">Add <code>tutortrust-3.png</code></div>
-              <img class="device-img" alt="TutorTrust preview 3" src="assets/projects/tutortrust-3.png" onerror="this.style.display='none'" />
-            </div>
+          <div class="device-screen w-32 md:w-36 rotate-[6deg] -ml-6 md:-ml-8 mt-6" style="aspect-ratio: 9 / 19.5;">
+            <div class="device-placeholder" style="font-size:0.65rem;">Add <code>tutortrust-3.png</code></div>
+            <img class="device-img" alt="TutorTrust preview 3" src="assets/projects/tutortrust-3.png" onerror="this.style.display='none'" />
           </div>
         </div>
       </div>
@@ -312,11 +290,11 @@
 <!-- ================= TESTIMONIAL ================= -->
 <section class="py-20 md:py-28">
   <div class="container-page grid md:grid-cols-12 gap-10">
-    <p class="md:col-span-8 fs-lead font-display font-extrabold" data-reveal>
+    <p class="md:col-span-8 fs-lead font-display" data-reveal>
       &ldquo;Mae is a pleasure to work with. Her collaborative approach and attention to detail made a real difference to the project.&rdquo;
     </p>
-    <div class="md:col-span-4 quote-divider self-start" data-reveal>
-      <p class="font-semibold">Amelia Axelsen</p>
+    <div class="md:col-span-4 quote-divider flex flex-col gap-2" data-reveal>
+      <p class="font-medium">Amelia Axelsen</p>
       <p class="text-muted text-sm">City of London Corporation</p>
     </div>
   </div>
@@ -350,11 +328,8 @@
 <!-- ================= CONTACT ================= -->
 <section id="contact" class="py-24 md:py-32 border-t border-hair">
   <div class="container-page flex flex-col items-center text-center">
-    <h2 class="fs-h2 font-display font-extrabold mb-8" data-reveal>Let's work together</h2>
-    <a href="mailto:hello@maegoulden.com" class="pill-btn" data-reveal>
-      Say hello
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.126A59.77 59.77 0 0 1 21.485 12 59.77 59.77 0 0 1 3.27 20.874L5.999 12Zm0 0h7.5" /></svg>
-    </a>
+    <h2 class="fs-h2 font-display mb-8" data-reveal>Let's work together</h2>
+    <a href="mailto:hello@maegoulden.com" class="pill-btn" data-reveal>Say hello</a>
   </div>
 </section>
 
