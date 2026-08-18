@@ -6,236 +6,152 @@
 <title>Mae Goulden — Product Designer</title>
 <meta name="description" content="Mae Goulden is a product designer creating accessible digital experiences, built around clarity, empathy, and inclusive design." />
 
-<!-- Fonts: Geist for display, Inter for body/UI, Geist Mono for small labels -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-<!-- Tailwind (layout/utility only — all color comes from CSS variables below) -->
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-  /* ---------- Design tokens ---------- */
   :root {
-    --bg: #F6F4EF;
+    --bg: #F4F4F2;
     --surface: #FFFFFF;
-    --surface-2: #EEEAE1;
-    --border: #DEDACD;
-    --text: #1B1A17;
-    --text-muted: #6B6759;
-    --accent: #B8721A;
-    --accent-text: #FFFFFF;
-    --accent-soft: rgba(184, 114, 26, 0.12);
-    --focus-ring: #B8721A;
-    --shadow-color: 30 20 10;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #131319;
-      --surface: #1A1B22;
-      --surface-2: #20212A;
-      --border: #2C2E39;
-      --text: #F1EFE7;
-      --text-muted: #9C9CA8;
-      --accent: #E8A33D;
-      --accent-text: #14151A;
-      --accent-soft: rgba(232, 163, 61, 0.14);
-      --focus-ring: #E8A33D;
-      --shadow-color: 0 0 0;
-    }
-  }
-
-  :root[data-theme="dark"] {
-    --bg: #131319;
-    --surface: #1A1B22;
-    --surface-2: #20212A;
-    --border: #2C2E39;
-    --text: #F1EFE7;
-    --text-muted: #9C9CA8;
-    --accent: #E8A33D;
-    --accent-text: #14151A;
-    --accent-soft: rgba(232, 163, 61, 0.14);
-    --focus-ring: #E8A33D;
-    --shadow-color: 0 0 0;
+    --text: #141414;
+    --text-muted: #6E6E6C;
+    --text-faint: #9A9A97;
+    --pill-bg: #141414;
+    --pill-text: #FFFFFF;
+    --border: #DBDBD7;
+    --dot: #c9c9c4;
+    --placeholder-bg: #EAEAE7;
+    --placeholder-border: #C7C7C3;
   }
 
   * { -webkit-tap-highlight-color: transparent; }
-
   html { scroll-behavior: smooth; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   }
 
   body {
     background: var(--bg);
     color: var(--text);
     font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-    transition: background-color 0.35s ease, color 0.35s ease;
   }
 
   h1, h2, h3, .font-display {
-    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     text-wrap: balance;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
   }
 
-  .font-mono-label {
-    font-family: 'Geist Mono', ui-monospace, 'SF Mono', monospace;
-    letter-spacing: 0.08em;
-  }
-
-  ::selection { background: var(--accent); color: var(--accent-text); }
+  ::selection { background: var(--text); color: var(--bg); }
 
   a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
-    outline: 2px solid var(--focus-ring);
+    outline: 2px solid var(--text);
     outline-offset: 3px;
     border-radius: 2px;
   }
 
-  .container-page { max-width: 1180px; margin-inline: auto; padding-inline: 1.5rem; }
-  @media (min-width: 768px) { .container-page { padding-inline: 2.5rem; } }
+  .container-page { max-width: 1240px; margin-inline: auto; padding-inline: 1.5rem; }
+  @media (min-width: 768px) { .container-page { padding-inline: 2.75rem; } }
 
-  .surface { background: var(--surface); border-color: var(--border); }
-  .surface-2 { background: var(--surface-2); }
   .text-muted { color: var(--text-muted); }
+  .text-faint { color: var(--text-faint); }
   .border-hair { border-color: var(--border); }
-  .text-accent { color: var(--accent); }
-  .bg-accent { background: var(--accent); color: var(--accent-text); }
 
-  .fs-display { font-size: clamp(2.6rem, 6.2vw, 5.25rem); line-height: 1.02; }
-  .fs-h2 { font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1.08; }
-  .fs-h3 { font-size: clamp(1.25rem, 1.8vw, 1.5rem); line-height: 1.25; }
-  .fs-lead { font-size: clamp(1.05rem, 1.6vw, 1.3rem); line-height: 1.55; }
-  .fs-body { font-size: 1.0625rem; line-height: 1.7; max-width: 62ch; }
+  .fs-display { font-size: clamp(2.6rem, 5.6vw, 4.6rem); line-height: 1.05; }
+  .fs-h2 { font-size: clamp(2.4rem, 4.4vw, 3.6rem); line-height: 1.05; }
+  .fs-lead { font-size: clamp(1.5rem, 2.2vw, 2rem); line-height: 1.3; }
+  .fs-body { font-size: 1.0625rem; line-height: 1.7; max-width: 46ch; }
 
   /* ---------- Nav ---------- */
   .nav-wrap {
-    background: color-mix(in srgb, var(--bg) 82%, transparent);
-    backdrop-filter: blur(10px) saturate(1.1);
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px);
+    transition: border-color 0.3s ease;
     border-bottom: 1px solid transparent;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
   }
   .nav-wrap.scrolled { border-color: var(--border); }
 
-  .nav-link { position: relative; color: var(--text-muted); transition: color 0.2s ease; }
-  .nav-link:hover { color: var(--text); }
-  .nav-link::after {
-    content: ""; position: absolute; left: 0; bottom: -4px; height: 1px; width: 0;
-    background: var(--accent); transition: width 0.25s ease;
-  }
-  .nav-link:hover::after { width: 100%; }
+  .nav-link { position: relative; color: var(--text); opacity: 0.72; transition: opacity 0.2s ease; }
+  .nav-link:hover { opacity: 1; }
 
-  /* ---------- Theme toggle ---------- */
+  .pill-btn {
+    background: var(--pill-bg); color: var(--pill-text);
+    padding: 0.6rem 1.3rem; border-radius: 999px; font-weight: 500; font-size: 0.95rem;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .pill-btn:hover { transform: translateY(-1px); opacity: 0.88; }
+
   .toggle-btn {
     width: 2.5rem; height: 2.5rem; border-radius: 999px;
-    border: 1px solid var(--border); background: var(--surface);
+    border: 1px solid var(--border); background: transparent;
     display: flex; align-items: center; justify-content: center;
-    transition: border-color 0.2s ease, transform 0.2s ease;
-  }
-  .toggle-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
-  .toggle-btn svg { width: 1.05rem; height: 1.05rem; }
-
-  /* ---------- Hero glow ---------- */
-  .floodlight {
-    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
-  }
-  .floodlight::before {
-    content: "";
-    position: absolute;
-    top: -20%; right: -10%;
-    width: 60vw; height: 60vw; max-width: 780px; max-height: 780px;
-    background: radial-gradient(circle at 50% 50%, var(--accent) 0%, transparent 68%);
-    opacity: 0.16;
-    filter: blur(10px);
-    animation: pulse-glow 7s ease-in-out infinite;
-    border-radius: 50%;
-  }
-  @keyframes pulse-glow {
-    0%, 100% { opacity: 0.13; transform: scale(1); }
-    50% { opacity: 0.22; transform: scale(1.06); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .floodlight::before { animation: none; }
   }
 
-  .grain {
-    position: absolute; inset: 0; pointer-events: none; opacity: 0.5; mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
-  }
+  /* ---------- Hero dot field ---------- */
+  .dot-field { position: absolute; inset: 0; pointer-events: none; background-repeat: no-repeat; background-size: cover; background-position: center; }
 
-  /* ---------- Reveal on scroll ---------- */
-  [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .scroll-cue {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 2.25rem; height: 2.25rem; border-radius: 999px; border: 1px solid var(--border);
+    animation: bob 2.4s ease-in-out infinite;
+  }
+  @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+  @media (prefers-reduced-motion: reduce) { .scroll-cue { animation: none; } }
+
+  /* ---------- Reveal ---------- */
+  [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
   [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
   @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }
 
-  /* ---------- Buttons ---------- */
-  .btn-primary {
-    background: var(--accent); color: var(--accent-text);
-    padding: 0.85rem 1.6rem; border-radius: 999px; font-weight: 600;
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-    box-shadow: 0 8px 24px -8px rgba(var(--shadow-color), 0.35);
-  }
-  .btn-primary:hover { transform: translateY(-2px); opacity: 0.92; }
-  .btn-primary:active { transform: translateY(0); }
+  /* ---------- Project link ---------- */
+  .project-link { color: var(--text); font-weight: 500; display: inline-flex; align-items: center; gap: 0.4rem; }
+  .project-link svg { width: 1rem; height: 1rem; transition: transform 0.25s ease; }
+  .project-link:hover svg { transform: translate(3px, -3px); }
 
-  .btn-ghost {
-    border: 1px solid var(--border); color: var(--text);
-    padding: 0.85rem 1.6rem; border-radius: 999px; font-weight: 600;
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    transition: border-color 0.2s ease, transform 0.2s ease;
-  }
-  .btn-ghost:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .em-word { color: var(--text); font-weight: 600; }
 
-  /* ---------- Project cards ---------- */
-  .project-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.75rem;
-    display: flex; flex-direction: column; height: 100%;
-    transition: transform 0.35s cubic-bezier(.2,.8,.2,1), border-color 0.35s ease, box-shadow 0.35s ease;
-    position: relative;
-    overflow: hidden;
+  /* ---------- Device mockups ---------- */
+  .device-screen { position: relative; border-radius: 10px; overflow: hidden; background: var(--placeholder-bg); }
+  .device-placeholder {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center;
+    padding: 1rem; border: 1.5px dashed var(--placeholder-border); border-radius: 10px;
+    font-size: 0.78rem; color: var(--text-faint); line-height: 1.5;
   }
-  .project-card::before {
-    content: "";
-    position: absolute; inset: 0;
-    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), var(--accent-soft), transparent 60%);
-    opacity: 0; transition: opacity 0.4s ease;
-    pointer-events: none;
-  }
-  .project-card:hover {
-    transform: translateY(-6px);
-    border-color: var(--accent);
-    box-shadow: 0 20px 40px -20px rgba(var(--shadow-color), 0.4);
-  }
-  .project-card:hover::before { opacity: 1; }
+  .device-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
+  .device-img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block; }
 
-  .tag {
-    font-family: 'Geist Mono', ui-monospace, monospace;
-    font-size: 0.7rem; letter-spacing: 0.05em;
-    padding: 0.3rem 0.6rem; border-radius: 999px;
-    border: 1px solid var(--border); color: var(--text-muted);
+  .laptop-frame {
+    border-radius: 12px; background: #1a1a1a; padding: 0.55rem 0.55rem 0;
+    box-shadow: 0 30px 60px -30px rgba(20,20,20,0.35);
   }
+  .laptop-frame .device-screen { aspect-ratio: 16 / 10; border-radius: 4px; }
+  .laptop-base { height: 0.7rem; background: linear-gradient(#232323, #161616); border-radius: 0 0 8px 8px; margin-top: 0.55rem; }
 
-  .project-link {
-    color: var(--text); font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem;
+  .phone-frame {
+    border-radius: 26px; background: #1a1a1a; padding: 0.4rem;
+    box-shadow: 0 20px 40px -18px rgba(20,20,20,0.35);
   }
-  .project-link svg { transition: transform 0.25s ease; width: 1rem; height: 1rem; }
-  .project-card:hover .project-link svg { transform: translate(3px, -3px); }
+  .phone-frame .device-screen { aspect-ratio: 9 / 19.5; border-radius: 20px; }
 
-  /* ---------- Pull quote ---------- */
-  .pull-quote {
-    border-left: 2px solid var(--accent);
-    padding-left: 1.5rem;
-    font-family: 'Geist', sans-serif;
+  .work-row-media { position: relative; }
+
+  /* ---------- Photo ---------- */
+  .photo-frame { border-radius: 14px; overflow: hidden; position: relative; background: var(--placeholder-bg); aspect-ratio: 4 / 3.4; }
+  .photo-placeholder {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center;
+    padding: 1rem; border: 1.5px dashed var(--placeholder-border); border-radius: 14px;
+    font-size: 0.8rem; color: var(--text-faint); line-height: 1.5;
   }
+  .photo-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
+  .photo-img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block; }
 
-  /* ---------- Testimonial ---------- */
-  .quote-mark { font-family: 'Geist', serif; color: var(--accent); line-height: 0.6; }
+  /* ---------- Testimonial divider ---------- */
+  .quote-divider { border-left: 1px solid var(--border); padding-left: 1.75rem; }
 
   /* ---------- Form ---------- */
   .field-input {
@@ -243,24 +159,15 @@
     padding: 0.75rem 0.1rem; color: var(--text); font-size: 1rem;
     transition: border-color 0.25s ease;
   }
-  .field-input:focus { border-color: var(--accent); outline: none; }
-  .field-input::placeholder { color: var(--text-muted); }
-  .field-label {
-    font-family: 'Geist Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em;
-    color: var(--text-muted); text-transform: uppercase;
-  }
-  .field-error { color: #D14343; font-size: 0.8rem; min-height: 1.1rem; }
-  :root[data-theme="dark"] .field-error, @media (prefers-color-scheme: dark) { }
-
+  .field-input:focus { border-color: var(--text); outline: none; }
+  .field-input::placeholder { color: var(--text-faint); }
+  .field-label { font-size: 0.75rem; letter-spacing: 0.05em; color: var(--text-muted); text-transform: uppercase; }
+  .field-error { color: #B3261E; font-size: 0.8rem; min-height: 1.1rem; }
   .status-msg { font-size: 0.9rem; }
 
   /* ---------- Mobile nav ---------- */
-  .mobile-panel {
-    max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
-  }
-  .mobile-panel.open { max-height: 20rem; }
-
-  hr.hair { border-color: var(--border); }
+  .mobile-panel { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .mobile-panel.open { max-height: 16rem; }
 </style>
 </head>
 
@@ -269,205 +176,184 @@
 <!-- ================= NAV ================= -->
 <header id="nav" class="nav-wrap fixed top-0 inset-x-0 z-50">
   <div class="container-page flex items-center justify-between h-16 md:h-20">
-    <a href="#home" class="font-display font-semibold text-lg tracking-tight">Mae Goulden</a>
+    <a href="#home" class="font-display font-extrabold text-lg tracking-tight">Mae.</a>
 
-    <nav class="hidden md:flex items-center gap-8 font-mono-label text-xs uppercase">
-      <a href="#about" class="nav-link">About</a>
+    <nav class="hidden md:flex items-center gap-8 text-sm">
       <a href="#work" class="nav-link">Work</a>
-      <a href="#contact" class="nav-link">Contact</a>
+      <a href="#about" class="nav-link">About</a>
     </nav>
 
     <div class="flex items-center gap-3">
-      <button id="theme-toggle" class="toggle-btn" aria-label="Toggle dark and light mode" type="button">
-        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1.5M12 19.5V21M4.219 4.219l1.06 1.06M18.72 18.72l1.06 1.06M3 12h1.5M19.5 12H21M4.219 19.781l1.06-1.06M18.72 5.28l1.06-1.06M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z" /></svg>
-        <svg id="icon-moon" class="hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" /></svg>
-      </button>
+      <a href="#contact" class="pill-btn hidden sm:inline-flex">Contact</a>
       <button id="mobile-toggle" class="md:hidden toggle-btn" aria-label="Open menu" aria-expanded="false" type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" /></svg>
       </button>
     </div>
   </div>
 
   <div id="mobile-panel" class="mobile-panel md:hidden border-t border-hair">
-    <nav class="container-page flex flex-col py-4 gap-4 font-mono-label text-xs uppercase">
-      <a href="#about" class="nav-link">About</a>
+    <nav class="container-page flex flex-col py-4 gap-4 text-sm">
       <a href="#work" class="nav-link">Work</a>
+      <a href="#about" class="nav-link">About</a>
       <a href="#contact" class="nav-link">Contact</a>
     </nav>
   </div>
 </header>
 
 <!-- ================= HERO ================= -->
-<section id="home" class="relative pt-36 pb-24 md:pt-48 md:pb-32 overflow-hidden">
-  <div class="floodlight" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
+<section id="home" class="relative pt-32 pb-20 md:pt-44 md:pb-28 overflow-hidden">
+  <div id="dot-field" class="dot-field" aria-hidden="true"></div>
 
   <div class="container-page relative">
     <div class="max-w-3xl">
-      <p class="font-mono-label text-xs uppercase text-accent mb-5" data-reveal>Product Designer</p>
-      <h1 class="fs-display font-display font-semibold mb-6" data-reveal>
-        Hi, I'm Mae Goulden!
+      <p class="text-muted mb-5" data-reveal>Hello, I'm Mae Goulden!</p>
+      <h1 class="fs-display font-display font-extrabold mb-2" data-reveal>
+        I understand people and design accessible products that actually help them
       </h1>
-      <p class="fs-lead text-muted mb-10 max-w-xl" data-reveal>
-        I understand people and create accessible products that actually help them.
-      </p>
-      <div class="flex flex-wrap items-center gap-4" data-reveal>
-        <a href="#work" class="btn-primary">
-          See my work
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 5.25 4.5 19.5m0 0V9.75m0 9.75h9.75" transform="rotate(180 12 12)"/></svg>
+    </div>
+  </div>
+
+  <div class="container-page relative flex justify-center mt-16 md:mt-20" data-reveal>
+    <a href="#work" class="scroll-cue" aria-label="Scroll to work">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ================= WORK ================= -->
+<section id="work" class="py-20 md:py-28">
+  <div class="container-page space-y-24 md:space-y-32">
+
+    <!-- Coping With School -->
+    <article class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+      <div data-reveal>
+        <h2 class="fs-h2 font-display font-extrabold mb-5">Coping With School</h2>
+        <p class="fs-body text-muted mb-7">
+          A support tool designed with students who find school days genuinely difficult, helping them recognise triggers, build coping strategies, and know when to ask for help.
+        </p>
+        <a href="#" class="project-link">
+          View case study
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 6.75 17.25M17.25 6.75H9M17.25 6.75v8.25" /></svg>
         </a>
-        <a href="#contact" class="btn-ghost">Get in touch</a>
       </div>
+      <div class="work-row-media" data-reveal>
+        <div class="laptop-frame max-w-lg mx-auto">
+          <div class="device-screen">
+            <div class="device-placeholder">Add <code>coping-with-school.png</code> to <code>assets/projects/</code></div>
+            <img class="device-img" alt="Coping With School preview" src="assets/projects/coping-with-school.png" onerror="this.style.display='none'" />
+          </div>
+          <div class="laptop-base"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ADHD UK -->
+    <article class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+      <div class="work-row-media md:order-1" data-reveal>
+        <div class="laptop-frame max-w-lg mx-auto">
+          <div class="device-screen">
+            <div class="device-placeholder">Add <code>adhd-uk.png</code> to <code>assets/projects/</code></div>
+            <img class="device-img" alt="ADHD UK preview" src="assets/projects/adhd-uk.png" onerror="this.style.display='none'" />
+          </div>
+          <div class="laptop-base"></div>
+        </div>
+      </div>
+      <div class="md:order-2" data-reveal>
+        <h2 class="fs-h2 font-display font-extrabold mb-5">ADHD UK</h2>
+        <p class="fs-body text-muted mb-7">
+          A responsive website redesign that made support clearer, more accessible, and easier to navigate for people affected by ADHD.
+        </p>
+        <a href="#" class="project-link">
+          View case study
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 6.75 17.25M17.25 6.75H9M17.25 6.75v8.25" /></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- TutorTrust -->
+    <article class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+      <div class="work-row-media" data-reveal>
+        <div class="flex justify-center gap-[-2rem]">
+          <div class="phone-frame w-32 md:w-36 rotate-[-6deg] -mr-6 md:-mr-8 mt-6">
+            <div class="device-screen">
+              <div class="device-placeholder" style="font-size:0.65rem;">Add <code>tutortrust-1.png</code></div>
+              <img class="device-img" alt="TutorTrust preview 1" src="assets/projects/tutortrust-1.png" onerror="this.style.display='none'" />
+            </div>
+          </div>
+          <div class="phone-frame w-36 md:w-40 z-10">
+            <div class="device-screen">
+              <div class="device-placeholder" style="font-size:0.68rem;">Add <code>tutortrust-2.png</code></div>
+              <img class="device-img" alt="TutorTrust preview 2" src="assets/projects/tutortrust-2.png" onerror="this.style.display='none'" />
+            </div>
+          </div>
+          <div class="phone-frame w-32 md:w-36 rotate-[6deg] -ml-6 md:-ml-8 mt-6">
+            <div class="device-screen">
+              <div class="device-placeholder" style="font-size:0.65rem;">Add <code>tutortrust-3.png</code></div>
+              <img class="device-img" alt="TutorTrust preview 3" src="assets/projects/tutortrust-3.png" onerror="this.style.display='none'" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-reveal>
+        <h2 class="fs-h2 font-display font-extrabold mb-5">TutorTrust</h2>
+        <p class="fs-body text-muted mb-7">
+          A mobile app design giving parents confidence through smarter, personalised tutor matching, with safeguarding-first flows that feel simple, not bureaucratic.
+        </p>
+        <a href="#" class="project-link">
+          View case study
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 6.75 17.25M17.25 6.75H9M17.25 6.75v8.25" /></svg>
+        </a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= TESTIMONIAL ================= -->
+<section class="py-20 md:py-28">
+  <div class="container-page grid md:grid-cols-12 gap-10">
+    <p class="md:col-span-8 fs-lead font-display font-extrabold" data-reveal>
+      &ldquo;Mae is a pleasure to work with. Her collaborative approach and attention to detail made a real difference to the project.&rdquo;
+    </p>
+    <div class="md:col-span-4 quote-divider self-start" data-reveal>
+      <p class="font-semibold">Amelia Axelsen</p>
+      <p class="text-muted text-sm">City of London Corporation</p>
     </div>
   </div>
 </section>
 
 <!-- ================= ABOUT ================= -->
-<section id="about" class="py-24 md:py-32 border-t border-hair">
+<section id="about" class="py-20 md:py-28">
   <div class="container-page">
-    <div class="grid md:grid-cols-12 gap-10 md:gap-16">
-      <div class="md:col-span-4" data-reveal>
-        <p class="font-mono-label text-xs uppercase text-accent mb-3">About</p>
-        <h2 class="fs-h2 font-display font-semibold">The short version of a long story</h2>
+    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-start mb-10">
+      <div class="photo-frame" data-reveal>
+        <div class="photo-placeholder">Add your photo as <code>assets/mae-photo.jpg</code></div>
+        <img class="photo-img" alt="Mae Goulden" src="assets/mae-photo.jpg" onerror="this.style.display='none'" />
       </div>
 
-      <div class="md:col-span-8 space-y-6" data-reveal>
-        <p class="fs-body text-muted">
-          Hi, I'm Mae! I'm a designer who loves all things creative and all things sport. Born in Woking, I spent a lot of my youth travelling the country playing academy football. Football led me to some amazing opportunities, including representing England at U15s and Greece at the U19 Euros.
+      <div data-reveal>
+        <p class="fs-body text-muted" style="max-width:none;">
+          Hi, I'm Mae! I'm a designer who loves all things <span class="em-word">creative</span> and all things <span class="em-word">sport</span>! Born in Woking, I spent a lot of my youth travelling the country playing academy football. Football led me to some amazing opportunities, such as representing both England at U15s and Greece in the U19s Euros!
         </p>
-        <p class="fs-body text-muted">
-          Art came along for the ride — there was usually an iPad in my kit bag, or a sketchbook on the plane. Football also taught me how to take feedback without taking it personally, which turns out to be most of design.
+        <p class="fs-body text-muted mt-5" style="max-width:none;">
+          Art came along for the ride. There was usually an iPad in my kit bag or a sketchbook on the plane. Football also taught me how to take feedback without taking it personally, which turns out to be most of design. Now I solve complex problems with accessible digital experiences, built around clarity, empathy, and inclusive design.
         </p>
-        <p class="fs-body text-muted">
-          Whilst playing semi-professional football, I started my career in inclusion within education. I saw first-hand how systems can either include people or leave them behind. Every day was about understanding different needs, removing barriers, and adapting my approach when the first one didn't work. Combined with a background in graphic design, that's what led me to UX.
-        </p>
-
-        <blockquote class="pull-quote fs-h3 font-medium py-2 my-8">
-          Most products don't fail because they look wrong; they fail because they assume everyone arrives with the same confidence, context, and capability. That's the assumption I design against.
-        </blockquote>
-
-        <p class="fs-body text-muted">
-          Now I solve complex problems with accessible digital experiences — built around clarity, empathy, and inclusive design.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= PROJECTS ================= -->
-<section id="work" class="py-24 md:py-32 border-t border-hair">
-  <div class="container-page">
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14" data-reveal>
-      <div>
-        <p class="font-mono-label text-xs uppercase text-accent mb-3">Selected Work</p>
-        <h2 class="fs-h2 font-display font-semibold max-w-xl">Products designed around real people, not edge cases</h2>
+        <p class="text-center text-2xl my-6" aria-hidden="true">⚽</p>
       </div>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-6">
-
-      <!-- Project 1 -->
-      <article class="project-card" data-reveal data-tilt>
-        <div class="relative z-10 flex flex-col h-full">
-          <div class="flex items-center justify-between mb-6">
-            <span class="font-mono-label text-xs text-muted">01</span>
-            <div class="flex gap-2 flex-wrap justify-end">
-              <span class="tag">UX Research</span>
-            </div>
-          </div>
-          <h3 class="fs-h3 font-display font-semibold mb-3">Coping With School</h3>
-          <p class="text-muted text-sm mb-6 flex-1" style="line-height:1.65;">
-            A support tool designed with students who find school days genuinely difficult — helping them recognise triggers, build coping strategies, and know when to ask for help, without feeling singled out.
-          </p>
-          <div class="flex gap-2 flex-wrap mb-6">
-            <span class="tag">Accessibility</span>
-            <span class="tag">Service Design</span>
-            <span class="tag">Wellbeing</span>
-          </div>
-          <a href="#" class="project-link">
-            View case study
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 6.75 17.25M17.25 6.75H9M17.25 6.75v8.25" /></svg>
-          </a>
-        </div>
-      </article>
-
-      <!-- Project 2 -->
-      <article class="project-card" data-reveal data-tilt>
-        <div class="relative z-10 flex flex-col h-full">
-          <div class="flex items-center justify-between mb-6">
-            <span class="font-mono-label text-xs text-muted">02</span>
-            <div class="flex gap-2 flex-wrap justify-end">
-              <span class="tag">Product Design</span>
-            </div>
-          </div>
-          <h3 class="fs-h3 font-display font-semibold mb-3">ADHD UK</h3>
-          <p class="text-muted text-sm mb-6 flex-1" style="line-height:1.65;">
-            Redesigning digital touchpoints for a charity supporting the ADHD community — clearer information architecture, calmer visual language, and interactions built for attention differences from the ground up.
-          </p>
-          <div class="flex gap-2 flex-wrap mb-6">
-            <span class="tag">Inclusive Design</span>
-            <span class="tag">UI Design</span>
-            <span class="tag">Charity</span>
-          </div>
-          <a href="#" class="project-link">
-            View case study
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 6.75 17.25M17.25 6.75H9M17.25 6.75v8.25" /></svg>
-          </a>
-        </div>
-      </article>
-
-      <!-- Project 3 -->
-      <article class="project-card" data-reveal data-tilt>
-        <div class="relative z-10 flex flex-col h-full">
-          <div class="flex items-center justify-between mb-6">
-            <span class="font-mono-label text-xs text-muted">03</span>
-            <div class="flex gap-2 flex-wrap justify-end">
-              <span class="tag">EdTech</span>
-            </div>
-          </div>
-          <h3 class="fs-h3 font-display font-semibold mb-3">TutorTrust</h3>
-          <p class="text-muted text-sm mb-6 flex-1" style="line-height:1.65;">
-            A platform connecting students with tutors, designed to feel safe and simple for families navigating it for the first time — safeguarding-first flows that don't read as bureaucratic.
-          </p>
-          <div class="flex gap-2 flex-wrap mb-6">
-            <span class="tag">Safeguarding</span>
-            <span class="tag">UX Design</span>
-            <span class="tag">Education</span>
-          </div>
-          <a href="#" class="project-link">
-            View case study
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 6.75 17.25M17.25 6.75H9M17.25 6.75v8.25" /></svg>
-          </a>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- ================= TESTIMONIAL ================= -->
-<section class="py-24 md:py-32 border-t border-hair">
-  <div class="container-page">
-    <div class="max-w-3xl" data-reveal>
-      <span class="quote-mark text-6xl md:text-7xl block mb-4">&ldquo;</span>
-      <p class="fs-h2 font-display font-medium mb-8" style="line-height:1.2;">
-        Mae is a pleasure to work with. Her collaborative approach and attention to detail made a real difference to the project.
-      </p>
-      <div class="flex items-center gap-4">
-        <div class="h-px w-10" style="background: var(--accent);"></div>
-        <p class="font-mono-label text-xs uppercase text-muted">Amelia Axelsen &mdash; City of London Corporation</p>
-      </div>
-    </div>
+    <p class="fs-body text-muted" style="max-width:80ch;" data-reveal>
+      Whilst playing semi-professional football, I started my career in inclusion within education. I saw first hand how systems can either include people or leave them behind. Every day was about understanding different needs, removing barriers and adapting my approach when the first one didn't work. Most products don't fail because they look wrong; they fail because they assume everyone arrives with the same confidence, context, and capability. That's the assumption I design against. Combined with my background in graphic design, it's what led me to UX.
+    </p>
   </div>
 </section>
 
 <!-- ================= CONTACT ================= -->
-<section id="contact" class="py-24 md:py-32 border-t border-hair">
+<section id="contact" class="py-20 md:py-28 border-t border-hair">
   <div class="container-page">
     <div class="grid md:grid-cols-12 gap-10 md:gap-16">
       <div class="md:col-span-4" data-reveal>
-        <p class="font-mono-label text-xs uppercase text-accent mb-3">Contact</p>
-        <h2 class="fs-h2 font-display font-semibold mb-6">Let's work together</h2>
+        <h2 class="fs-h2 font-display font-extrabold mb-5">Let's work together</h2>
         <p class="text-muted fs-body">
           Have a project in mind, or just want to say hello? Send a message and I'll get back to you.
         </p>
@@ -492,7 +378,7 @@
           </div>
 
           <div class="flex items-center gap-4 pt-2">
-            <button type="submit" class="btn-primary">
+            <button type="submit" class="pill-btn">
               Send message
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.126A59.77 59.77 0 0 1 21.485 12 59.77 59.77 0 0 1 3.27 20.874L5.999 12Zm0 0h7.5" /></svg>
             </button>
@@ -508,7 +394,7 @@
 <footer class="border-t border-hair py-10">
   <div class="container-page flex flex-col sm:flex-row items-center justify-between gap-4">
     <p class="text-muted text-sm">&copy; <span id="year"></span> Mae Goulden. All rights reserved.</p>
-    <div class="flex gap-6 font-mono-label text-xs uppercase">
+    <div class="flex gap-6 text-sm">
       <a href="https://www.linkedin.com" target="_blank" rel="noopener" class="nav-link">LinkedIn</a>
       <a href="mailto:hello@maegoulden.com" class="nav-link">Email</a>
     </div>
@@ -519,57 +405,29 @@
   (function () {
     "use strict";
 
-    /* ---------- Theme toggle ---------- */
-    var root = document.documentElement;
-    var toggleBtn = document.getElementById("theme-toggle");
-    var iconSun = document.getElementById("icon-sun");
-    var iconMoon = document.getElementById("icon-moon");
-
-    function systemPrefersDark() {
-      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-    }
-
-    function currentlyDark() {
-      var stored = localStorage.getItem("mg-theme");
-      if (stored === "dark") return true;
-      if (stored === "light") return false;
-      return systemPrefersDark();
-    }
-
-    function syncIcons() {
-      var dark = currentlyDark();
-      iconSun.classList.toggle("hidden", dark);
-      iconMoon.classList.toggle("hidden", !dark);
-    }
-
-    function applyStoredTheme() {
-      var stored = localStorage.getItem("mg-theme");
-      if (stored === "dark" || stored === "light") {
-        root.setAttribute("data-theme", stored);
-      } else {
-        root.removeAttribute("data-theme");
+    /* ---------- Scattered dot texture ---------- */
+    function buildDotField() {
+      var w = 1600, h = 900, dots = "";
+      for (var i = 0; i < 260; i++) {
+        var x = Math.random() * w;
+        var y = Math.random() * h;
+        var r = (Math.random() * 1.6 + 0.6).toFixed(2);
+        var o = (Math.random() * 0.45 + 0.12).toFixed(2);
+        dots += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r + '" fill="#c9c9c4" fill-opacity="' + o + '"/>';
       }
-      syncIcons();
+      var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '">' + dots + '</svg>';
+      var el = document.getElementById("dot-field");
+      if (el) el.style.backgroundImage = 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
     }
-
-    toggleBtn.addEventListener("click", function () {
-      var next = currentlyDark() ? "light" : "dark";
-      localStorage.setItem("mg-theme", next);
-      root.setAttribute("data-theme", next);
-      syncIcons();
-    });
-
-    applyStoredTheme();
+    buildDotField();
 
     /* ---------- Mobile nav ---------- */
     var mobileToggle = document.getElementById("mobile-toggle");
     var mobilePanel = document.getElementById("mobile-panel");
-
     mobileToggle.addEventListener("click", function () {
       var isOpen = mobilePanel.classList.toggle("open");
       mobileToggle.setAttribute("aria-expanded", String(isOpen));
     });
-
     document.querySelectorAll('#mobile-panel a').forEach(function (link) {
       link.addEventListener("click", function () {
         mobilePanel.classList.remove("open");
@@ -579,41 +437,25 @@
 
     /* ---------- Nav background on scroll ---------- */
     var navWrap = document.getElementById("nav");
-    function onScroll() {
-      navWrap.classList.toggle("scrolled", window.scrollY > 8);
-    }
+    function onScroll() { navWrap.classList.toggle("scrolled", window.scrollY > 8); }
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
     /* ---------- Scroll reveal ---------- */
     var revealEls = document.querySelectorAll("[data-reveal]");
     if ("IntersectionObserver" in window) {
-      var observer = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("is-visible");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
-      );
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
       revealEls.forEach(function (el) { observer.observe(el); });
     } else {
       revealEls.forEach(function (el) { el.classList.add("is-visible"); });
     }
-
-    /* ---------- Project card cursor glow ---------- */
-    document.querySelectorAll("[data-tilt]").forEach(function (card) {
-      card.addEventListener("mousemove", function (e) {
-        var rect = card.getBoundingClientRect();
-        var mx = ((e.clientX - rect.left) / rect.width) * 100;
-        var my = ((e.clientY - rect.top) / rect.height) * 100;
-        card.style.setProperty("--mx", mx + "%");
-        card.style.setProperty("--my", my + "%");
-      });
-    });
 
     /* ---------- Footer year ---------- */
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -626,33 +468,24 @@
       var el = form.querySelector('[data-error-for="' + field + '"]');
       if (el) el.textContent = message || "";
     }
-
-    function isValidEmail(value) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-    }
+    function isValidEmail(value) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value); }
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       statusEl.textContent = "";
-
       var name = form.name.value.trim();
       var email = form.email.value.trim();
       var message = form.message.value.trim();
       var valid = true;
 
-      setError("name", "");
-      setError("email", "");
-      setError("message", "");
+      setError("name", ""); setError("email", ""); setError("message", "");
 
       if (!name) { setError("name", "Please enter your name."); valid = false; }
       if (!email) { setError("email", "Please enter your email."); valid = false; }
       else if (!isValidEmail(email)) { setError("email", "That email address doesn't look right."); valid = false; }
       if (!message) { setError("message", "Please add a short message."); valid = false; }
 
-      if (!valid) {
-        statusEl.textContent = "Please fix the highlighted fields.";
-        return;
-      }
+      if (!valid) { statusEl.textContent = "Please fix the highlighted fields."; return; }
 
       try {
         var subject = encodeURIComponent("Portfolio enquiry from " + name);
