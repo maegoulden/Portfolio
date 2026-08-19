@@ -10,9 +10,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-<script src="https://cdn.tailwindcss.com"></script>
-
 <style>
+  /* ---------- Minimal reset ---------- */
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { line-height: 1.5; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: none; padding: 0; cursor: pointer; }
+  img, svg { display: block; max-width: 100%; }
+
   :root {
     --bg: #F4F4F4;
     --surface: #FFFFFF;
@@ -131,6 +139,63 @@
   [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
   [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
   @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }
+
+  /* ---------- Section rhythm: 120px top + 120px bottom ---------- */
+  .cs-section-pad { padding-top: 120px; padding-bottom: 120px; }
+  .cs-eyebrow-left { text-align: left; }
+  .cs-eyebrow-gap-32 { margin-bottom: 32px; }
+  .cs-eyebrow-gap-64 { margin-bottom: 64px; }
+
+  /* ---------- Layout utility classes ---------- */
+  .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  .fixed { position: fixed; }
+  .relative { position: relative; }
+  .hidden { display: none; }
+  .flex { display: flex; }
+  .grid { display: grid; }
+  .flex-col { flex-direction: column; }
+  .items-center { align-items: center; }
+  .items-start { align-items: flex-start; }
+  .justify-between { justify-content: space-between; }
+  .text-center { text-align: center; }
+  .mx-auto { margin-left: auto; margin-right: auto; }
+  .inset-x-0 { left: 0; right: 0; }
+  .top-0 { top: 0; }
+  .z-50 { z-index: 50; }
+  .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+  .border-t { border-top-width: 1px; border-top-style: solid; }
+  .h-16 { height: 4rem; }
+  .h-5 { height: 1.25rem; }
+  .w-5 { width: 1.25rem; }
+  .gap-4 { gap: 1rem; }
+  .gap-6 { gap: 1.5rem; }
+  .gap-8 { gap: 2rem; }
+  .mb-3 { margin-bottom: 0.75rem; }
+  .mb-4 { margin-bottom: 1rem; }
+  .mb-6 { margin-bottom: 1.5rem; }
+  .mb-8 { margin-bottom: 2rem; }
+  .mb-14 { margin-bottom: 3.5rem; }
+  .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+  .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+  .pt-36 { padding-top: 9rem; }
+
+  @media (min-width: 640px) {
+    .sm\:flex-row { flex-direction: row; }
+    .sm\:inline-flex { display: inline-flex; }
+  }
+
+  @media (min-width: 768px) {
+    .md\:flex { display: flex; }
+    .md\:hidden { display: none; }
+    .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .md\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .md\:col-span-4 { grid-column: span 4 / span 4; }
+    .md\:col-span-8 { grid-column: span 8 / span 8; }
+    .md\:h-20 { height: 5rem; }
+    .md\:gap-8 { gap: 2rem; }
+    .md\:gap-12 { gap: 3rem; }
+    .md\:pt-48 { padding-top: 12rem; }
+  }
 </style>
 </head>
 
@@ -139,7 +204,7 @@
 <!-- ================= NAV ================= -->
 <header id="nav" class="nav-wrap fixed top-0 inset-x-0 z-50">
   <div class="container-page flex items-center justify-between h-16 md:h-20">
-    <a href="index.html#home" class="logo-mark">Mαe.</a>
+    <a href="index.html#home" class="logo-mark">Mæ.</a>
     <div class="flex items-center gap-6 md:gap-8">
       <nav class="hidden md:flex items-center gap-8">
         <a href="index.html#work" class="nav-link">Work</a>
@@ -161,9 +226,9 @@
 </header>
 
 <!-- ================= CASE STUDY HERO ================= -->
-<section class="pt-36 pb-16 md:pt-48 md:pb-20">
+<section class="pt-36 md:pt-48" style="padding-bottom: 120px;">
   <div class="container-page">
-    <p class="cs-eyebrow mb-4" data-reveal>ADHD UK</p>
+    <p class="cs-eyebrow cs-eyebrow-gap-32" data-reveal>ADHD UK</p>
 
     <div class="grid md:grid-cols-12 gap-8 md:gap-12 items-start">
       <div class="md:col-span-8" data-reveal>
@@ -201,9 +266,9 @@
 </section>
 
 <!-- ================= PROBLEM DISCOVERY ================= -->
-<section class="mt-32 pb-20 md:pb-28">
+<section class="cs-section-pad">
   <div class="container-page">
-    <p class="cs-eyebrow mb-4 text-center" data-reveal>Problem Discovery</p>
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>Problem Discovery</p>
     <h2 class="cs-section-title text-center mx-auto mb-6" style="max-width: 900px;" data-reveal>
       People came to ADHD UK for support, but the experience made it difficult to find it.
     </h2>
@@ -229,9 +294,9 @@
 </section>
 
 <!-- ================= HOW MIGHT WE ================= -->
-<section class="mt-16" style="background: #F9F9F9; padding-block: 64px;">
+<section class="cs-section-pad" style="background: #F9F9F9;">
   <div class="container-page text-center">
-    <p class="cs-eyebrow mb-4" data-reveal>How Might We?</p>
+    <p class="cs-eyebrow cs-eyebrow-gap-64" data-reveal>How Might We?</p>
     <h2 class="cs-section-title mx-auto mb-8" style="max-width: 800px;" data-reveal>
       Create an ADHD-friendly website that makes finding trusted information and support simple, accessible and intuitive?
     </h2>
@@ -240,9 +305,9 @@
 </section>
 
 <!-- ================= MY APPROACH ================= -->
-<section class="mt-16 pb-20 md:pb-28">
+<section class="cs-section-pad">
   <div class="container-page">
-    <p class="cs-eyebrow mb-4 text-center" data-reveal>My Approach</p>
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>My Approach</p>
     <!-- More content to follow -->
   </div>
 </section>
