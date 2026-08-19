@@ -70,10 +70,7 @@
   .nav-wrap {
     background: color-mix(in srgb, var(--bg) 85%, transparent);
     backdrop-filter: blur(10px);
-    transition: border-color 0.3s ease;
-    border-bottom: 1px solid transparent;
   }
-  .nav-wrap.scrolled { border-color: var(--border); }
 
   .nav-link { position: relative; color: var(--text); opacity: 0.72; transition: opacity 0.2s ease; font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; font-size: 20px; }
   .nav-link:hover { opacity: 1; }
@@ -101,7 +98,7 @@
     color: var(--text-muted);
     animation: bob 2.4s ease-in-out infinite;
   }
-  .scroll-cue svg { width: 1.5rem; height: 1.5rem; }
+  .scroll-cue svg { width: 2.25rem; height: 2.25rem; }
   .scroll-cue:hover { color: var(--text); }
   @keyframes bob { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
   @media (prefers-reduced-motion: reduce) { .scroll-cue { animation: none; } }
@@ -144,6 +141,26 @@
   }
   .photo-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
   .photo-img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
+
+  /* ---------- Gallery ---------- */
+  .gallery-item { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: var(--placeholder-bg); }
+  .gallery-item img {
+    position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.5s ease;
+  }
+  .gallery-item:hover img { transform: scale(1.06); }
+  .gallery-caption {
+    position: absolute; inset: auto 0 0 0; z-index: 2; padding: 0.75rem 1rem;
+    background: linear-gradient(to top, rgba(20,20,20,0.72), transparent);
+    color: #fff; font-size: 0.85rem; line-height: 1.4;
+    opacity: 0; transform: translateY(6px); transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+  }
+  .gallery-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-item img, .gallery-caption { transition: none; }
+    .gallery-item:hover img { transform: none; }
+  }
 
   /* ---------- Testimonial divider ---------- */
   .quote-divider { border-left: 1px solid var(--border); padding-left: 1.75rem; }
@@ -222,7 +239,7 @@
       <div class="work-row-media md:order-1 md:col-span-3" data-reveal>
         <div class="device-screen" style="aspect-ratio: 16 / 10;">
           <div class="device-placeholder">Add <code>adhd-uk.jpg</code> to <code>assets/projects/</code></div>
-          <img class="device-img" alt="ADHD UK preview" src="assets/projects/adhd-uk.jpg" onerror="this.style.display='none'" />
+          <img class="device-img" alt="ADHD UK preview" src="assets/projects/adhd-uk.jpg" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
         </div>
       </div>
       <div class="md:order-2 md:col-span-2" data-reveal>
@@ -230,7 +247,7 @@
         <p class="fs-body text-muted mb-7">
           A responsive website redesign that made support clearer, more accessible, and easier to navigate for people affected by ADHD.
         </p>
-        <a href="#" class="project-link">
+        <a href="adhd-uk.html" class="project-link">
           View case study
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 6.75 17.25M17.25 6.75H9M17.25 6.75v8.25" /></svg>
         </a>
@@ -244,7 +261,7 @@
         <p class="fs-body text-muted mb-7">
           A mobile app design giving parents confidence through smarter, personalised tutor matching, with safeguarding-first flows that feel simple, not bureaucratic.
         </p>
-        <a href="#" class="project-link">
+        <a href="tutortrust.html" class="project-link">
           View case study
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 6.75 17.25M17.25 6.75H9M17.25 6.75v8.25" /></svg>
         </a>
@@ -252,7 +269,7 @@
       <div class="work-row-media md:col-span-3" data-reveal>
         <div class="device-screen" style="aspect-ratio: 16 / 10;">
           <div class="device-placeholder">Add <code>tutortrust.jpg</code> to <code>assets/projects/</code></div>
-          <img class="device-img" alt="TutorTrust preview" src="assets/projects/tutortrust.jpg" onerror="this.style.display='none'" />
+          <img class="device-img" alt="TutorTrust preview" src="assets/projects/tutortrust.jpg" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
         </div>
       </div>
     </article>
@@ -279,7 +296,7 @@
     <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center mb-10">
       <div class="photo-frame" data-reveal>
         <div class="photo-placeholder">Add your photo as <code>assets/mae-photo.png</code></div>
-        <img class="photo-img" alt="Mae Goulden" src="assets/mae-photo.png" onerror="this.style.display='none'" />
+        <img class="photo-img" alt="Mae Goulden" src="assets/mae-photo.png" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
       </div>
 
       <div data-reveal>
@@ -298,8 +315,66 @@
   </div>
 </section>
 
+<!-- ================= GALLERY ================= -->
+<section id="gallery" class="pb-20 md:pb-28">
+  <div class="container-page">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+      <div class="gallery-item" data-reveal>
+        <div class="device-placeholder">Add <code>1.jpg</code> to <code>assets/gallery/</code></div>
+        <img src="assets/gallery/1.jpg" alt="Gallery image 1" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Add a caption</div>
+      </div>
+      <div class="gallery-item" data-reveal>
+        <div class="device-placeholder">Add <code>2.jpg</code> to <code>assets/gallery/</code></div>
+        <img src="assets/gallery/2.jpg" alt="Gallery image 2" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Add a caption</div>
+      </div>
+      <div class="gallery-item" data-reveal>
+        <div class="device-placeholder">Add <code>3.jpg</code> to <code>assets/gallery/</code></div>
+        <img src="assets/gallery/3.jpg" alt="Gallery image 3" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Add a caption</div>
+      </div>
+      <div class="gallery-item" data-reveal>
+        <div class="device-placeholder">Add <code>4.jpg</code> to <code>assets/gallery/</code></div>
+        <img src="assets/gallery/4.jpg" alt="Gallery image 4" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Add a caption</div>
+      </div>
+      <div class="gallery-item" data-reveal>
+        <div class="device-placeholder">Add <code>5.jpg</code> to <code>assets/gallery/</code></div>
+        <img src="assets/gallery/5.jpg" alt="Gallery image 5" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Add a caption</div>
+      </div>
+      <div class="gallery-item" data-reveal>
+        <div class="device-placeholder">Add <code>6.jpg</code> to <code>assets/gallery/</code></div>
+        <img src="assets/gallery/6.jpg" alt="Gallery image 6" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Add a caption</div>
+      </div>
+      <div class="gallery-item" data-reveal>
+        <div class="device-placeholder">Add <code>7.jpg</code> to <code>assets/gallery/</code></div>
+        <img src="assets/gallery/7.jpg" alt="Gallery image 7" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Add a caption</div>
+      </div>
+      <div class="gallery-item" data-reveal>
+        <div class="device-placeholder">Add <code>8.jpg</code> to <code>assets/gallery/</code></div>
+        <img src="assets/gallery/8.jpg" alt="Gallery image 8" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Add a caption</div>
+      </div>
+      <div class="gallery-item" data-reveal>
+        <div class="device-placeholder">Add <code>9.jpg</code> to <code>assets/gallery/</code></div>
+        <img src="assets/gallery/9.jpg" alt="Gallery image 9" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Add a caption</div>
+      </div>
+      <div class="gallery-item" data-reveal>
+        <div class="device-placeholder">Add <code>10.jpg</code> to <code>assets/gallery/</code></div>
+        <img src="assets/gallery/10.jpg" alt="Gallery image 10" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Add a caption</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= CONTACT ================= -->
-<section id="contact" class="py-24 md:py-32 border-t border-hair">
+<section id="contact" class="py-24 md:py-32">
   <div class="container-page flex flex-col items-center text-center">
     <h2 class="fs-h2 font-display mb-8" data-reveal>Let's work together</h2>
     <a href="mailto:hello@maegoulden.com" class="pill-btn" data-reveal>Say hello</a>
@@ -307,7 +382,7 @@
 </section>
 
 <!-- ================= FOOTER ================= -->
-<footer class="border-t border-hair py-10">
+<footer class="py-10">
   <div class="container-page flex flex-col sm:flex-row items-center justify-between gap-4">
     <p class="text-muted text-sm">&copy; <span id="year"></span> Mae Goulden. All rights reserved.</p>
     <div class="flex gap-6">
@@ -352,12 +427,6 @@
         mobileToggle.setAttribute("aria-expanded", "false");
       });
     });
-
-    /* ---------- Nav background on scroll ---------- */
-    var navWrap = document.getElementById("nav");
-    function onScroll() { navWrap.classList.toggle("scrolled", window.scrollY > 8); }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
 
     /* ---------- Scroll reveal ---------- */
     var revealEls = document.querySelectorAll("[data-reveal]");
