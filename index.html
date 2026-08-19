@@ -103,8 +103,8 @@
     display: flex; align-items: center; justify-content: center;
   }
 
-  /* ---------- Hero dot field ---------- */
-  .dot-field { position: absolute; inset: 0; pointer-events: none; background-repeat: no-repeat; background-size: cover; background-position: center; }
+  /* ---------- Hero wave ---------- */
+  .wave-canvas { position: absolute; inset: 0; pointer-events: none; }
 
   .scroll-cue {
     position: absolute; left: 50%; bottom: 1.75rem; transform: translate(-50%, 0);
@@ -178,20 +178,6 @@
 
   /* ---------- Testimonial divider ---------- */
   .quote-divider { border-left: 1px solid var(--border); padding-left: 32px; }
-
-  /* ---------- About section football cursor ---------- */
-  @media (pointer: fine) {
-    #about { cursor: none; }
-  }
-  .football-cursor {
-    position: fixed; top: 0; left: 0; width: 2.25rem; height: 2.25rem;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.6rem; line-height: 1;
-    transform: translate(-50%, -50%);
-    pointer-events: none; z-index: 60;
-    opacity: 0; transition: opacity 0.15s ease;
-  }
-  .football-cursor.visible { opacity: 1; }
 
   /* ---------- Mobile nav ---------- */
   .mobile-panel { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
@@ -274,6 +260,7 @@
     .md\:gap-4 { gap: 1rem; }
     .md\:gap-5 { gap: 1.25rem; }
     .md\:gap-8 { gap: 2rem; }
+    .md\:gap-10 { gap: 2.5rem; }
     .md\:gap-12 { gap: 3rem; }
     .md\:gap-16 { gap: 4rem; }
     .md\:pt-48 { padding-top: 12rem; }
@@ -316,7 +303,7 @@
 
 <!-- ================= HERO ================= -->
 <section id="home" class="relative overflow-hidden" style="min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center;">
-  <div id="dot-field" class="dot-field" aria-hidden="true"></div>
+  <canvas id="wave-canvas" class="wave-canvas" aria-hidden="true"></canvas>
 
   <div class="container-page relative">
     <p class="text-muted mb-5" style="font-size: 20px;" data-reveal>Hello, I'm Mae Goulden!</p>
@@ -336,7 +323,7 @@
   <div class="container-page space-y-24 md:space-y-32">
 
     <!-- ADHD UK -->
-    <article class="grid md:grid-cols-5 gap-6 md:gap-8 items-center">
+    <article class="grid md:grid-cols-5 gap-8 md:gap-10 items-center">
       <div class="work-row-media md:order-1 md:col-span-3" data-reveal>
         <div class="device-screen">
           <div class="device-placeholder">Add <code>adhd-uk.jpg</code> to <code>assets/projects/</code></div>
@@ -494,27 +481,116 @@
   </div>
 </footer>
 
-<div id="football-cursor" class="football-cursor" aria-hidden="true">⚽</div>
-
 <script>
   (function () {
     "use strict";
 
-    /* ---------- Scattered dot texture ---------- */
-    function buildDotField() {
-      var w = 1600, h = 900, dots = "";
-      for (var i = 0; i < 260; i++) {
-        var x = Math.random() * w;
-        var y = Math.random() * h;
-        var r = (Math.random() * 1.6 + 0.6).toFixed(2);
-        var o = (Math.random() * 0.45 + 0.12).toFixed(2);
-        dots += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r + '" fill="#c9c9c4" fill-opacity="' + o + '"/>';
+    /* ---------- Interactive dot wave in hero ---------- */
+    function initWaveCanvas() {
+      var canvas = document.getElementById("wave-canvas");
+      var section = document.getElementById("home");
+      if (!canvas || !section) return;
+      var ctx = canvas.getContext("2d");
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      var dots = [];
+      var mouse = { x: -9999, y: -9999 };
+      var width = 0, height = 0;
+
+      function buildDots() {
+        dots = [];
+        var rows = 4;
+        var spacingX = 26;
+        var bandTop = height * 0.56;
+        var bandBottom = height * 0.9;
+        var rowGap = (bandBottom - bandTop) / (rows - 1);
+
+        for (var r = 0; r < rows; r++) {
+          var baseY = bandTop + r * rowGap;
+          var amplitude = 10 + Math.random() * 10;
+          var frequency = 0.007 + Math.random() * 0.005;
+          var phase = Math.random() * Math.PI * 2;
+          var speed = 0.5 + Math.random() * 0.4;
+          for (var x = spacingX / 2; x < width; x += spacingX) {
+            dots.push({
+              x: x, baseY: baseY,
+              amp: amplitude, freq: frequency, phase: phase, speed: speed,
+              ox: 0, oy: 0,
+              r: 1.1 + Math.random() * 0.8
+            });
+          }
+        }
       }
-      var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '">' + dots + '</svg>';
-      var el = document.getElementById("dot-field");
-      if (el) el.style.backgroundImage = 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
+
+      function resize() {
+        var rect = section.getBoundingClientRect();
+        var dpr = window.devicePixelRatio || 1;
+        width = rect.width;
+        height = rect.height;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        buildDots();
+      }
+
+      function onMove(e) {
+        var rect = section.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      }
+      function onLeave() {
+        mouse.x = -9999;
+        mouse.y = -9999;
+      }
+
+      section.addEventListener("mousemove", onMove);
+      section.addEventListener("mouseleave", onLeave);
+      window.addEventListener("resize", resize);
+
+      var t = 0;
+      var repelRadius = 90;
+      var repelStrength = 26;
+
+      function tick() {
+        t += 1;
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = "#c9c9c4";
+
+        for (var i = 0; i < dots.length; i++) {
+          var d = dots[i];
+          var idleY = reduceMotion
+            ? d.baseY
+            : d.baseY + Math.sin(d.x * d.freq + t * 0.02 * d.speed + d.phase) * d.amp;
+
+          var dx = d.x + d.ox - mouse.x;
+          var dy = idleY + d.oy - mouse.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+
+          var targetOx = 0, targetOy = 0;
+          if (dist < repelRadius) {
+            var force = (repelRadius - dist) / repelRadius;
+            var nx = dx / (dist || 1);
+            var ny = dy / (dist || 1);
+            targetOx = nx * force * repelStrength;
+            targetOy = ny * force * repelStrength;
+          }
+          d.ox += (targetOx - d.ox) * 0.12;
+          d.oy += (targetOy - d.oy) * 0.12;
+
+          ctx.globalAlpha = 0.3 + 0.25 * Math.sin(d.x * 0.01 + t * 0.01);
+          ctx.beginPath();
+          ctx.arc(d.x + d.ox, idleY + d.oy, d.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        requestAnimationFrame(tick);
+      }
+
+      resize();
+      requestAnimationFrame(tick);
     }
-    buildDotField();
+    initWaveCanvas();
 
     /* ---------- Mobile nav ---------- */
     var mobileToggle = document.getElementById("mobile-toggle");
@@ -548,24 +624,6 @@
 
     /* ---------- Footer year ---------- */
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    /* ---------- Football cursor on About section ---------- */
-    var aboutSection = document.getElementById("about");
-    var footballCursor = document.getElementById("football-cursor");
-    var hasFinePointer = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
-
-    if (aboutSection && footballCursor && hasFinePointer) {
-      aboutSection.addEventListener("mouseenter", function () {
-        footballCursor.classList.add("visible");
-      });
-      aboutSection.addEventListener("mouseleave", function () {
-        footballCursor.classList.remove("visible");
-      });
-      aboutSection.addEventListener("mousemove", function (e) {
-        footballCursor.style.left = e.clientX + "px";
-        footballCursor.style.top = e.clientY + "px";
-      });
-    }
   })();
 </script>
 
