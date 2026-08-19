@@ -499,26 +499,20 @@
 
       function buildDots() {
         dots = [];
-        var rows = 4;
-        var spacingX = 26;
-        var bandTop = height * 0.56;
-        var bandBottom = height * 0.9;
-        var rowGap = (bandBottom - bandTop) / (rows - 1);
-
-        for (var r = 0; r < rows; r++) {
-          var baseY = bandTop + r * rowGap;
-          var amplitude = 10 + Math.random() * 10;
-          var frequency = 0.007 + Math.random() * 0.005;
-          var phase = Math.random() * Math.PI * 2;
-          var speed = 0.5 + Math.random() * 0.4;
-          for (var x = spacingX / 2; x < width; x += spacingX) {
-            dots.push({
-              x: x, baseY: baseY,
-              amp: amplitude, freq: frequency, phase: phase, speed: speed,
-              ox: 0, oy: 0,
-              r: 1.1 + Math.random() * 0.8
-            });
-          }
+        var area = width * height;
+        var count = Math.round(area / 5200);
+        for (var i = 0; i < count; i++) {
+          dots.push({
+            x: Math.random() * width,
+            baseY: Math.random() * height,
+            amp: 3 + Math.random() * 4,
+            freq: 0.01 + Math.random() * 0.01,
+            phase: Math.random() * Math.PI * 2,
+            speed: 0.4 + Math.random() * 0.5,
+            baseAlpha: 0.14 + Math.random() * 0.4,
+            ox: 0, oy: 0,
+            r: 0.6 + Math.random() * 1.6
+          });
         }
       }
 
@@ -579,7 +573,7 @@
           d.ox += (targetOx - d.ox) * 0.12;
           d.oy += (targetOy - d.oy) * 0.12;
 
-          ctx.globalAlpha = 0.3 + 0.25 * Math.sin(d.x * 0.01 + t * 0.01);
+          ctx.globalAlpha = reduceMotion ? d.baseAlpha : d.baseAlpha + 0.12 * Math.sin(t * 0.012 * d.speed + d.phase);
           ctx.beginPath();
           ctx.arc(d.x + d.ox, idleY + d.oy, d.r, 0, Math.PI * 2);
           ctx.fill();
