@@ -119,17 +119,19 @@
   .em-word { color: var(--text); font-weight: 600; }
 
   /* ---------- Case study images ---------- */
-  .device-screen {
-    position: relative; border-radius: 14px; overflow: hidden; background: var(--placeholder-bg);
-    box-shadow: 0 24px 48px -24px rgba(20,20,20,0.28);
-  }
+  .device-screen { position: relative; overflow: hidden; }
   .device-placeholder {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center;
     padding: 1rem; border: 1.5px dashed var(--placeholder-border); border-radius: 14px;
     font-size: 0.78rem; color: var(--text-faint); line-height: 1.5;
   }
   .device-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
-  .device-img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; display: block; }
+  .device-img {
+    position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; display: block;
+    transition: transform 0.5s ease;
+  }
+  .device-screen:hover .device-img { transform: scale(1.05); }
+  @media (prefers-reduced-motion: reduce) { .device-img { transition: none; } .device-screen:hover .device-img { transform: none; } }
 
   .work-row-media { position: relative; }
 
@@ -141,7 +143,7 @@
     font-size: 0.8rem; color: var(--text-faint); line-height: 1.5;
   }
   .photo-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
-  .photo-img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+  .photo-img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
 
   /* ---------- Testimonial divider ---------- */
   .quote-divider { border-left: 1px solid var(--border); padding-left: 1.75rem; }
@@ -201,7 +203,8 @@
   <div class="container-page relative">
     <p class="text-muted mb-5" data-reveal>Hello, I'm Mae Goulden!</p>
     <h1 class="fs-display font-display mb-2" data-reveal>
-      I understand people and design accessible products that actually help them
+      I understand people and design accessible products that actually<br />
+      help them
     </h1>
   </div>
 
@@ -215,14 +218,14 @@
   <div class="container-page space-y-24 md:space-y-32">
 
     <!-- ADHD UK -->
-    <article class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
-      <div class="work-row-media md:order-1" data-reveal>
-        <div class="device-screen max-w-lg mx-auto" style="aspect-ratio: 16 / 10;">
+    <article class="grid md:grid-cols-5 gap-10 md:gap-16 items-center">
+      <div class="work-row-media md:order-1 md:col-span-3" data-reveal>
+        <div class="device-screen" style="aspect-ratio: 16 / 10;">
           <div class="device-placeholder">Add <code>adhd-uk.jpg</code> to <code>assets/projects/</code></div>
           <img class="device-img" alt="ADHD UK preview" src="assets/projects/adhd-uk.jpg" onerror="this.style.display='none'" />
         </div>
       </div>
-      <div class="md:order-2" data-reveal>
+      <div class="md:order-2 md:col-span-2" data-reveal>
         <h2 class="fs-h2 font-display mb-5">ADHD UK</h2>
         <p class="fs-body text-muted mb-7">
           A responsive website redesign that made support clearer, more accessible, and easier to navigate for people affected by ADHD.
@@ -235,8 +238,8 @@
     </article>
 
     <!-- TutorTrust -->
-    <article class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
-      <div data-reveal>
+    <article class="grid md:grid-cols-5 gap-10 md:gap-16 items-center">
+      <div class="md:col-span-2" data-reveal>
         <h2 class="fs-h2 font-display mb-5">TutorTrust</h2>
         <p class="fs-body text-muted mb-7">
           A mobile app design giving parents confidence through smarter, personalised tutor matching, with safeguarding-first flows that feel simple, not bureaucratic.
@@ -246,8 +249,8 @@
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 6.75 17.25M17.25 6.75H9M17.25 6.75v8.25" /></svg>
         </a>
       </div>
-      <div class="work-row-media" data-reveal>
-        <div class="device-screen max-w-lg mx-auto" style="aspect-ratio: 16 / 10;">
+      <div class="work-row-media md:col-span-3" data-reveal>
+        <div class="device-screen" style="aspect-ratio: 16 / 10;">
           <div class="device-placeholder">Add <code>tutortrust.jpg</code> to <code>assets/projects/</code></div>
           <img class="device-img" alt="TutorTrust preview" src="assets/projects/tutortrust.jpg" onerror="this.style.display='none'" />
         </div>
@@ -273,8 +276,8 @@
 <!-- ================= ABOUT ================= -->
 <section id="about" class="py-20 md:py-28">
   <div class="container-page">
-    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-start mb-10">
-      <div class="photo-frame md:mt-8" data-reveal>
+    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center mb-10">
+      <div class="photo-frame" data-reveal>
         <div class="photo-placeholder">Add your photo as <code>assets/mae-photo.png</code></div>
         <img class="photo-img" alt="Mae Goulden" src="assets/mae-photo.png" onerror="this.style.display='none'" />
       </div>
@@ -308,7 +311,7 @@
   <div class="container-page flex flex-col sm:flex-row items-center justify-between gap-4">
     <p class="text-muted text-sm">&copy; <span id="year"></span> Mae Goulden. All rights reserved.</p>
     <div class="flex gap-6">
-      <a href="https://www.linkedin.com" target="_blank" rel="noopener" class="nav-link">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/maegoulden/" target="_blank" rel="noopener" class="nav-link">LinkedIn</a>
       <a href="mailto:hello@maegoulden.com" class="nav-link">Email</a>
     </div>
   </div>
