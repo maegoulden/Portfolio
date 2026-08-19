@@ -63,7 +63,7 @@
   }
   .logo-mark {
     font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
-    font-size: 24px; font-weight: 600; letter-spacing: -0.02em; color: var(--text);
+    font-size: 24px; font-weight: 500; letter-spacing: -0.02em; color: var(--text);
   }
   .pill-btn:hover { transform: translateY(-1px); opacity: 0.88; }
   .toggle-btn {
@@ -78,6 +78,7 @@
   .cs-eyebrow {
     font-family: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
     font-size: 24px; line-height: 1.2; color: var(--accent); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.02em;
   }
   .cs-title {
     font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -92,13 +93,26 @@
     white-space: nowrap;
   }
   .cs-btn-outline:hover { background: var(--accent); color: #fff; }
-  .cs-meta-box {
-    border: 1px solid var(--border); border-radius: 14px;
-    padding: 1.5rem 2rem; display: grid; grid-template-columns: repeat(3, minmax(7rem, 1fr)); gap: 2rem;
+  .cs-meta-box-item {
+    border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem 1.5rem;
   }
   .cs-meta-label {
     color: var(--accent); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
     font-weight: 700; margin-bottom: 0.35rem;
+  }
+
+  /* ---------- Section titles (below eyebrows, throughout the page) ---------- */
+  .cs-section-title {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    color: #1A1A1A; font-size: 40px; line-height: 48px; font-weight: 500;
+    letter-spacing: -0.02em; text-wrap: balance;
+  }
+
+  /* ---------- Problem discovery challenge cards ---------- */
+  .cs-challenge-card { background: #F9F9F9; border-radius: 14px; padding: 2rem; }
+  .cs-challenge-title {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    color: #1A1A1A; font-size: 28px; line-height: 40px; font-weight: 500;
   }
 
   /* ---------- Full-screen prototype image ---------- */
@@ -125,13 +139,13 @@
 <!-- ================= NAV ================= -->
 <header id="nav" class="nav-wrap fixed top-0 inset-x-0 z-50">
   <div class="container-page flex items-center justify-between h-16 md:h-20">
-    <a href="index.html#home" class="logo-mark">Mae.</a>
+    <a href="index.html#home" class="logo-mark">mαe.</a>
     <div class="flex items-center gap-6 md:gap-8">
       <nav class="hidden md:flex items-center gap-8">
         <a href="index.html#work" class="nav-link">Work</a>
         <a href="index.html#about" class="nav-link">About</a>
       </nav>
-      <a href="index.html#contact" class="pill-btn hidden sm:inline-flex">Contact</a>
+      <a href="index.html#contact" class="pill-btn hidden sm:inline-flex" style="font-weight: 400;">Contact</a>
       <button id="mobile-toggle" class="md:hidden toggle-btn" aria-label="Open menu" aria-expanded="false" type="button">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" /></svg>
       </button>
@@ -150,23 +164,26 @@
 <section class="pt-36 pb-16 md:pt-48 md:pb-20">
   <div class="container-page">
     <p class="cs-eyebrow mb-4" data-reveal>ADHD UK</p>
-    <h1 class="cs-title mb-6" data-reveal>Making ADHD support clearer, more accessible and easier to navigate</h1>
-    <p class="fs-body text-muted mb-10" style="max-width: 62ch;" data-reveal>
-      A responsive website redesign that improved readability from 3.2/10 to 9.8/10 and navigation clarity from 2.5/10 to 8.4/10
-    </p>
 
-    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-8" data-reveal>
-      <a href="#" class="cs-btn-outline">View prototype</a>
-      <div class="cs-meta-box">
-        <div>
+    <div class="grid md:grid-cols-12 gap-8 md:gap-12 items-start">
+      <div class="md:col-span-8" data-reveal>
+        <h1 class="cs-title mb-6">Making ADHD support clearer, more accessible and easier to navigate</h1>
+        <p class="fs-body text-muted mb-8" style="max-width: 62ch;">
+          A responsive website redesign that improved readability from 3.2/10 to 9.8/10 and navigation clarity from 2.5/10 to 8.4/10
+        </p>
+        <a href="#" class="cs-btn-outline">View prototype</a>
+      </div>
+
+      <div class="md:col-span-4 flex flex-col gap-4" data-reveal>
+        <div class="cs-meta-box-item">
           <p class="cs-meta-label">Role</p>
           <p>UX/UI Designer</p>
         </div>
-        <div>
+        <div class="cs-meta-box-item">
           <p class="cs-meta-label">Industry</p>
           <p>Non-profit</p>
         </div>
-        <div>
+        <div class="cs-meta-box-item">
           <p class="cs-meta-label">Duration</p>
           <p>2 months</p>
         </div>
@@ -180,6 +197,53 @@
   <div class="cs-full-image">
     <div class="cs-full-placeholder">Add <code>adhd-uk-prototype.jpg</code> to <code>assets/projects/</code></div>
     <img src="assets/projects/adhd-uk-prototype.jpg" alt="ADHD UK prototype" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+  </div>
+</section>
+
+<!-- ================= PROBLEM DISCOVERY ================= -->
+<section class="mt-32 pb-20 md:pb-28">
+  <div class="container-page">
+    <p class="cs-eyebrow mb-4 text-center" data-reveal>Problem Discovery</p>
+    <h2 class="cs-section-title text-center mx-auto mb-6" style="max-width: 900px;" data-reveal>
+      People came to ADHD UK for support, but the experience made it difficult to find it.
+    </h2>
+    <p class="fs-body text-muted text-center mx-auto mb-14" style="max-width: 62ch;" data-reveal>
+      Through desk research, user interviews, and usability testing, three key usability challenges emerged.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="cs-challenge-card" data-reveal>
+        <h3 class="cs-challenge-title mb-3">Information overload</h3>
+        <p class="fs-body text-muted">Dense content and excessive information made pages overwhelming and difficult to process for users.</p>
+      </div>
+      <div class="cs-challenge-card" data-reveal>
+        <h3 class="cs-challenge-title mb-3">Confusing navigation</h3>
+        <p class="fs-body text-muted">Users struggle to understand where to go or how to find the information they needed.</p>
+      </div>
+      <div class="cs-challenge-card" data-reveal>
+        <h3 class="cs-challenge-title mb-3">An unwelcoming experience</h3>
+        <p class="fs-body text-muted">Outdated visuals, dense layouts, and inconsistent design made the website feel unwelcoming.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW MIGHT WE ================= -->
+<section class="mt-16" style="background: #F9F9F9; padding-block: 64px;">
+  <div class="container-page text-center">
+    <p class="cs-eyebrow mb-4" data-reveal>How Might We?</p>
+    <h2 class="cs-section-title mx-auto mb-8" style="max-width: 800px;" data-reveal>
+      Create an ADHD-friendly website that makes finding trusted information and support simple, accessible and intuitive?
+    </h2>
+    <a href="#solution" class="cs-btn-outline" data-reveal>Jump to solution</a>
+  </div>
+</section>
+
+<!-- ================= MY APPROACH ================= -->
+<section class="mt-16 pb-20 md:pb-28">
+  <div class="container-page">
+    <p class="cs-eyebrow mb-4 text-center" data-reveal>My Approach</p>
+    <!-- More content to follow -->
   </div>
 </section>
 
