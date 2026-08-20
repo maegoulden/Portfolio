@@ -160,7 +160,6 @@
   .cs-image-wide { aspect-ratio: 16 / 8; }
   .cs-image-sub { aspect-ratio: 16 / 10; }
   .cs-image-square { aspect-ratio: 1 / 1; }
-  .cs-image-persona { aspect-ratio: 4 / 5; border-radius: 14px; background: #F9F9F9; }
   .cs-image-compare { aspect-ratio: 16 / 11; }
   .cs-image-chart { aspect-ratio: 1 / 1; }
 
@@ -168,8 +167,8 @@
   [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
   @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }
 
-  /* ---------- Section rhythm: 120px top + 120px bottom ---------- */
-  .cs-section-pad { padding-top: 120px; padding-bottom: 120px; }
+  /* ---------- Section rhythm: 240px top + 240px bottom ---------- */
+  .cs-section-pad { padding-top: 240px; padding-bottom: 240px; }
   .cs-eyebrow-left { text-align: left; }
   .cs-eyebrow-gap-64 { margin-bottom: 64px; }
 
@@ -188,31 +187,14 @@
   .cs-quote-mark { color: var(--accent); font-size: 64px; line-height: 1; font-family: 'Geist', serif; margin-bottom: 8px; display: block; }
   .cs-quote-text { font-size: 18px; line-height: 28px; color: var(--text); }
 
-  /* ---------- Persona card ---------- */
-  .cs-persona-card {
-    background: #F9F9F9; border-radius: 14px; padding: 40px;
-  }
-  .cs-persona-name {
-    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
-    font-size: 28px; line-height: 36px; font-weight: 500; margin-bottom: 16px;
-  }
-  .cs-persona-quote {
-    font-size: 22px; line-height: 32px; color: var(--text); margin-bottom: 24px;
-  }
-  .cs-goal-list li { display: flex; align-items: flex-start; gap: 12px; padding-block: 8px; }
-  .cs-goal-list li::before {
-    content: ""; width: 8px; height: 8px; border-radius: 999px; background: var(--accent);
-    margin-top: 10px; flex-shrink: 0;
-  }
-
   /* ---------- Palette swatch ---------- */
   .cs-swatch { width: 64px; height: 64px; border-radius: 12px; margin-bottom: 8px; border: 1px solid var(--border); }
   .cs-swatch-label { font-size: 0.75rem; color: var(--text-muted); }
 
   /* ---------- Before / after ---------- */
   .cs-compare-label {
-    font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700;
-    color: var(--accent); margin-bottom: 8px;
+    font-size: 20px; line-height: 30px; font-weight: 400;
+    color: var(--text); margin-bottom: 8px; text-align: center;
   }
   .cs-bullet-list li { display: flex; align-items: flex-start; gap: 8px; padding-block: 4px; color: var(--text-muted); }
   .cs-bullet-list li::before {
@@ -221,8 +203,12 @@
   }
 
   /* ---------- Impact ---------- */
-  .cs-impact-quote { font-size: 20px; line-height: 30px; font-style: italic; color: var(--text); margin-top: 16px; }
+  .cs-impact-quote { font-size: 20px; line-height: 30px; font-style: italic; color: var(--text); }
   .cs-impact-attribution { font-size: 0.875rem; color: var(--text-muted); margin-top: 8px; }
+  .cs-impact-icon {
+    color: var(--accent); font-size: 40px; line-height: 1; font-family: 'Geist', serif;
+    flex-shrink: 0; margin-top: 16px;
+  }
 
   /* ---------- Layout utility classes ---------- */
   .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
@@ -247,6 +233,7 @@
   .h-16 { height: 4rem; }
   .h-5 { height: 1.25rem; }
   .w-5 { width: 1.25rem; }
+  .gap-3 { gap: 0.75rem; }
   .gap-4 { gap: 1rem; }
   .gap-6 { gap: 1.5rem; }
   .gap-8 { gap: 2rem; }
@@ -315,7 +302,7 @@
 </header>
 
 <!-- ================= CASE STUDY HERO ================= -->
-<section class="pt-36 md:pt-48" style="padding-bottom: 120px;">
+<section class="pt-36 md:pt-48" style="padding-bottom: 240px;">
   <div class="container-page">
     <p class="cs-eyebrow cs-eyebrow-gap-64" data-reveal>ADHD UK</p>
 
@@ -367,10 +354,10 @@
 <section class="cs-section-pad" style="padding-top: 0;">
   <div class="container-page">
     <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>Problem Discovery</p>
-    <h2 class="cs-section-title text-center mx-auto mb-6" style="max-width: 960px;" data-reveal>
+    <h2 class="cs-section-title text-center mx-auto mb-6" data-reveal>
       People came to ADHD UK for support, but the experience made it difficult to find it.
     </h2>
-    <p class="fs-body text-muted text-center mx-auto mb-14" style="max-width: 1080px;" data-reveal>
+    <p class="fs-body text-muted text-center mx-auto mb-14" data-reveal>
       Through desk research, user interviews, and usability testing, three key usability challenges emerged.
     </p>
 
@@ -395,7 +382,7 @@
 <section class="cs-section-pad" style="background: #F9F9F9;">
   <div class="container-page text-center">
     <p class="cs-eyebrow cs-eyebrow-gap-64" data-reveal>How Might We?</p>
-    <h2 class="cs-section-title mx-auto mb-8" style="max-width: 800px;" data-reveal>
+    <h2 class="cs-section-title mx-auto mb-8" data-reveal>
       Create an ADHD-friendly website that makes finding trusted information and support simple, accessible and intuitive?
     </h2>
     <a href="#solution" class="cs-btn-outline" data-reveal>Jump to solution</a>
@@ -484,7 +471,7 @@
       </div>
     </div>
 
-    <h3 class="cs-section-title text-center mx-auto" style="max-width: 800px; font-size: 32px; line-height: 40px; margin-bottom: 80px;" data-reveal>
+    <h3 class="cs-section-title text-center mx-auto" style="font-size: 32px; line-height: 40px; margin-bottom: 80px;" data-reveal>
       How effectively does the current ADHD UK website help users find information and support?
     </h3>
 
@@ -539,23 +526,9 @@
       Consolidating the key insights into a primary user persona
     </h2>
 
-    <div class="cs-persona-card grid md:grid-cols-12 gap-8 items-start" data-reveal>
-      <div class="md:col-span-4">
-        <div class="cs-image-block cs-image-persona">
-          <div class="cs-image-placeholder" style="font-size: 0.7rem;">Add <code>adhd-uk-persona-roman.jpg</code></div>
-          <img src="assets/projects/adhd-uk-persona-roman.jpg" alt="Roman, primary user persona" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-        </div>
-      </div>
-      <div class="md:col-span-8">
-        <p class="cs-persona-name">Roman</p>
-        <p class="cs-persona-quote">&ldquo;I just want to quickly find the right information without feeling overwhelmed or confused.&rdquo;</p>
-        <p class="cs-meta-label">Goals</p>
-        <ul class="cs-goal-list">
-          <li class="fs-body text-muted">Find ADHD information and support easily</li>
-          <li class="fs-body text-muted">Feel reassured and supported</li>
-          <li class="fs-body text-muted">Navigate websites with minimal effort</li>
-        </ul>
-      </div>
+    <div class="cs-image-block cs-image-wide" data-reveal>
+      <div class="cs-image-placeholder">Add <code>adhd-uk-persona-roman.jpg</code> to <code>assets/projects/</code></div>
+      <img src="assets/projects/adhd-uk-persona-roman.jpg" alt="Roman, primary user persona" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
     </div>
   </div>
 </section>
@@ -741,33 +714,87 @@
   <div class="container-page">
     <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>The Solution — Redesign</p>
 
-    <div class="mb-14" data-reveal>
-      <p class="cs-eyebrow cs-eyebrow-uncapped cs-eyebrow-gap-64">Clearer Navigation</p>
-      <h3 class="cs-section-title mb-6">Guided navigation helps users clearly find information and support</h3>
-      <ul class="cs-bullet-list">
-        <li class="fs-body">Organises content into intuitive categories to reduce confusion and cognitive load.</li>
-        <li class="fs-body">Removes duplicate pages and multiple points of entry.</li>
-        <li class="fs-body">Reduced options to help users reach information faster.</li>
-      </ul>
+    <div class="grid md:grid-cols-2 gap-8 items-center mb-14" data-reveal>
+      <div>
+        <p class="cs-eyebrow cs-eyebrow-uncapped cs-eyebrow-gap-64">Clearer Navigation</p>
+        <h3 class="cs-section-title mb-6">Guided navigation helps users clearly find information and support</h3>
+        <ul class="cs-bullet-list">
+          <li class="fs-body">Organises content into intuitive categories to reduce confusion and cognitive load.</li>
+          <li class="fs-body">Removes duplicate pages and multiple points of entry.</li>
+          <li class="fs-body">Reduced options to help users reach information faster.</li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-6">
+        <div>
+          <p class="cs-compare-label">Before</p>
+          <div class="cs-image-block cs-image-compare">
+            <div class="cs-image-placeholder">Add <code>adhd-uk-solution-navigation-before.jpg</code></div>
+            <img src="assets/projects/adhd-uk-solution-navigation-before.jpg" alt="Navigation solution: before" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          </div>
+        </div>
+        <div>
+          <p class="cs-compare-label">After</p>
+          <div class="cs-image-block cs-image-compare">
+            <div class="cs-image-placeholder">Add <code>adhd-uk-solution-navigation-after.jpg</code></div>
+            <img src="assets/projects/adhd-uk-solution-navigation-after.jpg" alt="Navigation solution: after" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="mb-14" data-reveal>
-      <p class="cs-eyebrow cs-eyebrow-uncapped cs-eyebrow-gap-64">Structured Content</p>
-      <h3 class="cs-section-title mb-6">Well-structured content makes complex information easier to understand.</h3>
-      <ul class="cs-bullet-list">
-        <li class="fs-body">Breaks down complex information into manageable sections, reducing cognitive overload.</li>
-        <li class="fs-body">Improved visual hierarchy, consistent layouts reduce reading fatigue.</li>
-      </ul>
+    <div class="grid md:grid-cols-2 gap-8 items-center mb-14" data-reveal>
+      <div class="md:order-1 flex flex-col gap-6">
+        <div>
+          <p class="cs-compare-label">Before</p>
+          <div class="cs-image-block cs-image-compare">
+            <div class="cs-image-placeholder">Add <code>adhd-uk-solution-content-before.jpg</code></div>
+            <img src="assets/projects/adhd-uk-solution-content-before.jpg" alt="Structured content solution: before" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          </div>
+        </div>
+        <div>
+          <p class="cs-compare-label">After</p>
+          <div class="cs-image-block cs-image-compare">
+            <div class="cs-image-placeholder">Add <code>adhd-uk-solution-content-after.jpg</code></div>
+            <img src="assets/projects/adhd-uk-solution-content-after.jpg" alt="Structured content solution: after" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          </div>
+        </div>
+      </div>
+      <div class="md:order-2">
+        <p class="cs-eyebrow cs-eyebrow-uncapped cs-eyebrow-gap-64">Structured Content</p>
+        <h3 class="cs-section-title mb-6">Well-structured content makes complex information easier to understand.</h3>
+        <ul class="cs-bullet-list">
+          <li class="fs-body">Breaks down complex information into manageable sections, reducing cognitive overload.</li>
+          <li class="fs-body">Improved visual hierarchy, consistent layouts reduce reading fatigue.</li>
+        </ul>
+      </div>
     </div>
 
-    <div data-reveal>
-      <p class="cs-eyebrow cs-eyebrow-uncapped cs-eyebrow-gap-64">Easier Access to Support</p>
-      <h3 class="cs-section-title mb-6">A redesigned homepage guides users to the information they need faster.</h3>
-      <ul class="cs-bullet-list">
-        <li class="fs-body">Prioritises the most common user journeys directly from the homepage.</li>
-        <li class="fs-body">Reduces decision fatigue with clear calls-to-action for key tasks.</li>
-        <li class="fs-body">Guides users to relevant support based on their individual needs.</li>
-      </ul>
+    <div class="grid md:grid-cols-2 gap-8 items-center" data-reveal>
+      <div>
+        <p class="cs-eyebrow cs-eyebrow-uncapped cs-eyebrow-gap-64">Easier Access to Support</p>
+        <h3 class="cs-section-title mb-6">A redesigned homepage guides users to the information they need faster.</h3>
+        <ul class="cs-bullet-list">
+          <li class="fs-body">Prioritises the most common user journeys directly from the homepage.</li>
+          <li class="fs-body">Reduces decision fatigue with clear calls-to-action for key tasks.</li>
+          <li class="fs-body">Guides users to relevant support based on their individual needs.</li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-6">
+        <div>
+          <p class="cs-compare-label">Before</p>
+          <div class="cs-image-block cs-image-compare">
+            <div class="cs-image-placeholder">Add <code>adhd-uk-solution-support-before.jpg</code></div>
+            <img src="assets/projects/adhd-uk-solution-support-before.jpg" alt="Access to support solution: before" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          </div>
+        </div>
+        <div>
+          <p class="cs-compare-label">After</p>
+          <div class="cs-image-block cs-image-compare">
+            <div class="cs-image-placeholder">Add <code>adhd-uk-solution-support-after.jpg</code></div>
+            <img src="assets/projects/adhd-uk-solution-support-after.jpg" alt="Access to support solution: after" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -845,9 +872,14 @@
       </div>
       <div class="md:col-span-9">
         <h3 class="cs-challenge-title mb-3">Navigation Clarity</h3>
-        <p class="fs-body text-muted">Average rating improved from 2.5/10 to 8.4/10 after the redesign</p>
-        <p class="cs-impact-quote">&ldquo;The website is very intuitive and so simple to use&rdquo;</p>
-        <p class="cs-impact-attribution">— Participant</p>
+        <p class="fs-body text-muted mb-4">Average rating improved from 2.5/10 to 8.4/10 after the redesign</p>
+        <div class="flex items-start gap-3">
+          <span class="cs-impact-icon" aria-hidden="true">&ldquo;</span>
+          <div>
+            <p class="cs-impact-quote">The website is very intuitive and so simple to use</p>
+            <p class="cs-impact-attribution">— Participant</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -860,9 +892,14 @@
       </div>
       <div class="md:col-span-9">
         <h3 class="cs-challenge-title mb-3">Readability</h3>
-        <p class="fs-body text-muted">Average rating improved from 3.2/10 to 9.8/10 after the redesign</p>
-        <p class="cs-impact-quote">&ldquo;The content feels really clear and easy to scan.&rdquo;</p>
-        <p class="cs-impact-attribution">— Participant</p>
+        <p class="fs-body text-muted mb-4">Average rating improved from 3.2/10 to 9.8/10 after the redesign</p>
+        <div class="flex items-start gap-3">
+          <span class="cs-impact-icon" aria-hidden="true">&ldquo;</span>
+          <div>
+            <p class="cs-impact-quote">The content feels really clear and easy to scan.</p>
+            <p class="cs-impact-attribution">— Participant</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -875,9 +912,14 @@
       </div>
       <div class="md:col-span-9">
         <h3 class="cs-challenge-title mb-3">Likelihood to Return</h3>
-        <p class="fs-body text-muted">Average rating improved from 1/10 (10%) to 9/10 (90%) after the redesign</p>
-        <p class="cs-impact-quote">&ldquo;I'd feel confident using this website again in the future.&rdquo;</p>
-        <p class="cs-impact-attribution">— Participant</p>
+        <p class="fs-body text-muted mb-4">Average rating improved from 1/10 (10%) to 9/10 (90%) after the redesign</p>
+        <div class="flex items-start gap-3">
+          <span class="cs-impact-icon" aria-hidden="true">&ldquo;</span>
+          <div>
+            <p class="cs-impact-quote">I'd feel confident using this website again in the future.</p>
+            <p class="cs-impact-attribution">— Participant</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
