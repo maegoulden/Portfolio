@@ -20,6 +20,7 @@
   a { color: inherit; text-decoration: none; }
   button { font: inherit; color: inherit; background: none; border: none; padding: 0; cursor: pointer; }
   img, svg { display: block; max-width: 100%; }
+  ul { list-style: none; padding: 0; }
 
   :root {
     --bg: #F4F4F4;
@@ -33,6 +34,9 @@
     --placeholder-bg: #EAEAE7;
     --placeholder-border: #C7C7C3;
     --accent: #004A81;
+    --rating-red: #D14343;
+    --rating-amber: #D9A441;
+    --rating-green: #3E9B5C;
   }
 
   * { -webkit-tap-highlight-color: transparent; }
@@ -64,7 +68,7 @@
   .nav-link:hover { opacity: 1; }
   .pill-btn {
     background: var(--pill-bg); color: var(--pill-text);
-    padding: 0.6rem 1.3rem; border-radius: 999px; font-weight: 500;
+    padding: 8px 20px; border-radius: 999px; font-weight: 500;
     font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; font-size: 20px;
     display: inline-flex; align-items: center; gap: 0.4rem;
     transition: transform 0.2s ease, opacity 0.2s ease;
@@ -96,17 +100,17 @@
   .cs-btn-outline {
     display: inline-flex; align-items: center; gap: 0.5rem;
     border: 1.5px solid var(--accent); color: var(--accent);
-    padding: 0.85rem 1.75rem; border-radius: 999px; font-weight: 600;
+    padding: 12px 28px; border-radius: 999px; font-weight: 600;
     transition: background-color 0.2s ease, color 0.2s ease;
     white-space: nowrap;
   }
   .cs-btn-outline:hover { background: var(--accent); color: #fff; }
   .cs-meta-box-item {
-    border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border); border-radius: 14px; padding: 20px 24px;
   }
   .cs-meta-label {
     color: var(--accent); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
-    font-weight: 700; margin-bottom: 0.35rem;
+    font-weight: 700; margin-bottom: 8px;
   }
 
   /* ---------- Section titles (below eyebrows, throughout the page) ---------- */
@@ -117,7 +121,7 @@
   }
 
   /* ---------- Problem discovery challenge cards ---------- */
-  .cs-challenge-card { background: #F9F9F9; border-radius: 14px; padding: 2rem; }
+  .cs-challenge-card { background: #F9F9F9; border-radius: 14px; padding: 32px; }
   .cs-challenge-title {
     font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
     color: #1A1A1A; font-size: 28px; line-height: 40px; font-weight: 500;
@@ -136,6 +140,21 @@
   }
   .cs-full-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
 
+  /* ---------- Generic image placeholder (reused across sections) ---------- */
+  .cs-image-block { position: relative; background: var(--placeholder-bg); border-radius: 14px; overflow: hidden; }
+  .cs-image-block img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cs-image-placeholder {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center;
+    padding: 16px; border: 1.5px dashed var(--placeholder-border); border-radius: 14px;
+    font-size: 0.8rem; color: var(--text-faint); line-height: 1.5;
+  }
+  .cs-image-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
+  .cs-image-wide { aspect-ratio: 16 / 8; }
+  .cs-image-eval { aspect-ratio: 4 / 5; }
+  .cs-image-sub { aspect-ratio: 16 / 10; }
+  .cs-image-persona { aspect-ratio: 1 / 1; border-radius: 999px; width: 120px; }
+  .cs-image-compare { aspect-ratio: 16 / 11; }
+
   [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
   [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
   @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }
@@ -146,6 +165,62 @@
   .cs-eyebrow-gap-32 { margin-bottom: 32px; }
   .cs-eyebrow-gap-64 { margin-bottom: 64px; }
 
+  /* ---------- Competitive audit table ---------- */
+  .cs-table-wrap { overflow-x: auto; background: #fff; border-radius: 14px; border: 1px solid var(--border); }
+  .cs-table { width: 100%; border-collapse: collapse; min-width: 640px; }
+  .cs-table th, .cs-table td { padding: 20px 24px; text-align: left; }
+  .cs-table thead th { font-weight: 600; font-size: 0.95rem; }
+  .cs-table tbody tr { border-top: 1px solid var(--border); }
+  .cs-rating { display: inline-flex; align-items: center; gap: 8px; }
+  .cs-rating-dot { width: 8px; height: 8px; border-radius: 999px; display: inline-block; flex-shrink: 0; }
+
+  /* ---------- Stats with progress rings ---------- */
+  .cs-stat-ring { display: block; margin-inline: auto; margin-bottom: 24px; }
+  .cs-stat-number {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 56px; line-height: 1.1; font-weight: 500; color: #1A1A1A; margin-bottom: 8px;
+  }
+
+  /* ---------- Quote cards ---------- */
+  .cs-quote-card {
+    background: #F9F9F9; border-radius: 14px; padding: 32px;
+    flex: 1 1 280px; max-width: 320px;
+  }
+  .cs-quote-mark { color: var(--accent); font-size: 40px; line-height: 1; font-family: 'Geist', serif; margin-bottom: 8px; display: block; }
+  .cs-quote-text { font-size: 18px; line-height: 28px; color: var(--text); }
+
+  /* ---------- Persona card ---------- */
+  .cs-persona-card {
+    background: #F9F9F9; border-radius: 14px; padding: 40px;
+  }
+  .cs-persona-name {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 28px; line-height: 36px; font-weight: 500; margin-bottom: 16px;
+  }
+  .cs-persona-quote {
+    font-size: 22px; line-height: 32px; color: var(--text); margin-bottom: 24px;
+  }
+  .cs-goal-list li { display: flex; align-items: flex-start; gap: 12px; padding-block: 8px; }
+  .cs-goal-list li::before {
+    content: ""; width: 8px; height: 8px; border-radius: 999px; background: var(--accent);
+    margin-top: 10px; flex-shrink: 0;
+  }
+
+  /* ---------- Palette swatch ---------- */
+  .cs-swatch { width: 64px; height: 64px; border-radius: 12px; margin-bottom: 8px; border: 1px solid var(--border); }
+  .cs-swatch-label { font-size: 0.75rem; color: var(--text-muted); }
+
+  /* ---------- Before / after ---------- */
+  .cs-compare-label {
+    font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700;
+    color: var(--accent); margin-bottom: 8px;
+  }
+  .cs-bullet-list li { display: flex; align-items: flex-start; gap: 12px; padding-block: 8px; }
+  .cs-bullet-list li::before {
+    content: ""; width: 8px; height: 8px; border-radius: 999px; background: var(--accent);
+    margin-top: 10px; flex-shrink: 0;
+  }
+
   /* ---------- Layout utility classes ---------- */
   .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   .fixed { position: fixed; }
@@ -154,9 +229,11 @@
   .flex { display: flex; }
   .grid { display: grid; }
   .flex-col { flex-direction: column; }
+  .flex-wrap { flex-wrap: wrap; }
   .items-center { align-items: center; }
   .items-start { align-items: flex-start; }
   .justify-between { justify-content: space-between; }
+  .justify-center { justify-content: center; }
   .text-center { text-align: center; }
   .mx-auto { margin-left: auto; margin-right: auto; }
   .inset-x-0 { left: 0; right: 0; }
@@ -187,10 +264,16 @@
   @media (min-width: 768px) {
     .md\:flex { display: flex; }
     .md\:hidden { display: none; }
+    .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .md\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
     .md\:col-span-4 { grid-column: span 4 / span 4; }
+    .md\:col-span-5 { grid-column: span 5 / span 5; }
+    .md\:col-span-6 { grid-column: span 6 / span 6; }
+    .md\:col-span-7 { grid-column: span 7 / span 7; }
     .md\:col-span-8 { grid-column: span 8 / span 8; }
+    .md\:order-1 { order: 1; }
+    .md\:order-2 { order: 2; }
     .md\:h-20 { height: 5rem; }
     .md\:gap-8 { gap: 2rem; }
     .md\:gap-12 { gap: 3rem; }
@@ -269,10 +352,10 @@
 <section class="cs-section-pad">
   <div class="container-page">
     <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>Problem Discovery</p>
-    <h2 class="cs-section-title text-center mx-auto mb-6" style="max-width: 900px;" data-reveal>
+    <h2 class="cs-section-title text-center mx-auto mb-6" style="max-width: 960px;" data-reveal>
       People came to ADHD UK for support, but the experience made it difficult to find it.
     </h2>
-    <p class="fs-body text-muted text-center mx-auto mb-14" style="max-width: 62ch;" data-reveal>
+    <p class="fs-body text-muted text-center mx-auto mb-14" style="max-width: 1080px;" data-reveal>
       Through desk research, user interviews, and usability testing, three key usability challenges emerged.
     </p>
 
@@ -304,11 +387,359 @@
   </div>
 </section>
 
-<!-- ================= MY APPROACH ================= -->
+<!-- ================= DESK RESEARCH ================= -->
 <section class="cs-section-pad">
   <div class="container-page">
-    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>My Approach</p>
-    <!-- More content to follow -->
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-32" data-reveal>Desk Research</p>
+    <h2 class="cs-section-title mb-6" style="max-width: 800px;" data-reveal>
+      Researching ADHD established the foundations for an accessible, ADHD-friendly redesign.
+    </h2>
+    <p class="fs-body text-muted" style="max-width: 800px;" data-reveal>
+      I explored ADHD research, cognitive load and accessibility guidelines to understand how digital experiences can better support neurodivergent users. The research revealed how challenges with attention, organisation and information processing translate into specific design needs, informing decisions focused on clarity, accessibility and reducing cognitive load.
+    </p>
+  </div>
+</section>
+
+<!-- ================= CURRENT WEBSITE EVALUATION ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-32" data-reveal>Current Website Evaluation</p>
+    <h2 class="cs-section-title mb-6" style="max-width: 800px;" data-reveal>
+      Evaluating the existing experience exposed key usability issues
+    </h2>
+    <p class="fs-body text-muted mb-14" style="max-width: 800px;" data-reveal>
+      Reviewing the website identified issues with navigation, content organisation, readability and visual hierarchy, helping establish areas for improvement before conducting user research.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="cs-image-block cs-image-eval" data-reveal>
+        <div class="cs-image-placeholder">Add <code>adhd-uk-eval-1.jpg</code> to <code>assets/projects/</code></div>
+        <img src="assets/projects/adhd-uk-eval-1.jpg" alt="Current ADHD UK website — About ADHD page" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      </div>
+      <div class="cs-image-block cs-image-eval" data-reveal>
+        <div class="cs-image-placeholder">Add <code>adhd-uk-eval-2.jpg</code> to <code>assets/projects/</code></div>
+        <img src="assets/projects/adhd-uk-eval-2.jpg" alt="Current ADHD UK website — homepage" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPETITIVE AUDIT ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-32" data-reveal>Competitive Audit</p>
+    <h2 class="cs-section-title mb-6" style="max-width: 800px;" data-reveal>
+      Competitive audit uncovered opportunities to create a clearer and more accessible experience.
+    </h2>
+    <p class="fs-body text-muted mb-14" style="max-width: 800px;" data-reveal>
+      I benchmarked direct and comparable non-profit websites against the existing ADHD UK website to identify strengths, weaknesses and opportunities for improvement.
+    </p>
+
+    <div class="cs-table-wrap" data-reveal>
+      <table class="cs-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>ADHD UK</th>
+            <th>The Children's Society</th>
+            <th>adda</th>
+            <th>Mind</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>User Experience</td>
+            <td><span class="cs-rating"><span class="cs-rating-dot" style="background: var(--rating-red);"></span>1/5</span></td>
+            <td><span class="cs-rating"><span class="cs-rating-dot" style="background: var(--rating-green);"></span>4/5</span></td>
+            <td><span class="cs-rating"><span class="cs-rating-dot" style="background: var(--rating-amber);"></span>2/5</span></td>
+            <td><span class="cs-rating"><span class="cs-rating-dot" style="background: var(--rating-amber);"></span>3/5</span></td>
+          </tr>
+          <tr>
+            <td>Accessibility</td>
+            <td><span class="cs-rating"><span class="cs-rating-dot" style="background: var(--rating-amber);"></span>3/5</span></td>
+            <td><span class="cs-rating"><span class="cs-rating-dot" style="background: var(--rating-green);"></span>4/5</span></td>
+            <td><span class="cs-rating"><span class="cs-rating-dot" style="background: var(--rating-amber);"></span>2/5</span></td>
+            <td><span class="cs-rating"><span class="cs-rating-dot" style="background: var(--rating-green);"></span>4/5</span></td>
+          </tr>
+          <tr>
+            <td>Visual Design</td>
+            <td><span class="cs-rating"><span class="cs-rating-dot" style="background: var(--rating-red);"></span>1/5</span></td>
+            <td><span class="cs-rating"><span class="cs-rating-dot" style="background: var(--rating-green);"></span>5/5</span></td>
+            <td><span class="cs-rating"><span class="cs-rating-dot" style="background: var(--rating-amber);"></span>3/5</span></td>
+            <td><span class="cs-rating"><span class="cs-rating-dot" style="background: var(--rating-amber);"></span>3/5</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= USER INTERVIEWS ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-32" data-reveal>User Interviews</p>
+    <h2 class="cs-section-title mb-6" style="max-width: 900px;" data-reveal>
+      Interviews and surveys validated the usability challenges within the existing ADHD UK website.
+    </h2>
+    <p class="fs-body text-muted mb-14" style="max-width: 900px;" data-reveal>
+      Surveys identified recurring patterns across a wider audience, while task-based interviews provided deeper insight into where users struggled to navigate, read and access information.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-8 text-center mb-14">
+      <div data-reveal>
+        <svg class="cs-stat-ring" width="72" height="72" viewBox="0 0 72 72">
+          <circle cx="36" cy="36" r="30" stroke="#E4E1D9" stroke-width="6" fill="none" />
+          <circle cx="36" cy="36" r="30" stroke="var(--accent)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="37.7" transform="rotate(-90 36 36)" />
+        </svg>
+        <p class="cs-stat-number">80%</p>
+        <p class="fs-body text-muted">Users felt lost or unsure where to go</p>
+      </div>
+      <div data-reveal>
+        <svg class="cs-stat-ring" width="72" height="72" viewBox="0 0 72 72">
+          <circle cx="36" cy="36" r="30" stroke="#E4E1D9" stroke-width="6" fill="none" />
+          <circle cx="36" cy="36" r="30" stroke="var(--accent)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="9.4" transform="rotate(-90 36 36)" />
+        </svg>
+        <p class="cs-stat-number">95%</p>
+        <p class="fs-body text-muted">Users felt overwhelmed or found it too much</p>
+      </div>
+      <div data-reveal>
+        <svg class="cs-stat-ring" width="72" height="72" viewBox="0 0 72 72">
+          <circle cx="36" cy="36" r="30" stroke="#E4E1D9" stroke-width="6" fill="none" />
+          <circle cx="36" cy="36" r="30" stroke="var(--accent)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="18.85" transform="rotate(-90 36 36)" />
+        </svg>
+        <p class="cs-stat-number">90%</p>
+        <p class="fs-body text-muted">Users found content difficult to read</p>
+      </div>
+    </div>
+
+    <h3 class="cs-section-title text-center mx-auto mb-14" style="max-width: 800px; font-size: 32px; line-height: 40px;" data-reveal>
+      How effectively does the current ADHD UK website help users find information and support?
+    </h3>
+
+    <div class="flex flex-wrap justify-center gap-6">
+      <div class="cs-quote-card" data-reveal>
+        <span class="cs-quote-mark">&ldquo;</span>
+        <p class="cs-quote-text">Too much information and text</p>
+      </div>
+      <div class="cs-quote-card" data-reveal>
+        <span class="cs-quote-mark">&ldquo;</span>
+        <p class="cs-quote-text">Totally overwhelming, look at it!</p>
+      </div>
+      <div class="cs-quote-card" data-reveal>
+        <span class="cs-quote-mark">&ldquo;</span>
+        <p class="cs-quote-text">Completely clueless as to where to start</p>
+      </div>
+      <div class="cs-quote-card" data-reveal>
+        <span class="cs-quote-mark">&ldquo;</span>
+        <p class="cs-quote-text">I had no idea where to go!</p>
+      </div>
+      <div class="cs-quote-card" data-reveal>
+        <span class="cs-quote-mark">&ldquo;</span>
+        <p class="cs-quote-text">Nothing makes you feel welcome</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RESEARCH SYNTHESIS ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-32" data-reveal>Research Synthesis</p>
+    <h2 class="cs-section-title mb-6" style="max-width: 800px;" data-reveal>
+      Transforming research into actionable insights with AI-Assisted affinity mapping
+    </h2>
+    <p class="fs-body text-muted mb-14" style="max-width: 800px;" data-reveal>
+      Survey responses and interview observations were grouped into themes to identify recurring behaviours, pain points and opportunities for improvement.
+    </p>
+
+    <div class="cs-image-block cs-image-wide" data-reveal>
+      <div class="cs-image-placeholder">Add <code>adhd-uk-synthesis.jpg</code> to <code>assets/projects/</code></div>
+      <img src="assets/projects/adhd-uk-synthesis.jpg" alt="Affinity mapping of research findings" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+    </div>
+  </div>
+</section>
+
+<!-- ================= USER PERSONAS ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-32" data-reveal>User Personas</p>
+    <h2 class="cs-section-title mb-14" style="max-width: 800px;" data-reveal>
+      Consolidating the key insights into a primary user persona
+    </h2>
+
+    <div class="cs-persona-card grid md:grid-cols-12 gap-8 items-start" data-reveal>
+      <div class="md:col-span-4">
+        <div class="cs-image-block cs-image-persona">
+          <div class="cs-image-placeholder" style="font-size: 0.7rem;">Add <code>adhd-uk-persona-roman.jpg</code></div>
+          <img src="assets/projects/adhd-uk-persona-roman.jpg" alt="Roman, primary user persona" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        </div>
+      </div>
+      <div class="md:col-span-8">
+        <p class="cs-persona-name">Roman</p>
+        <p class="cs-persona-quote">&ldquo;I just want to quickly find the right information without feeling overwhelmed or confused.&rdquo;</p>
+        <p class="cs-meta-label">Goals</p>
+        <ul class="cs-goal-list">
+          <li class="fs-body text-muted">Find ADHD information and support easily</li>
+          <li class="fs-body text-muted">Feel reassured and supported</li>
+          <li class="fs-body text-muted">Navigate websites with minimal effort</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REACHING SOLUTIONS ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-32" data-reveal>Reaching Solutions</p>
+    <h2 class="cs-section-title mb-6" style="max-width: 800px;" data-reveal>
+      Ideal solutions were generated through multiple techniques
+    </h2>
+    <p class="fs-body text-muted mb-14" style="max-width: 800px;" data-reveal>
+      To facilitate my ideate phase, I used the persona's journey, crazy eights and site maps.
+    </p>
+
+    <div class="cs-image-block cs-image-wide" data-reveal>
+      <div class="cs-image-placeholder">Add <code>adhd-uk-solutions.jpg</code> to <code>assets/projects/</code></div>
+      <img src="assets/projects/adhd-uk-solutions.jpg" alt="Ideation: persona journey, crazy eights and site maps" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+    </div>
+  </div>
+</section>
+
+<!-- ================= EARLY DESIGNS ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-32" data-reveal>Early Designs</p>
+    <h2 class="cs-section-title mb-14" style="max-width: 900px;" data-reveal>
+      Sketching wireframes progressed to low-fidelity prototypes then high-fidelity prototypes.
+    </h2>
+
+    <div class="mb-14" data-reveal>
+      <h3 class="cs-challenge-title mb-3">Wireframe Sketches</h3>
+      <p class="fs-body text-muted mb-6" style="max-width: 800px;">
+        I created paper wireframes of every screen on the user flow and refined each screen. Stars were used to indicate elements of each sketch that would be used in low-fidelity designs.
+      </p>
+      <div class="cs-image-block cs-image-sub">
+        <div class="cs-image-placeholder">Add <code>adhd-uk-wireframes.jpg</code> to <code>assets/projects/</code></div>
+        <img src="assets/projects/adhd-uk-wireframes.jpg" alt="Paper wireframe sketches" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      </div>
+    </div>
+
+    <div data-reveal>
+      <h3 class="cs-challenge-title mb-3">Low-fidelity prototype</h3>
+      <p class="fs-body text-muted mb-6" style="max-width: 800px;">
+        Low-fidelity prototyping was essential for conducting usability testing and gathering user feedback.
+      </p>
+      <div class="cs-image-block cs-image-sub">
+        <div class="cs-image-placeholder">Add <code>adhd-uk-lofi.jpg</code> to <code>assets/projects/</code></div>
+        <img src="assets/projects/adhd-uk-lofi.jpg" alt="Low-fidelity prototype screens" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VISUAL IDENTITY ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-32" data-reveal>Visual Identity</p>
+    <h2 class="cs-section-title mb-6" style="max-width: 800px;" data-reveal>
+      A calmer visual identity better reflected ADHD UK's supportive mission.
+    </h2>
+    <p class="fs-body text-muted mb-14" style="max-width: 800px;" data-reveal>
+      The existing logo was retained to preserve brand recognition, while a calmer colour palette improved accessibility and created a more welcoming user experience.
+    </p>
+
+    <!-- Placeholder palette — swap for the actual chosen colours -->
+    <div class="flex flex-wrap gap-6" data-reveal>
+      <div>
+        <div class="cs-swatch" style="background: #EAF2F8;"></div>
+        <p class="cs-swatch-label">#EAF2F8</p>
+      </div>
+      <div>
+        <div class="cs-swatch" style="background: #6FA8C9;"></div>
+        <p class="cs-swatch-label">#6FA8C9</p>
+      </div>
+      <div>
+        <div class="cs-swatch" style="background: #004A81;"></div>
+        <p class="cs-swatch-label">#004A81</p>
+      </div>
+      <div>
+        <div class="cs-swatch" style="background: #F6E7C9;"></div>
+        <p class="cs-swatch-label">#F6E7C9</p>
+      </div>
+      <div>
+        <div class="cs-swatch" style="background: #1A1A1A;"></div>
+        <p class="cs-swatch-label">#1A1A1A</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= USABILITY TESTING ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-32" data-reveal>Usability Testing</p>
+    <h2 class="cs-section-title mb-6" style="max-width: 800px;" data-reveal>
+      Unmoderated usability tests informed iterations to the designs.
+    </h2>
+    <p class="fs-body text-muted" style="max-width: 800px;" data-reveal>
+      Usability testing was conducted with six participants. Participants completed three task-based scenarios, followed by targeted questions to explore their experiences. Findings were analysed to identify key patterns to inform iterations. This process led to improvements and refinements to both the low-fidelity and high-fidelity prototypes.
+    </p>
+  </div>
+</section>
+
+<!-- ================= BEFORE / AFTER: NAVIGATION ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <div class="grid md:grid-cols-2 gap-8 items-start mb-14" data-reveal>
+      <div>
+        <h3 class="cs-challenge-title mb-6">1. Clarified Navigation labels</h3>
+        <ul class="cs-bullet-list">
+          <li class="fs-body text-muted">Users mistook "About" for information about ADHD rather than the organisation</li>
+          <li class="fs-body text-muted">Renaming it to "About Us" clarified the navigation and improved usability</li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-6">
+        <div>
+          <p class="cs-compare-label">Before</p>
+          <div class="cs-image-block cs-image-compare">
+            <div class="cs-image-placeholder">Add <code>adhd-uk-nav-before.jpg</code></div>
+            <img src="assets/projects/adhd-uk-nav-before.jpg" alt="Navigation before: About" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          </div>
+        </div>
+        <div>
+          <p class="cs-compare-label">After</p>
+          <div class="cs-image-block cs-image-compare">
+            <div class="cs-image-placeholder">Add <code>adhd-uk-nav-after.jpg</code></div>
+            <img src="assets/projects/adhd-uk-nav-after.jpg" alt="Navigation after: About Us" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= BEFORE / AFTER: BREADCRUMBS ================= -->
+    <div class="grid md:grid-cols-2 gap-8 items-start" data-reveal>
+      <div class="md:order-1 flex flex-col gap-6">
+        <div>
+          <p class="cs-compare-label">Before</p>
+          <div class="cs-image-block cs-image-compare">
+            <div class="cs-image-placeholder">Add <code>adhd-uk-breadcrumbs-before.jpg</code></div>
+            <img src="assets/projects/adhd-uk-breadcrumbs-before.jpg" alt="Breadcrumbs before" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          </div>
+        </div>
+        <div>
+          <p class="cs-compare-label">After</p>
+          <div class="cs-image-block cs-image-compare">
+            <div class="cs-image-placeholder">Add <code>adhd-uk-breadcrumbs-after.jpg</code></div>
+            <img src="assets/projects/adhd-uk-breadcrumbs-after.jpg" alt="Breadcrumbs after" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          </div>
+        </div>
+      </div>
+      <div class="md:order-2">
+        <h3 class="cs-challenge-title mb-6">2. Added Breadcrumbs</h3>
+        <!-- Bullet points for this point weren't provided yet -->
+      </div>
+    </div>
   </div>
 </section>
 
