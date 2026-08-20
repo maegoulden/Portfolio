@@ -118,7 +118,13 @@
   .cs-section-title {
     font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
     color: #1A1A1A; font-size: 40px; line-height: 48px; font-weight: 500;
-    letter-spacing: -0.02em; text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  /* ---------- Before/after & solution comparison titles ---------- */
+  .cs-compare-title {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    color: #1A1A1A; font-size: 24px; line-height: 36px; font-weight: 500;
   }
 
   /* ---------- Hook statement ---------- */
@@ -237,6 +243,7 @@
   .gap-4 { gap: 1rem; }
   .gap-6 { gap: 1.5rem; }
   .gap-8 { gap: 2rem; }
+  .gap-16 { gap: 4rem; }
   .mb-3 { margin-bottom: 0.75rem; }
   .mb-4 { margin-bottom: 1rem; }
   .mb-6 { margin-bottom: 1.5rem; }
@@ -257,7 +264,9 @@
     .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .md\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
     .md\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .md\:col-span-2 { grid-column: span 2 / span 2; }
     .md\:col-span-3 { grid-column: span 3 / span 3; }
     .md\:col-span-4 { grid-column: span 4 / span 4; }
     .md\:col-span-5 { grid-column: span 5 / span 5; }
@@ -654,15 +663,15 @@
 <!-- ================= BEFORE / AFTER: NAVIGATION ================= -->
 <section class="cs-section-pad" style="padding-top: 0;">
   <div class="container-page">
-    <div class="grid md:grid-cols-2 gap-8 items-center mb-14" data-reveal>
-      <div>
-        <h3 class="cs-challenge-title mb-6">1. Clarified Navigation labels</h3>
+    <div class="grid md:grid-cols-5 gap-16 items-center mb-14" data-reveal>
+      <div class="md:col-span-3">
+        <h3 class="cs-compare-title mb-6">1. Clarified Navigation labels</h3>
         <ul class="cs-bullet-list">
           <li class="fs-body">Users mistook "About" for information about ADHD rather than the organisation</li>
           <li class="fs-body">Renaming it to "About Us" clarified the navigation and improved usability</li>
         </ul>
       </div>
-      <div class="flex flex-col gap-6">
+      <div class="md:col-span-2 flex flex-col gap-6">
         <div>
           <p class="cs-compare-label">Before</p>
           <div class="cs-image-block cs-image-compare">
@@ -681,8 +690,8 @@
     </div>
 
     <!-- ================= BEFORE / AFTER: BREADCRUMBS ================= -->
-    <div class="grid md:grid-cols-2 gap-8 items-center" data-reveal>
-      <div class="md:order-1 flex flex-col gap-6">
+    <div class="grid md:grid-cols-5 gap-16 items-center" data-reveal>
+      <div class="md:order-1 md:col-span-2 flex flex-col gap-6">
         <div>
           <p class="cs-compare-label">Before</p>
           <div class="cs-image-block cs-image-compare">
@@ -698,8 +707,8 @@
           </div>
         </div>
       </div>
-      <div class="md:order-2">
-        <h3 class="cs-challenge-title mb-6">2. Added Breadcrumbs</h3>
+      <div class="md:order-2 md:col-span-3">
+        <h3 class="cs-compare-title mb-6">2. Added Breadcrumbs</h3>
         <ul class="cs-bullet-list">
           <li class="fs-body">Some content-heavy pages made it difficult to understand where users were within the site.</li>
           <li class="fs-body">Adding breadcrumb navigation improved orientation and made it easier to navigate back to previous sections.</li>
@@ -714,17 +723,21 @@
   <div class="container-page">
     <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>The Solution — Redesign</p>
 
-    <div class="grid md:grid-cols-2 gap-8 items-center mb-14" data-reveal>
-      <div>
+    <h2 class="cs-section-title text-center mx-auto" style="margin-bottom: 60px;" data-reveal>
+      A clearer, ADHD-friendly website with a simpler, more accessible experience.
+    </h2>
+
+    <div class="grid md:grid-cols-5 gap-16 items-center mb-14" data-reveal>
+      <div class="md:col-span-3">
         <p class="cs-eyebrow cs-eyebrow-uncapped cs-eyebrow-gap-64">Clearer Navigation</p>
-        <h3 class="cs-section-title mb-6">Guided navigation helps users clearly find information and support</h3>
+        <h3 class="cs-compare-title mb-6">Guided navigation helps users clearly find information and support</h3>
         <ul class="cs-bullet-list">
           <li class="fs-body">Organises content into intuitive categories to reduce confusion and cognitive load.</li>
           <li class="fs-body">Removes duplicate pages and multiple points of entry.</li>
           <li class="fs-body">Reduced options to help users reach information faster.</li>
         </ul>
       </div>
-      <div class="flex flex-col gap-6">
+      <div class="md:col-span-2 flex flex-col gap-6">
         <div>
           <p class="cs-compare-label">Before</p>
           <div class="cs-image-block cs-image-compare">
@@ -742,8 +755,8 @@
       </div>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-8 items-center mb-14" data-reveal>
-      <div class="md:order-1 flex flex-col gap-6">
+    <div class="grid md:grid-cols-5 gap-16 items-center mb-14" data-reveal>
+      <div class="md:order-1 md:col-span-2 flex flex-col gap-6">
         <div>
           <p class="cs-compare-label">Before</p>
           <div class="cs-image-block cs-image-compare">
@@ -759,9 +772,9 @@
           </div>
         </div>
       </div>
-      <div class="md:order-2">
+      <div class="md:order-2 md:col-span-3">
         <p class="cs-eyebrow cs-eyebrow-uncapped cs-eyebrow-gap-64">Structured Content</p>
-        <h3 class="cs-section-title mb-6">Well-structured content makes complex information easier to understand.</h3>
+        <h3 class="cs-compare-title mb-6">Well-structured content makes complex information easier to understand.</h3>
         <ul class="cs-bullet-list">
           <li class="fs-body">Breaks down complex information into manageable sections, reducing cognitive overload.</li>
           <li class="fs-body">Improved visual hierarchy, consistent layouts reduce reading fatigue.</li>
@@ -769,17 +782,17 @@
       </div>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-8 items-center" data-reveal>
-      <div>
+    <div class="grid md:grid-cols-5 gap-16 items-center" data-reveal>
+      <div class="md:col-span-3">
         <p class="cs-eyebrow cs-eyebrow-uncapped cs-eyebrow-gap-64">Easier Access to Support</p>
-        <h3 class="cs-section-title mb-6">A redesigned homepage guides users to the information they need faster.</h3>
+        <h3 class="cs-compare-title mb-6">A redesigned homepage guides users to the information they need faster.</h3>
         <ul class="cs-bullet-list">
           <li class="fs-body">Prioritises the most common user journeys directly from the homepage.</li>
           <li class="fs-body">Reduces decision fatigue with clear calls-to-action for key tasks.</li>
           <li class="fs-body">Guides users to relevant support based on their individual needs.</li>
         </ul>
       </div>
-      <div class="flex flex-col gap-6">
+      <div class="md:col-span-2 flex flex-col gap-6">
         <div>
           <p class="cs-compare-label">Before</p>
           <div class="cs-image-block cs-image-compare">
