@@ -67,8 +67,8 @@
     border-radius: 2px;
   }
 
-  .container-page { margin-inline: auto; padding-inline: 1.5rem; }
-  @media (min-width: 768px) { .container-page { padding-inline: 100px; } }
+  .container-page { margin-inline: auto; padding-inline: 1.5rem; max-width: 1400px; }
+  @media (min-width: 768px) { .container-page { padding-inline: 140px; } }
 
   .text-muted { color: var(--text-muted); }
   .text-faint { color: var(--text-faint); }
@@ -78,6 +78,13 @@
   .fs-h2 { font-size: clamp(2rem, 6vw, 60px); font-weight: 500; line-height: 1.1; letter-spacing: -0.025em; }
   .fs-lead { font-size: clamp(1.85rem, 4.4vw, 48px); font-weight: 500; line-height: 1.2083; }
   .fs-body { font-size: 20px; line-height: 30px; max-width: 46ch; }
+
+  /* ---------- Hero inline links ---------- */
+  .hero-inline-link {
+    color: color-mix(in srgb, var(--text-muted) 40%, var(--text) 60%);
+    font-weight: 500; transition: opacity 0.2s ease;
+  }
+  .hero-inline-link:hover { opacity: 0.7; }
 
   /* ---------- Nav ---------- */
   .nav-wrap {
@@ -146,18 +153,44 @@
 
   .work-row-media { position: relative; }
 
+  /* ---------- Work cards ---------- */
+  .work-grid { display: grid; gap: 2rem; }
+  .work-card { display: flex; flex-direction: column; }
+  .work-card-media {
+    position: relative; aspect-ratio: 4 / 3; background: var(--placeholder-bg);
+    overflow: hidden; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  }
+  .work-card-media .device-screen { width: 100%; height: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; }
+  .work-card-media .device-img { width: 100%; height: 100%; object-fit: cover; }
+  .work-card-body { padding-top: 24px; display: flex; flex-direction: column; flex: 1; }
+  .work-card-title { font-size: 26px; line-height: 1.25; font-weight: 500; margin-bottom: 12px; }
+  .work-card-desc { font-size: 17px; line-height: 26px; color: var(--text-muted); margin-bottom: 20px; }
+  .mt-auto { margin-top: auto; }
+
+  @media (min-width: 768px) {
+    .md\:work-grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
   /* ---------- Photo ---------- */
-  .photo-frame { border-radius: 14px; overflow: hidden; position: relative; background: var(--placeholder-bg); aspect-ratio: 4 / 3.4; }
+  .photo-frame-outer { position: relative; }
+  .photo-frame { border-radius: 14px; overflow: hidden; position: relative; background: var(--placeholder-bg); aspect-ratio: 4 / 3.4; height: auto; }
+  @media (min-width: 768px) {
+    .photo-frame-outer { height: 100%; }
+    .photo-frame { position: absolute; inset: 0; aspect-ratio: auto; height: auto; }
+  }
   .photo-placeholder {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center;
     padding: 1rem; border: 1.5px dashed var(--placeholder-border); border-radius: 14px;
     font-size: 0.8rem; color: var(--text-faint); line-height: 1.5;
   }
   .photo-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
-  .photo-img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; object-position: center 10%; display: block; }
+  .photo-img {
+    position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;
+    transform: scale(1.2); transform-origin: top center;
+  }
 
   /* ---------- Gallery ---------- */
-  .gallery-item { position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: var(--placeholder-bg); }
+  .gallery-item { position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: var(--placeholder-bg); border-radius: 8px; }
   .gallery-item img {
     position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block;
     transition: transform 0.5s ease;
@@ -244,6 +277,7 @@
     .md\:flex-row { flex-direction: row; }
     .md\:hidden { display: none; }
     .md\:items-start { align-items: flex-start; }
+    .md\:items-stretch { align-items: stretch; }
     .md\:justify-between { justify-content: space-between; }
     .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -305,12 +339,16 @@
 <section id="home" class="relative overflow-hidden" style="min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center;">
   <canvas id="wave-canvas" class="wave-canvas" aria-hidden="true"></canvas>
 
-  <div class="container-page relative">
-    <p class="text-muted mb-5" style="font-size: 20px;" data-reveal>Hello, I'm Mae Goulden!</p>
-    <h1 class="fs-display font-display mb-2" data-reveal>
-      I understand people and design accessible products that actually<br />
-      help them
+  <div class="container-page relative" style="width: 100%;">
+    <h1 class="fs-display font-display mb-5" data-reveal>
+      Hi, I'm Mae Goulden!
     </h1>
+    <p class="fs-body text-muted" style="max-width: none;" data-reveal>
+      I'm currently a Product Intern at
+      <a href="https://xaltexperiences.com/" target="_blank" rel="noopener" class="hero-inline-link">XALT</a>, a next generation interactive live sports broadcast platform, and recently interned at the
+      <a href="https://www.cityoflondon.gov.uk/about-us/about-the-city-of-london-corporation" target="_blank" rel="noopener" class="hero-inline-link">City of London Corporation</a>.
+      Before product, I spent four years in inclusion within education.
+    </p>
   </div>
 
   <a href="#work" class="scroll-cue" aria-label="Scroll to work" data-reveal>
@@ -322,20 +360,22 @@
 <section id="work" class="py-20 md:py-28">
   <div class="container-page space-y-24 md:space-y-32">
 
-    <!-- ADHD UK -->
+    <!-- City of London Corporation -->
     <article class="grid md:grid-cols-5 gap-8 md:gap-10 items-center">
       <div class="work-row-media md:order-1 md:col-span-3" data-reveal>
-        <div class="device-screen">
-          <div class="device-placeholder">Add <code>adhd-uk.jpg</code> to <code>assets/projects/</code></div>
-          <img class="device-img" alt="ADHD UK preview" src="assets/projects/adhd-uk.jpg" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-        </div>
+        <a href="city-of-london-corporation.html" aria-label="View City of London Corporation case study">
+          <div class="device-screen">
+            <div class="device-placeholder">Add <code>city-of-london-corporation.jpg</code> to <code>assets/projects/</code></div>
+            <img loading="lazy" decoding="async" class="device-img" alt="City of London Corporation preview" src="assets/projects/city-of-london-corporation.jpg" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          </div>
+        </a>
       </div>
       <div class="md:order-2 md:col-span-2" data-reveal>
-        <h2 class="fs-h2 font-display mb-5">ADHD UK</h2>
+        <h2 class="fs-h2 font-display mb-5">City of London Corporation</h2>
         <p class="fs-body text-muted mb-7">
-          A responsive website redesign that made support clearer, more accessible, and easier to navigate for people affected by ADHD.
+          Helping build a career-change course hitting 500+ pre-launch sign-ups, then making the case for a better delivery format.
         </p>
-        <a href="adhd-uk.html" class="project-link">
+        <a href="city-of-london-corporation.html" class="project-link">
           View case study
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 6.75 17.25M17.25 6.75H9M17.25 6.75v8.25" /></svg>
         </a>
@@ -343,7 +383,7 @@
     </article>
 
     <!-- TutorTrust -->
-    <article class="grid md:grid-cols-5 gap-4 md:gap-5 items-center">
+    <article class="grid md:grid-cols-5 gap-8 md:gap-10 items-center">
       <div class="md:col-span-2" data-reveal>
         <h2 class="fs-h2 font-display mb-5">TutorTrust</h2>
         <p class="fs-body text-muted mb-7">
@@ -355,10 +395,34 @@
         </a>
       </div>
       <div class="work-row-media md:col-span-3" data-reveal>
-        <div class="device-screen">
-          <div class="device-placeholder">Add <code>tutortrust.jpg</code> to <code>assets/projects/</code></div>
-          <img class="device-img" alt="TutorTrust preview" src="assets/projects/tutortrust.jpg" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-        </div>
+        <a href="tutortrust.html" aria-label="View TutorTrust case study">
+          <div class="device-screen">
+            <div class="device-placeholder">Add <code>tutortrust.jpg</code> to <code>assets/projects/</code></div>
+            <img loading="lazy" decoding="async" class="device-img" alt="TutorTrust preview" src="assets/projects/tutortrust.jpg" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          </div>
+        </a>
+      </div>
+    </article>
+
+    <!-- ADHD UK -->
+    <article class="grid md:grid-cols-5 gap-8 md:gap-10 items-center">
+      <div class="work-row-media md:order-1 md:col-span-3" data-reveal>
+        <a href="adhd-uk.html" aria-label="View ADHD UK case study">
+          <div class="device-screen">
+            <div class="device-placeholder">Add <code>adhd-uk.jpg</code> to <code>assets/projects/</code></div>
+            <img loading="lazy" decoding="async" class="device-img" alt="ADHD UK preview" src="assets/projects/adhd-uk.jpg" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          </div>
+        </a>
+      </div>
+      <div class="md:order-2 md:col-span-2" data-reveal>
+        <h2 class="fs-h2 font-display mb-5">ADHD UK</h2>
+        <p class="fs-body text-muted mb-7">
+          A responsive website redesign that made support clearer, more accessible, and easier to navigate for people affected by ADHD.
+        </p>
+        <a href="adhd-uk.html" class="project-link">
+          View case study
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 6.75 17.25M17.25 6.75H9M17.25 6.75v8.25" /></svg>
+        </a>
       </div>
     </article>
 
@@ -382,25 +446,26 @@
 <!-- ================= ABOUT ================= -->
 <section id="about" class="py-20 md:py-28">
   <div class="container-page">
-    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center mb-10">
-      <div class="photo-frame" data-reveal>
-        <div class="photo-placeholder">Add your photo as <code>assets/mae-photo.jpg</code></div>
-        <img class="photo-img" alt="Mae Goulden" src="assets/mae-photo.jpg" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+    <div class="grid md:grid-cols-2 md:items-stretch gap-10 md:gap-16 items-center mb-10">
+      <div class="photo-frame-outer" data-reveal>
+        <div class="photo-frame">
+          <div class="photo-placeholder">Add your photo as <code>assets/mae-photo.jpg</code></div>
+          <img loading="lazy" decoding="async" class="photo-img" alt="Mae Goulden" src="assets/mae-photo.jpg" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        </div>
       </div>
 
       <div data-reveal>
+        <p class="font-display mb-4" style="font-size: 32px; font-weight: 500; line-height: 1.25;">
+          Hi, I'm Mae! I love solving problems for people.
+        </p>
         <p class="fs-body text-muted" style="max-width:none;">
-          Hi, I'm Mae! I'm a designer who loves all things <span class="em-word">creative</span> and all things <span class="em-word">sport</span>! Born in Woking, I spent a lot of my youth travelling the country playing academy football. Football led me to some amazing opportunities, such as representing both England at U15s and Greece in the U19s Euros!
+          Born in Woking, I spent a lot of my youth travelling the country playing academy football, going on to represent England at U15s and Greece in the U19s Euros! Football taught me so much; feedback, collaboration, striving to improve and always wanting to learn more - qualities that shaped how I approached my next chapter.
         </p>
         <p class="fs-body text-muted mt-5" style="max-width:none;">
-          Art came along for the ride. There was usually an iPad in my kit bag or a sketchbook on the plane. Football also taught me how to take feedback without taking it personally, which turns out to be most of design. Now I solve complex problems with accessible digital experiences, built around clarity, empathy, and inclusive design.
+          Whilst playing semi-professional football, I started my career in inclusion within education, where I saw first-hand how systems either include people or leave them behind. That's the same thinking I now bring as an Intern at the City of London Corporation and a Product Intern at XALT: understand what people actually need, test assumptions, and adjust based on evidence.
         </p>
       </div>
     </div>
-
-    <p class="fs-body text-muted" style="max-width:none;" data-reveal>
-      Whilst playing semi-professional football, I started my career in inclusion within education. I saw first hand how systems can either include people or leave them behind. Every day was about understanding different needs, removing barriers and adapting my approach when the first one didn't work. Most products don't fail because they look wrong; they fail because they assume everyone arrives with the same confidence, context, and capability. That's the assumption I design against. Combined with my background in graphic design, it's what led me to UX.
-    </p>
   </div>
 </section>
 
@@ -410,53 +475,53 @@
     <div class="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
       <div class="gallery-item" data-reveal>
         <div class="device-placeholder">Add <code>1.jpg</code> to <code>assets/gallery/</code></div>
-        <img src="assets/gallery/1.jpg" alt="Gallery image 1" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-        <div class="gallery-caption">Add a caption</div>
+        <img loading="lazy" decoding="async" src="assets/gallery/1.jpg" alt="My cat Lola" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">My cat Lola</div>
       </div>
       <div class="gallery-item" data-reveal>
         <div class="device-placeholder">Add <code>2.jpg</code> to <code>assets/gallery/</code></div>
-        <img src="assets/gallery/2.jpg" alt="Gallery image 2" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-        <div class="gallery-caption">Add a caption</div>
+        <img loading="lazy" decoding="async" src="assets/gallery/2.jpg" alt="Playing for Greece U19s" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Playing for Greece U19s</div>
       </div>
       <div class="gallery-item" data-reveal>
         <div class="device-placeholder">Add <code>3.jpg</code> to <code>assets/gallery/</code></div>
-        <img src="assets/gallery/3.jpg" alt="Gallery image 3" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-        <div class="gallery-caption">Add a caption</div>
+        <img loading="lazy" decoding="async" src="assets/gallery/3.jpg" alt="Travelling" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Travelling</div>
       </div>
       <div class="gallery-item" data-reveal>
         <div class="device-placeholder">Add <code>4.jpg</code> to <code>assets/gallery/</code></div>
-        <img src="assets/gallery/4.jpg" alt="Gallery image 4" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-        <div class="gallery-caption">Add a caption</div>
+        <img loading="lazy" decoding="async" src="assets/gallery/4.jpg" alt="Padel with my friends" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Padel with my friends</div>
       </div>
       <div class="gallery-item" data-reveal>
         <div class="device-placeholder">Add <code>5.jpg</code> to <code>assets/gallery/</code></div>
-        <img src="assets/gallery/5.jpg" alt="Gallery image 5" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-        <div class="gallery-caption">Add a caption</div>
+        <img loading="lazy" decoding="async" src="assets/gallery/5.jpg" alt="Urban Art" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Urban Art</div>
       </div>
       <div class="gallery-item" data-reveal>
         <div class="device-placeholder">Add <code>6.jpg</code> to <code>assets/gallery/</code></div>
-        <img src="assets/gallery/6.jpg" alt="Gallery image 6" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-        <div class="gallery-caption">Add a caption</div>
+        <img loading="lazy" decoding="async" src="assets/gallery/6.jpg" alt="My fav food sushi" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">My fav food sushi</div>
       </div>
       <div class="gallery-item" data-reveal>
         <div class="device-placeholder">Add <code>7.jpg</code> to <code>assets/gallery/</code></div>
-        <img src="assets/gallery/7.jpg" alt="Gallery image 7" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-        <div class="gallery-caption">Add a caption</div>
+        <img loading="lazy" decoding="async" src="assets/gallery/7.jpg" alt="Feeding a snow leopard" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Feeding a snow leopard</div>
       </div>
       <div class="gallery-item" data-reveal>
         <div class="device-placeholder">Add <code>8.jpg</code> to <code>assets/gallery/</code></div>
-        <img src="assets/gallery/8.jpg" alt="Gallery image 8" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-        <div class="gallery-caption">Add a caption</div>
+        <img loading="lazy" decoding="async" src="assets/gallery/8.jpg" alt="Playing for Portsmouth" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Playing for Portsmouth</div>
       </div>
       <div class="gallery-item" data-reveal>
         <div class="device-placeholder">Add <code>9.jpg</code> to <code>assets/gallery/</code></div>
-        <img src="assets/gallery/9.jpg" alt="Gallery image 9" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-        <div class="gallery-caption">Add a caption</div>
+        <img loading="lazy" decoding="async" src="assets/gallery/9.jpg" alt="My cat Millie" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">My cat Millie</div>
       </div>
       <div class="gallery-item" data-reveal>
         <div class="device-placeholder">Add <code>10.jpg</code> to <code>assets/gallery/</code></div>
-        <img src="assets/gallery/10.jpg" alt="Gallery image 10" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-        <div class="gallery-caption">Add a caption</div>
+        <img loading="lazy" decoding="async" src="assets/gallery/10.jpg" alt="Sketching" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <div class="gallery-caption">Sketching</div>
       </div>
     </div>
   </div>
@@ -500,7 +565,7 @@
       function buildDots() {
         dots = [];
         var area = width * height;
-        var count = Math.round(area / 5200);
+        var count = Math.round(area / 2200);
         for (var i = 0; i < count; i++) {
           dots.push({
             x: Math.random() * width,

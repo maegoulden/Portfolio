@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>TutorTrust Case Study — Mae Goulden</title>
-<meta name="description" content="A mobile app design giving parents confidence through smarter, personalised tutor matching." />
+<meta name="description" content="Designing and prioritising a trust-first tutor-matching app, from research to a tested prototype." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,6 +20,7 @@
   a { color: inherit; text-decoration: none; }
   button { font: inherit; color: inherit; background: none; border: none; padding: 0; cursor: pointer; }
   img, svg { display: block; max-width: 100%; }
+  ul { list-style: none; padding: 0; }
 
   :root {
     --bg: #F4F4F4;
@@ -32,7 +33,10 @@
     --border: #DBDBD7;
     --placeholder-bg: #EAEAE7;
     --placeholder-border: #C7C7C3;
-    --accent: #141414;
+    --accent: #2B7476;
+    --rating-red: #D14343;
+    --rating-amber: #D9A441;
+    --rating-green: #3E9B5C;
   }
 
   * { -webkit-tap-highlight-color: transparent; }
@@ -52,7 +56,7 @@
 
   a:focus-visible, button:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; border-radius: 2px; }
 
-  .container-page { margin-inline: auto; padding-inline: 1.5rem; }
+  .container-page { margin-inline: auto; padding-inline: 1.5rem; max-width: 1400px; }
   @media (min-width: 768px) { .container-page { padding-inline: 140px; } }
 
   .text-muted { color: var(--text-muted); }
@@ -86,6 +90,7 @@
   .cs-eyebrow {
     font-family: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
     font-size: 24px; line-height: 1.2; color: var(--accent); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.02em;
   }
   .cs-title {
     font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -100,40 +105,165 @@
     white-space: nowrap;
   }
   .cs-btn-outline:hover { background: var(--accent); color: #fff; }
-  .cs-meta-box {
-    border: 1px solid var(--border); border-radius: 14px;
-    padding: 1.5rem 2rem; display: grid; grid-template-columns: repeat(3, minmax(7rem, 1fr)); gap: 2rem;
+  .cs-meta-box-item {
+    border: 1px solid var(--border); border-radius: 14px; padding: 20px 24px;
   }
   .cs-meta-label {
     color: var(--accent); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
     font-weight: 700; margin-bottom: 8px;
   }
 
+  /* ---------- Section titles (below eyebrows, throughout the page) ---------- */
+  .cs-section-title {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    color: #1A1A1A; font-size: 40px; line-height: 48px; font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  /* ---------- Problem discovery challenge cards ---------- */
+  .cs-challenge-card { background: #F9F9F9; border-radius: 14px; padding: 32px; }
+  .cs-challenge-title {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    color: #1A1A1A; font-size: 28px; line-height: 40px; font-weight: 500;
+  }
+
   /* ---------- Full-screen prototype image ---------- */
   .cs-full-image {
-    position: relative; width: 100%; min-height: 100vh; min-height: 100svh;
-    background: var(--placeholder-bg); overflow: hidden;
+    position: relative; width: 100%; min-height: 320px;
+    background: var(--placeholder-bg); overflow: hidden; border-radius: 14px;
   }
-  .cs-full-image img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .cs-full-image img { position: relative; z-index: 1; width: 100%; height: auto; display: block; }
   .cs-full-placeholder {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center;
-    padding: 1rem; border: 1.5px dashed var(--placeholder-border);
+    padding: 1rem; border: 1.5px dashed var(--placeholder-border); border-radius: 14px;
     font-size: 0.85rem; color: var(--text-faint); line-height: 1.6;
   }
   .cs-full-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
+
+  /* ---------- Generic image placeholder (reused across sections) ---------- */
+  .cs-image-block { position: relative; background: var(--placeholder-bg); border-radius: 14px; overflow: hidden; min-height: 220px; }
+  .cs-image-block img { position: relative; z-index: 1; width: 100%; height: auto; display: block; }
+  .cs-image-placeholder {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center;
+    padding: 16px; border: 1.5px dashed var(--placeholder-border); border-radius: 14px;
+    font-size: 0.8rem; color: var(--text-faint); line-height: 1.5;
+  }
+  .cs-image-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
+
+  /* ---------- Phone mockup shots ---------- */
+  .cs-phone-shot {
+    width: 100%; display: block; aspect-ratio: 9 / 19; object-fit: cover;
+    border-radius: 14px; box-shadow: 0 16px 32px rgba(20, 20, 20, 0.12);
+    background: var(--placeholder-bg);
+  }
+  .cs-phone-caption { font-size: 0.85rem; font-style: italic; color: var(--text-muted); margin-top: 12px; text-align: center; }
+
+  /* ---------- Before / after ---------- */
+  .cs-compare-label {
+    font-size: 20px; line-height: 30px; font-weight: 400;
+    color: var(--text); margin-bottom: 8px; text-align: center;
+  }
+  .cs-compare-title {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    color: #1A1A1A; font-size: 24px; line-height: 36px; font-weight: 500;
+  }
+
+  /* ---------- Bullet list (reused across sections) ---------- */
+  .cs-bullet-list li { display: flex; align-items: flex-start; gap: 8px; padding-block: 4px; color: var(--text-muted); }
+  .cs-bullet-list li::before {
+    content: ""; width: 8px; height: 8px; border-radius: 999px; background: currentColor;
+    margin-top: 10px; flex-shrink: 0;
+  }
+
+  /* ---------- Solution: alternating video / text rows ---------- */
+  .cs-solution-rows { display: flex; flex-direction: column; gap: 96px; }
+  .cs-solution-row { display: flex; flex-direction: column; gap: 40px; align-items: center; }
+  @media (min-width: 768px) {
+    .cs-solution-row { flex-direction: row; gap: 64px; }
+    .cs-solution-row-reverse { flex-direction: row-reverse; }
+  }
+  .cs-solution-media {
+    position: relative; flex: 1 1 0; width: 100%; min-height: 220px;
+    border-radius: 14px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+    background: var(--placeholder-bg); box-shadow: 0 16px 32px rgba(20, 20, 20, 0.12);
+  }
+  .cs-solution-media video { position: relative; z-index: 1; width: 100%; height: auto; max-height: 100%; display: block; }
+  .cs-solution-media .cs-image-placeholder { border-radius: 14px; }
+  .cs-solution-text { flex: 1 1 0; }
+  @media (min-width: 768px) {
+    .cs-solution-media { flex: 1 1 0; }
+    .cs-solution-text { flex: 2 1 0; }
+  }
+  .cs-solution-title {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    color: #1A1A1A; font-size: 32px; line-height: 1.25; font-weight: 500;
+  }
+
+  /* ---------- Testing: alternating text / before-after rows ---------- */
+  .cs-compare-rows { display: flex; flex-direction: column; gap: 96px; }
+  .cs-compare-row { display: flex; flex-direction: column; gap: 40px; }
+  .cs-compare-row-text { order: 2; }
+  .cs-compare-row-media { order: 1; flex: 1 1 0; display: grid; grid-template-columns: 1fr; gap: 24px; width: 100%; }
+  @media (min-width: 768px) {
+    .cs-compare-row { flex-direction: row; gap: 64px; align-items: center; }
+    .cs-compare-row-reverse { flex-direction: row-reverse; }
+    .cs-compare-row-text { order: initial; flex: 1 1 0; }
+    .cs-compare-row-media { order: initial; grid-template-columns: repeat(2, 1fr); }
+  }
+  .cs-compare-row-title {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    color: #1A1A1A; font-size: 28px; line-height: 40px; font-weight: 500; margin-bottom: 20px;
+  }
+
+  /* ---------- Where It Stands: final prototype grid ---------- */
+  .cs-final-grid { display: grid; grid-template-columns: 1fr; gap: 64px; }
+
+  /* ---------- Quote cards ---------- */
+  .cs-quote-card {
+    background: #F9F9F9; border-radius: 14px; padding: 32px;
+    flex: 1 1 280px; max-width: 320px;
+  }
+  .cs-quote-mark { color: var(--accent); font-size: 64px; line-height: 1; font-family: 'Geist', serif; margin-bottom: 8px; display: block; }
+  .cs-quote-text { font-size: 18px; line-height: 28px; color: var(--text); }
+
+  /* ---------- Comparison table ---------- */
+  .cs-table-wrap { border: 1px solid var(--border); border-radius: 14px; overflow-x: auto; }
+  .cs-table { width: 100%; border-collapse: collapse; min-width: 720px; }
+  .cs-table th, .cs-table td { text-align: left; padding: 18px 24px; font-size: 18px; line-height: 26px; }
+  @media (max-width: 767px) {
+    .cs-table { min-width: 0; table-layout: fixed; }
+    .cs-table th, .cs-table td { padding: 8px 6px; font-size: 12px; line-height: 16px; overflow-wrap: break-word; }
+  }
+  .cs-table thead th {
+    background: #F9F9F9; color: var(--text); font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+  .cs-table tbody td { color: var(--text-muted); border-bottom: 1px solid var(--border); }
+  .cs-table tbody tr:last-child td { border-bottom: none; }
 
   [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
   [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
   @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }
 
+  /* ---------- Section rhythm: 240px top + 240px bottom ---------- */
+  .cs-section-pad { padding-top: 240px; padding-bottom: 240px; }
+  .cs-eyebrow-left { text-align: left; }
+  .cs-eyebrow-gap-64 { margin-bottom: 64px; }
+
   /* ---------- Layout utility classes ---------- */
   .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   .fixed { position: fixed; }
+  .relative { position: relative; }
   .hidden { display: none; }
   .flex { display: flex; }
+  .grid { display: grid; }
   .flex-col { flex-direction: column; }
+  .flex-wrap { flex-wrap: wrap; }
   .items-center { align-items: center; }
+  .items-start { align-items: flex-start; }
   .justify-between { justify-content: space-between; }
+  .justify-center { justify-content: center; }
+  .text-center { text-align: center; }
   .mx-auto { margin-left: auto; margin-right: auto; }
   .inset-x-0 { left: 0; right: 0; }
   .top-0 { top: 0; }
@@ -143,16 +273,19 @@
   .h-16 { height: 4rem; }
   .h-5 { height: 1.25rem; }
   .w-5 { width: 1.25rem; }
+  .gap-3 { gap: 0.75rem; }
   .gap-4 { gap: 1rem; }
   .gap-6 { gap: 1.5rem; }
   .gap-8 { gap: 2rem; }
+  .mb-3 { margin-bottom: 0.75rem; }
   .mb-4 { margin-bottom: 1rem; }
   .mb-6 { margin-bottom: 1.5rem; }
-  .mb-10 { margin-bottom: 2.5rem; }
+  .mb-8 { margin-bottom: 2rem; }
+  .mb-14 { margin-bottom: 3.5rem; }
+  .mb-16 { margin-bottom: 4rem; }
   .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
   .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
   .pt-36 { padding-top: 9rem; }
-  .pb-16 { padding-bottom: 4rem; }
 
   @media (min-width: 640px) {
     .sm\:flex-row { flex-direction: row; }
@@ -161,14 +294,16 @@
 
   @media (min-width: 768px) {
     .md\:flex { display: flex; }
-    .md\:flex-row { flex-direction: row; }
     .md\:hidden { display: none; }
-    .md\:items-start { align-items: flex-start; }
-    .md\:justify-between { justify-content: space-between; }
+    .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .md\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .md\:col-span-4 { grid-column: span 4 / span 4; }
+    .md\:col-span-8 { grid-column: span 8 / span 8; }
     .md\:h-20 { height: 5rem; }
     .md\:gap-8 { gap: 2rem; }
+    .md\:gap-12 { gap: 3rem; }
     .md\:pt-48 { padding-top: 12rem; }
-    .md\:pb-20 { padding-bottom: 5rem; }
   }
 </style>
 </head>
@@ -200,28 +335,31 @@
 </header>
 
 <!-- ================= CASE STUDY HERO ================= -->
-<section class="pt-36 pb-16 md:pt-48 md:pb-20">
+<section class="pt-36 md:pt-48" style="padding-bottom: 56px;">
   <div class="container-page">
-    <p class="cs-eyebrow mb-4" data-reveal>TutorTrust</p>
-    <h1 class="cs-title mb-6" data-reveal>Add your TutorTrust case study title here</h1>
-    <p class="fs-body text-muted mb-10" style="max-width: 62ch;" data-reveal>
-      Add a subtitle here — e.g. results or metrics from the project, the same way the ADHD UK page does.
-    </p>
+    <p class="cs-eyebrow cs-eyebrow-gap-64" data-reveal>TutorTrust</p>
 
-    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-8" data-reveal>
-      <a href="#" class="cs-btn-outline">View prototype</a>
-      <div class="cs-meta-box">
-        <div>
+    <div class="grid md:grid-cols-12 gap-8 md:gap-12 items-start">
+      <div class="md:col-span-8" data-reveal>
+        <h1 class="cs-title mb-6">Designing and Prioritising a Trust-First Tutor-Matching App</h1>
+        <p class="fs-body text-muted mb-8" style="max-width: 62ch;">
+          Trust was the priority. I designed a personalised tutor-matching app around it, end-to-end, from research to a tested prototype, helping parents find, book and track a tutor they can rely on.
+        </p>
+        <a href="https://www.figma.com/proto/Kd25w7tKFLh7Fll78QoJI9/TutorTrust---Google-UX-Course?node-id=1980-17140&t=3XSCRc4Lyx3VPxrn-0&scaling=scale-down&content-scaling=fixed&page-id=996%3A2904&starting-point-node-id=2149%3A6730" target="_blank" rel="noopener" class="cs-btn-outline">View prototype</a>
+      </div>
+
+      <div class="md:col-span-4 flex flex-col gap-4" data-reveal>
+        <div class="cs-meta-box-item">
           <p class="cs-meta-label">Role</p>
-          <p>Add role</p>
+          <p>Product Designer</p>
         </div>
-        <div>
-          <p class="cs-meta-label">Industry</p>
-          <p>Add industry</p>
-        </div>
-        <div>
+        <div class="cs-meta-box-item">
           <p class="cs-meta-label">Duration</p>
-          <p>Add duration</p>
+          <p>3 months</p>
+        </div>
+        <div class="cs-meta-box-item">
+          <p class="cs-meta-label">Validated with</p>
+          <p>6 interview + usability testing participants</p>
         </div>
       </div>
     </div>
@@ -229,10 +367,385 @@
 </section>
 
 <!-- ================= FULL SCREEN PROTOTYPE IMAGE ================= -->
-<section>
-  <div class="cs-full-image">
-    <div class="cs-full-placeholder">Add <code>tutortrust-prototype.jpg</code> to <code>assets/projects/</code></div>
-    <img src="assets/projects/tutortrust-prototype.jpg" alt="TutorTrust prototype" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+<section class="py-10">
+  <div class="container-page">
+    <div class="cs-full-image">
+      <div class="cs-full-placeholder">Add <code>tutortrust-prototype.jpg</code> to <code>assets/projects/</code></div>
+      <img loading="lazy" decoding="async" src="assets/projects/tutortrust-prototype.jpg" alt="TutorTrust prototype" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROBLEM DISCOVERY ================= -->
+<section class="cs-section-pad" style="padding-top: 80px;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>Problem Discovery</p>
+    <h2 class="cs-section-title text-center mx-auto mb-6" data-reveal>
+      Tutoring is an high-stakes process made with low visibility and high uncertainty.
+    </h2>
+    <p class="fs-body text-muted text-center mx-auto mb-16" data-reveal>
+      Through research with parents and tutors, three real but distinct problems emerged.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="cs-challenge-card" data-reveal>
+        <h3 class="cs-challenge-title mb-3">Finding the right fit</h3>
+        <p class="fs-body text-muted">Parents struggle to find tutors who meet their child's individual needs, level and subject requirements.</p>
+      </div>
+      <div class="cs-challenge-card" data-reveal>
+        <h3 class="cs-challenge-title mb-3">Busy schedules</h3>
+        <p class="fs-body text-muted">Parents and tutors struggle to find and manage sessions around work, family, and other commitments.</p>
+      </div>
+      <div class="cs-challenge-card" data-reveal>
+        <h3 class="cs-challenge-title mb-3">Uncertain outcomes</h3>
+        <p class="fs-body text-muted">Parents struggle to find trustworthy tutors who show progress, while tutors struggle to prove their credibility.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RESEARCH ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>Research</p>
+    <h2 class="cs-section-title mb-6" data-reveal>
+      Interviews with 6 participants surfaced one theme louder than the rest: trust
+    </h2>
+    <p class="fs-body text-muted mb-16" data-reveal>
+      The goal was to understand real behaviour and decision-making on existing tutoring platforms, not assumptions. Across the interviews, trust and credibility came up more than any other theme.
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-6">
+      <div class="cs-quote-card" data-reveal>
+        <span class="cs-quote-mark">&ldquo;</span>
+        <p class="cs-quote-text">How can I be sure a tutor will help my child improve</p>
+      </div>
+      <div class="cs-quote-card" data-reveal>
+        <span class="cs-quote-mark">&ldquo;</span>
+        <p class="cs-quote-text">I need an app with easy filtering by subject, experience and availability</p>
+      </div>
+      <div class="cs-quote-card" data-reveal>
+        <span class="cs-quote-mark">&ldquo;</span>
+        <p class="cs-quote-text">Reviews and credentials are so important</p>
+      </div>
+      <div class="cs-quote-card" data-reveal>
+        <span class="cs-quote-mark">&ldquo;</span>
+        <p class="cs-quote-text">I need tutoring to be flexible around my job</p>
+      </div>
+      <div class="cs-quote-card" data-reveal>
+        <span class="cs-quote-mark">&ldquo;</span>
+        <p class="cs-quote-text">If apps are confusing, I just don't use them</p>
+      </div>
+      <div class="cs-quote-card" data-reveal>
+        <span class="cs-quote-mark">&ldquo;</span>
+        <p class="cs-quote-text">I need an app that showcases my credentials clearly</p>
+      </div>
+      <div class="cs-quote-card" data-reveal>
+        <span class="cs-quote-mark">&ldquo;</span>
+        <p class="cs-quote-text">I need a trustworthy tutor without spending ages searching</p>
+      </div>
+      <div class="cs-quote-card" data-reveal>
+        <span class="cs-quote-mark">&ldquo;</span>
+        <p class="cs-quote-text">Parents rarely choose me over someone more experienced</p>
+      </div>
+      <div class="cs-quote-card" data-reveal>
+        <span class="cs-quote-mark">&ldquo;</span>
+        <p class="cs-quote-text">Getting the right tutor is very important</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRIORITISATION ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>Prioritisation</p>
+    <h2 class="cs-section-title mb-6" data-reveal>
+      Trust wasn't just the loudest theme, it was the one that broke the platform if it failed.
+    </h2>
+    <p class="fs-body text-muted mb-16" data-reveal>
+      I weighed the three problems against how often they came up in research and how much design effort each would need to solve properly within a 3-month solo scope.
+    </p>
+
+    <div class="cs-table-wrap mb-16" data-reveal>
+      <table class="cs-table">
+        <thead>
+          <tr>
+            <th>Problem</th>
+            <th>How often it surfaced</th>
+            <th>Design effort required</th>
+            <th>Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Uncertain outcomes / trust</td>
+            <td>Highest. The majority of interview quotes</td>
+            <td>Lower. Mostly content, profile structure and visual trust cues</td>
+            <td>First</td>
+          </tr>
+          <tr>
+            <td>Finding the right fit</td>
+            <td>High</td>
+            <td>Medium. Matching logic, filtering and questionnaire flow</td>
+            <td>Second</td>
+          </tr>
+          <tr>
+            <td>Busy schedules</td>
+            <td>Moderate</td>
+            <td>Higher. Calendar sync and scheduling logic, harder to design well end-to-end</td>
+            <td>Third, scoped down</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="fs-body text-muted" data-reveal>
+      Trust took priority because it wasn't a convenience problem, parents said outright they'd rather search longer than risk an untrustworthy tutor. Scheduling was real, but participants described it as an annoyance, not a dealbreaker, so I scoped it down to a "calendar auto-sync" surface rather than designing full scheduling logic.
+    </p>
+  </div>
+</section>
+
+<!-- ================= THE SOLUTION ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>The Solution</p>
+    <h2 class="cs-section-title mb-14" data-reveal>
+      Every feature earned its place by solving the problem it was ranked against.
+    </h2>
+
+    <div class="cs-table-wrap mb-16" data-reveal>
+      <table class="cs-table">
+        <thead>
+          <tr>
+            <th>Priority</th>
+            <th>Problem</th>
+            <th>What shipped in the prototype</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1st</td>
+            <td>Trust</td>
+            <td>Profile trust signals, intro video, a "parents say" credibility section</td>
+          </tr>
+          <tr>
+            <td>2nd</td>
+            <td>Fit</td>
+            <td>An optional matching questionnaire: optional by design, to avoid adding friction before trust was established</td>
+          </tr>
+          <tr>
+            <td>2nd</td>
+            <td>Outcomes</td>
+            <td>Progress tracking: quick post-lesson questions from tutors, surfaced as reports parents could see</td>
+          </tr>
+          <tr>
+            <td>3rd (scoped down)</td>
+            <td>Schedules</td>
+            <td>Calendar auto-sync as a supporting feature, not a full booking system</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cs-solution-rows mb-14">
+      <div class="cs-solution-row" data-reveal>
+        <div class="cs-solution-media">
+          <div class="cs-image-placeholder">Add <code>tutortrust-solution-questionnaire.mp4</code></div>
+          <video preload="metadata" src="assets/projects/tutortrust-solution-questionnaire.mp4" muted loop autoplay playsinline onloadeddata="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'"></video>
+        </div>
+        <div class="cs-solution-text">
+          <p class="cs-eyebrow mb-3">Finding the perfect tutor</p>
+          <h3 class="cs-solution-title mb-6">Optional matching questionnaire to find a tutor that meets your needs.</h3>
+          <ul class="cs-bullet-list">
+            <li class="fs-body">Captures key learning needs to match students with the most suitable tutors.</li>
+            <li class="fs-body">Step by step, simple approach.</li>
+            <li class="fs-body">Saves time and stress with calendar sync.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cs-solution-row cs-solution-row-reverse" data-reveal>
+        <div class="cs-solution-media">
+          <div class="cs-image-placeholder">Add <code>tutortrust-solution-trust.mp4</code></div>
+          <video preload="metadata" src="assets/projects/tutortrust-solution-trust.mp4" muted loop autoplay playsinline onloadeddata="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'"></video>
+        </div>
+        <div class="cs-solution-text">
+          <p class="cs-eyebrow mb-3">Prioritising trust</p>
+          <h3 class="cs-solution-title mb-6">Clear profile trust signals to help parents feel more confident.</h3>
+          <ul class="cs-bullet-list">
+            <li class="fs-body">Clear trust signals on the profile reassure parents and build confidence in tutor quality.</li>
+            <li class="fs-body">They allow tutors to showcase credibility.</li>
+            <li class="fs-body">Intro video to understand the tutor's personality and teaching style.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cs-solution-row" data-reveal>
+        <div class="cs-solution-media">
+          <div class="cs-image-placeholder">Add <code>tutortrust-solution-progress.mp4</code></div>
+          <video preload="metadata" src="assets/projects/tutortrust-solution-progress.mp4" muted loop autoplay playsinline onloadeddata="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'"></video>
+        </div>
+        <div class="cs-solution-text">
+          <p class="cs-eyebrow mb-3">Removing uncertainty</p>
+          <h3 class="cs-solution-title mb-6">Progress tracking section to see evidence based impact.</h3>
+          <ul class="cs-bullet-list">
+            <li class="fs-body">Provides overall progress and individual lesson reports to build confidence in outcomes and effectiveness.</li>
+            <li class="fs-body">Visible homework, results and learning goals so parents and tutors stay aligned.</li>
+            <li class="fs-body">Generated by quick questions tutor fills out after each lesson.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p class="fs-body text-muted" data-reveal>
+      Making the matching questionnaire optional was a deliberate trade-off: forcing it upfront would have added a barrier before a parent had any reason to trust the platform yet, the same sequencing logic that shaped the priority order above.
+    </p>
+  </div>
+</section>
+
+<!-- ================= TESTING THE HYPOTHESIS ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>Testing The Hypothesis</p>
+    <h2 class="cs-section-title mb-6" data-reveal>
+      Usability testing didn't just polish the UI, it corrected a wrong assumption about how the app would be used.
+    </h2>
+    <p class="fs-body text-muted mb-16" data-reveal>
+      I'd designed the homepage around search, assuming that's how parents would use the app most. Testing with 6 participants showed that assumption was wrong: search was a one-off action, not a recurring one, and the search-led homepage was adding friction to ongoing use.
+    </p>
+
+    <div class="cs-table-wrap mb-16" data-reveal>
+      <table class="cs-table">
+        <thead>
+          <tr>
+            <th>Assumption</th>
+            <th>What testing showed</th>
+            <th>Change made</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Parents search often, homepage should be search-first</td>
+            <td>Search happens once, then rarely again</td>
+            <td>Rebuilt homepage as a dashboard; moved search to its own page</td>
+          </tr>
+          <tr>
+            <td>More filter options on the search bar helps</td>
+            <td>Extra options cluttered the bar and buried the filter itself</td>
+            <td>Removed subject quick-actions; made the filter button bigger and clearer</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cs-compare-rows mb-14">
+      <div class="cs-compare-row" data-reveal>
+        <div class="cs-compare-row-text">
+          <h3 class="cs-compare-row-title">1. Improving Navigation and Information Structure</h3>
+          <ul class="cs-bullet-list">
+            <li class="fs-body">The homepage was redesigned into a dashboard, moving away from search-led use as search is typically a one-off action, with a separate search page introduced.</li>
+            <li class="fs-body">The navigation was simplified to better support ongoing app use and improve clarity.</li>
+          </ul>
+        </div>
+        <div class="cs-compare-row-media">
+          <div>
+            <p class="cs-compare-label">Before</p>
+            <div class="cs-image-block cs-image-compare">
+              <div class="cs-image-placeholder">Add <code>tutortrust-homepage-before.jpg</code></div>
+              <img loading="lazy" decoding="async" src="assets/projects/tutortrust-homepage-before.jpg" alt="Homepage before: search-first layout" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            </div>
+          </div>
+          <div>
+            <p class="cs-compare-label">After</p>
+            <div class="cs-image-block cs-image-compare">
+              <div class="cs-image-placeholder">Add <code>tutortrust-homepage-after.jpg</code></div>
+              <img loading="lazy" decoding="async" src="assets/projects/tutortrust-homepage-after.jpg" alt="Homepage after: dashboard layout" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-compare-row cs-compare-row-reverse" data-reveal>
+        <div class="cs-compare-row-text">
+          <h3 class="cs-compare-row-title">2. Enhancing Search Bar Usability</h3>
+          <ul class="cs-bullet-list">
+            <li class="fs-body">The search bar was simplified to reduce clutter as users were missing key filter functionality.</li>
+            <li class="fs-body">Subject quick actions were removed to create a cleaner and more focused design.</li>
+            <li class="fs-body">The filter button was made larger, improving discoverability and encouraging use.</li>
+          </ul>
+        </div>
+        <div class="cs-compare-row-media">
+          <div>
+            <p class="cs-compare-label">Before</p>
+            <div class="cs-image-block cs-image-compare">
+              <div class="cs-image-placeholder">Add <code>tutortrust-search-before.jpg</code></div>
+              <img loading="lazy" decoding="async" src="assets/projects/tutortrust-search-before.jpg" alt="Search bar before: cluttered with quick-actions" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            </div>
+          </div>
+          <div>
+            <p class="cs-compare-label">After</p>
+            <div class="cs-image-block cs-image-compare">
+              <div class="cs-image-placeholder">Add <code>tutortrust-search-after.jpg</code></div>
+              <img loading="lazy" decoding="async" src="assets/projects/tutortrust-search-after.jpg" alt="Search bar after: simplified with a clearer filter button" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="fs-body text-muted" data-reveal>
+      Both changes came from watching where real usage diverged from my original assumption — not from a general design review.
+    </p>
+  </div>
+</section>
+
+<!-- ================= WHERE IT STANDS ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>Where It Stands</p>
+    <h2 class="cs-section-title mb-6" data-reveal>
+      The prototype validates the priority order: trust-first, fit second, scheduling scoped down.
+    </h2>
+    <p class="fs-body text-muted mb-16" data-reveal>
+      TutorTrust exists as a tested, high-fidelity prototype, not a live product. If it were built further, the metric that would actually test the prioritisation call isn't engagement with any single feature, it's whether parents who view trust signals convert to booking a tutor faster than those who don't, since that's the exact bet the priority order was built on.
+    </p>
+
+    <div class="cs-final-grid">
+      <div class="cs-image-block cs-final-tile" data-reveal>
+        <div class="cs-image-placeholder">Add <code>tutortrust-final-1.png</code></div>
+        <img loading="lazy" decoding="async" src="assets/projects/tutortrust-final-1.png" alt="TutorTrust final prototype screen 1" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      </div>
+      <div class="cs-image-block cs-final-tile" data-reveal>
+        <div class="cs-image-placeholder">Add <code>tutortrust-final-2.png</code></div>
+        <img loading="lazy" decoding="async" src="assets/projects/tutortrust-final-2.png" alt="TutorTrust final prototype screen 2" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      </div>
+      <div class="cs-image-block cs-final-tile" data-reveal>
+        <div class="cs-image-placeholder">Add <code>tutortrust-final-3.png</code></div>
+        <img loading="lazy" decoding="async" src="assets/projects/tutortrust-final-3.png" alt="TutorTrust final prototype screen 3" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      </div>
+      <div class="cs-image-block cs-final-tile" data-reveal>
+        <div class="cs-image-placeholder">Add <code>tutortrust-final-4.png</code></div>
+        <img loading="lazy" decoding="async" src="assets/projects/tutortrust-final-4.png" alt="TutorTrust final prototype screen 4" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      </div>
+      <div class="cs-image-block cs-final-tile" data-reveal>
+        <div class="cs-image-placeholder">Add <code>tutortrust-final-5.png</code></div>
+        <img loading="lazy" decoding="async" src="assets/projects/tutortrust-final-5.png" alt="TutorTrust final prototype screen 5" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REFLECTION ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>Reflection</p>
+    <h2 class="cs-section-title mb-6" data-reveal>
+      The hardest part wasn't designing the features, it was choosing which ones deserved to exist yet.
+    </h2>
+    <p class="fs-body text-muted" data-reveal>
+      Every one of the three problems was real, and I could have built a shallow version of all three. Instead, I ranked them against what the research actually said mattered most, and let that ranking decide what got full attention, what got scoped down, and what got left optional. That's the muscle I want to keep using in a product role, not just solving the problems in front of me, but deciding which ones are worth solving first.
+    </p>
   </div>
 </section>
 

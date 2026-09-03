@@ -56,7 +56,7 @@
 
   a:focus-visible, button:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; border-radius: 2px; }
 
-  .container-page { margin-inline: auto; padding-inline: 1.5rem; }
+  .container-page { margin-inline: auto; padding-inline: 1.5rem; max-width: 1400px; }
   @media (min-width: 768px) { .container-page { padding-inline: 140px; } }
 
   .text-muted { color: var(--text-muted); }
@@ -143,31 +143,45 @@
 
   /* ---------- Full-screen prototype image ---------- */
   .cs-full-image {
-    position: relative; width: 100%; min-height: 100vh; min-height: 100svh;
-    background: var(--placeholder-bg); overflow: hidden;
+    position: relative; width: 100%; min-height: 320px;
+    background: var(--placeholder-bg); overflow: hidden; border-radius: 14px;
   }
-  .cs-full-image img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .cs-full-image img { position: relative; z-index: 1; width: 100%; height: auto; display: block; }
   .cs-full-placeholder {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center;
-    padding: 1rem; border: 1.5px dashed var(--placeholder-border);
+    padding: 1rem; border: 1.5px dashed var(--placeholder-border); border-radius: 14px;
     font-size: 0.85rem; color: var(--text-faint); line-height: 1.6;
   }
   .cs-full-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
 
   /* ---------- Generic image placeholder (reused across sections) ---------- */
-  .cs-image-block { position: relative; background: var(--placeholder-bg); border-radius: 14px; overflow: hidden; }
-  .cs-image-block img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cs-image-block { position: relative; background: var(--placeholder-bg); border-radius: 14px; overflow: hidden; min-height: 220px; }
+  .cs-image-block img, .cs-image-block video { position: relative; z-index: 1; width: 100%; height: auto; display: block; }
   .cs-image-placeholder {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center;
     padding: 16px; border: 1.5px dashed var(--placeholder-border); border-radius: 14px;
     font-size: 0.8rem; color: var(--text-faint); line-height: 1.5;
   }
   .cs-image-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
-  .cs-image-wide { aspect-ratio: 16 / 8; }
-  .cs-image-sub { aspect-ratio: 16 / 10; }
-  .cs-image-square { aspect-ratio: 1 / 1; }
-  .cs-image-compare { aspect-ratio: 16 / 11; }
-  .cs-image-chart { aspect-ratio: 1 / 1; }
+
+  /* ---------- Clean persona card ---------- */
+  .cs-persona-card { display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 440px; margin-inline: auto; }
+  .cs-persona-photo {
+    position: relative; width: 148px; height: 148px; border-radius: 999px; overflow: hidden;
+    background: var(--placeholder-bg); flex-shrink: 0; margin-bottom: 20px;
+  }
+  .cs-persona-photo img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cs-persona-photo .cs-image-placeholder { border-radius: 999px; padding: 8px; font-size: 0.68rem; min-height: 0; }
+  .cs-persona-name {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 28px; font-weight: 500; color: #1A1A1A; margin-bottom: 12px;
+  }
+  .cs-persona-quote { font-style: italic; font-size: 20px; line-height: 30px; color: var(--text); margin-bottom: 24px; }
+  .cs-persona-goals-label {
+    color: var(--accent); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
+    font-weight: 700; margin-bottom: 12px; text-align: left; width: 100%;
+  }
+  .cs-persona-goals { text-align: left; width: 100%; }
 
   [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
   [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
@@ -249,6 +263,7 @@
   .mb-6 { margin-bottom: 1.5rem; }
   .mb-8 { margin-bottom: 2rem; }
   .mb-14 { margin-bottom: 3.5rem; }
+  .mb-16 { margin-bottom: 4rem; }
   .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
   .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
   .pt-36 { padding-top: 9rem; }
@@ -311,7 +326,7 @@
 </header>
 
 <!-- ================= CASE STUDY HERO ================= -->
-<section class="pt-36 md:pt-48" style="padding-bottom: 240px;">
+<section class="pt-36 md:pt-48" style="padding-bottom: 56px;">
   <div class="container-page">
     <p class="cs-eyebrow cs-eyebrow-gap-64" data-reveal>ADHD UK</p>
 
@@ -321,7 +336,7 @@
         <p class="fs-body text-muted mb-8" style="max-width: 62ch;">
           A responsive website redesign that improved readability from 3.2/10 to 9.8/10 and navigation clarity from 2.5/10 to 8.4/10
         </p>
-        <a href="#" class="cs-btn-outline">View prototype</a>
+        <a href="https://www.figma.com/proto/yFwRGnJug6yO6xmAwHhNHF/ADHDUK-Website-Redesign?node-id=193-19520&t=HgGEarR0NbsfrXg2-1&scaling=min-zoom&content-scaling=fixed&page-id=69%3A6&starting-point-node-id=193%3A19520" target="_blank" rel="noopener" class="cs-btn-outline">View prototype</a>
       </div>
 
       <div class="md:col-span-4 flex flex-col gap-4" data-reveal>
@@ -343,15 +358,17 @@
 </section>
 
 <!-- ================= FULL SCREEN PROTOTYPE IMAGE ================= -->
-<section>
-  <div class="cs-full-image">
-    <div class="cs-full-placeholder">Add <code>adhd-uk-prototype.jpg</code> to <code>assets/projects/</code></div>
-    <img src="assets/projects/adhd-uk-prototype.jpg" alt="ADHD UK prototype" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+<section class="py-10">
+  <div class="container-page">
+    <div class="cs-full-image">
+      <div class="cs-full-placeholder">Add <code>adhd-uk-prototype.jpg</code> to <code>assets/projects/</code></div>
+      <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-prototype.jpg" alt="ADHD UK prototype" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+    </div>
   </div>
 </section>
 
 <!-- ================= HOOK ================= -->
-<section class="cs-section-pad">
+<section class="cs-section-pad" style="padding-top: 56px;">
   <div class="container-page">
     <p class="cs-hook-text text-center mx-auto" style="max-width: 900px;" data-reveal>
       I was sat at my desk, trying to find information on ADHD in schools. Fifteen minutes and eleven tabs later, I closed the site and found what I needed somewhere else. I have ADHD. So did the students I was looking this up for. So did most of the people that site was written for. It had defeated all of us.
@@ -366,7 +383,7 @@
     <h2 class="cs-section-title text-center mx-auto mb-6" data-reveal>
       People came to ADHD UK for support, but the experience made it difficult to find it.
     </h2>
-    <p class="fs-body text-muted text-center mx-auto mb-14" data-reveal>
+    <p class="fs-body text-muted text-center mx-auto mb-16" data-reveal>
       Through desk research, user interviews, and usability testing, three key usability challenges emerged.
     </p>
 
@@ -431,13 +448,13 @@
     <h2 class="cs-section-title mb-6" data-reveal>
       Competitive audit uncovered opportunities to create a clearer and more accessible experience.
     </h2>
-    <p class="fs-body text-muted mb-14" data-reveal>
+    <p class="fs-body text-muted mb-16" data-reveal>
       I benchmarked direct and comparable non-profit websites against the existing ADHD UK website to identify strengths, weaknesses and opportunities for improvement.
     </p>
 
     <div class="cs-image-block cs-image-wide" data-reveal>
       <div class="cs-image-placeholder">Add <code>adhd-uk-competitive-audit.jpg</code> to <code>assets/projects/</code></div>
-      <img src="assets/projects/adhd-uk-competitive-audit.jpg" alt="Competitive audit comparison" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-competitive-audit.jpg" alt="Competitive audit comparison" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
     </div>
   </div>
 </section>
@@ -449,7 +466,7 @@
     <h2 class="cs-section-title mb-6" data-reveal>
       Interviews and surveys validated the usability challenges within the existing ADHD UK website.
     </h2>
-    <p class="fs-body text-muted mb-14" data-reveal>
+    <p class="fs-body text-muted mb-16" data-reveal>
       Surveys identified recurring patterns across a wider audience, while task-based interviews provided deeper insight into where users struggled to navigate, read and access information.
     </p>
 
@@ -516,28 +533,13 @@
     <h2 class="cs-section-title mb-6" data-reveal>
       Transforming research into actionable insights with AI-Assisted affinity mapping
     </h2>
-    <p class="fs-body text-muted mb-14" data-reveal>
+    <p class="fs-body text-muted mb-16" data-reveal>
       Survey responses and interview observations were grouped into themes to identify recurring behaviours, pain points and opportunities for improvement.
     </p>
 
     <div class="cs-image-block cs-image-wide" data-reveal>
       <div class="cs-image-placeholder">Add <code>adhd-uk-synthesis.jpg</code> to <code>assets/projects/</code></div>
-      <img src="assets/projects/adhd-uk-synthesis.jpg" alt="Affinity mapping of research findings" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-    </div>
-  </div>
-</section>
-
-<!-- ================= USER PERSONAS ================= -->
-<section class="cs-section-pad" style="padding-top: 0;">
-  <div class="container-page">
-    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>User Personas</p>
-    <h2 class="cs-section-title mb-14" data-reveal>
-      Consolidating the key insights into a primary user persona
-    </h2>
-
-    <div class="cs-image-block cs-image-wide" data-reveal>
-      <div class="cs-image-placeholder">Add <code>adhd-uk-persona-roman.jpg</code> to <code>assets/projects/</code></div>
-      <img src="assets/projects/adhd-uk-persona-roman.jpg" alt="Roman, primary user persona" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-synthesis.jpg" alt="Affinity mapping of research findings" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
     </div>
   </div>
 </section>
@@ -549,13 +551,13 @@
     <h2 class="cs-section-title mb-6" data-reveal>
       Ideal solutions were generated through multiple techniques
     </h2>
-    <p class="fs-body text-muted mb-14" data-reveal>
+    <p class="fs-body text-muted mb-16" data-reveal>
       To facilitate my ideate phase, I used the persona's journey, crazy eights and site maps.
     </p>
 
     <div class="cs-image-block cs-image-wide" data-reveal>
       <div class="cs-image-placeholder">Add <code>adhd-uk-solutions.jpg</code> to <code>assets/projects/</code></div>
-      <img src="assets/projects/adhd-uk-solutions.jpg" alt="Ideation: persona journey, crazy eights and site maps" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-solutions.jpg" alt="Ideation: persona journey, crazy eights and site maps" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
     </div>
   </div>
 </section>
@@ -567,13 +569,13 @@
     <h2 class="cs-section-title mb-6" data-reveal>
       Restructuring the navigation established clearer routes to support.
     </h2>
-    <p class="fs-body text-muted mb-14" data-reveal>
+    <p class="fs-body text-muted mb-16" data-reveal>
       I mapped the existing navigation to identify duplicate content, overlapping categories and multiple points of entry. Using card sorting, I reorganised information into clearer user-focused categories before creating an updated sitemap that reduced complexity and improved discoverability.
     </p>
 
     <div class="cs-image-block cs-image-wide" data-reveal>
       <div class="cs-image-placeholder">Add <code>adhd-uk-ia.jpg</code> to <code>assets/projects/</code></div>
-      <img src="assets/projects/adhd-uk-ia.jpg" alt="Updated sitemap and information architecture" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-ia.jpg" alt="Updated sitemap and information architecture" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
     </div>
   </div>
 </section>
@@ -593,7 +595,7 @@
       </p>
       <div class="cs-image-block cs-image-sub">
         <div class="cs-image-placeholder">Add <code>adhd-uk-wireframes.jpg</code> to <code>assets/projects/</code></div>
-        <img src="assets/projects/adhd-uk-wireframes.jpg" alt="Paper wireframe sketches" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-wireframes.jpg" alt="Paper wireframe sketches" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
       </div>
     </div>
 
@@ -604,7 +606,7 @@
       </p>
       <div class="cs-image-block cs-image-sub">
         <div class="cs-image-placeholder">Add <code>adhd-uk-lofi.jpg</code> to <code>assets/projects/</code></div>
-        <img src="assets/projects/adhd-uk-lofi.jpg" alt="Low-fidelity prototype screens" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-lofi.jpg" alt="Low-fidelity prototype screens" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
       </div>
     </div>
   </div>
@@ -617,7 +619,7 @@
     <h2 class="cs-section-title mb-6" data-reveal>
       A calmer visual identity better reflected ADHD UK's supportive mission.
     </h2>
-    <p class="fs-body text-muted mb-14" data-reveal>
+    <p class="fs-body text-muted mb-16" data-reveal>
       The existing logo was retained to preserve brand recognition, while a calmer colour palette improved accessibility and created a more welcoming user experience.
     </p>
 
@@ -663,51 +665,51 @@
 <!-- ================= BEFORE / AFTER: NAVIGATION ================= -->
 <section class="cs-section-pad" style="padding-top: 0;">
   <div class="container-page">
-    <div class="grid md:grid-cols-5 gap-16 items-center mb-14" data-reveal>
-      <div class="md:col-span-3">
+    <div class="grid md:grid-cols-2 gap-16 items-center mb-14" data-reveal>
+      <div>
         <h3 class="cs-compare-title mb-6">1. Clarified Navigation labels</h3>
         <ul class="cs-bullet-list">
           <li class="fs-body">Users mistook "About" for information about ADHD rather than the organisation</li>
           <li class="fs-body">Renaming it to "About Us" clarified the navigation and improved usability</li>
         </ul>
       </div>
-      <div class="md:col-span-2 flex flex-col gap-6">
+      <div class="flex flex-col gap-6">
         <div>
           <p class="cs-compare-label">Before</p>
           <div class="cs-image-block cs-image-compare">
             <div class="cs-image-placeholder">Add <code>adhd-uk-nav-before.jpg</code></div>
-            <img src="assets/projects/adhd-uk-nav-before.jpg" alt="Navigation before: About" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-nav-before.jpg" alt="Navigation before: About" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
           </div>
         </div>
         <div>
           <p class="cs-compare-label">After</p>
           <div class="cs-image-block cs-image-compare">
             <div class="cs-image-placeholder">Add <code>adhd-uk-nav-after.jpg</code></div>
-            <img src="assets/projects/adhd-uk-nav-after.jpg" alt="Navigation after: About Us" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-nav-after.jpg" alt="Navigation after: About Us" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
           </div>
         </div>
       </div>
     </div>
 
     <!-- ================= BEFORE / AFTER: BREADCRUMBS ================= -->
-    <div class="grid md:grid-cols-5 gap-16 items-center" data-reveal>
-      <div class="md:order-1 md:col-span-2 flex flex-col gap-6">
+    <div class="grid md:grid-cols-2 gap-16 items-center" data-reveal>
+      <div class="md:order-1 flex flex-col gap-6">
         <div>
           <p class="cs-compare-label">Before</p>
           <div class="cs-image-block cs-image-compare">
             <div class="cs-image-placeholder">Add <code>adhd-uk-breadcrumbs-before.jpg</code></div>
-            <img src="assets/projects/adhd-uk-breadcrumbs-before.jpg" alt="Breadcrumbs before" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-breadcrumbs-before.jpg" alt="Breadcrumbs before" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
           </div>
         </div>
         <div>
           <p class="cs-compare-label">After</p>
           <div class="cs-image-block cs-image-compare">
             <div class="cs-image-placeholder">Add <code>adhd-uk-breadcrumbs-after.jpg</code></div>
-            <img src="assets/projects/adhd-uk-breadcrumbs-after.jpg" alt="Breadcrumbs after" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-breadcrumbs-after.jpg" alt="Breadcrumbs after" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
           </div>
         </div>
       </div>
-      <div class="md:order-2 md:col-span-3">
+      <div class="md:order-2">
         <h3 class="cs-compare-title mb-6">2. Added Breadcrumbs</h3>
         <ul class="cs-bullet-list">
           <li class="fs-body">Some content-heavy pages made it difficult to understand where users were within the site.</li>
@@ -727,8 +729,8 @@
       A clearer, ADHD-friendly website with a simpler, more accessible experience.
     </h2>
 
-    <div class="grid md:grid-cols-5 gap-16 items-center mb-14" data-reveal>
-      <div class="md:col-span-3">
+    <div class="grid md:grid-cols-2 gap-16 items-center mb-14" data-reveal>
+      <div>
         <p class="cs-eyebrow cs-eyebrow-uncapped cs-eyebrow-gap-64">Clearer Navigation</p>
         <h3 class="cs-compare-title mb-6">Guided navigation helps users clearly find information and support</h3>
         <ul class="cs-bullet-list">
@@ -737,42 +739,42 @@
           <li class="fs-body">Reduced options to help users reach information faster.</li>
         </ul>
       </div>
-      <div class="md:col-span-2 flex flex-col gap-6">
+      <div class="flex flex-col gap-6">
         <div>
           <p class="cs-compare-label">Before</p>
           <div class="cs-image-block cs-image-compare">
             <div class="cs-image-placeholder">Add <code>adhd-uk-solution-navigation-before.jpg</code></div>
-            <img src="assets/projects/adhd-uk-solution-navigation-before.jpg" alt="Navigation solution: before" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-solution-navigation-before.jpg" alt="Navigation solution: before" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
           </div>
         </div>
         <div>
           <p class="cs-compare-label">After</p>
           <div class="cs-image-block cs-image-compare">
             <div class="cs-image-placeholder">Add <code>adhd-uk-solution-navigation-after.jpg</code></div>
-            <img src="assets/projects/adhd-uk-solution-navigation-after.jpg" alt="Navigation solution: after" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-solution-navigation-after.jpg" alt="Navigation solution: after" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
           </div>
         </div>
       </div>
     </div>
 
-    <div class="grid md:grid-cols-5 gap-16 items-center mb-14" data-reveal>
-      <div class="md:order-1 md:col-span-2 flex flex-col gap-6">
+    <div class="grid md:grid-cols-2 gap-16 items-center mb-14" data-reveal>
+      <div class="md:order-1 flex flex-col gap-6">
         <div>
           <p class="cs-compare-label">Before</p>
           <div class="cs-image-block cs-image-compare">
             <div class="cs-image-placeholder">Add <code>adhd-uk-solution-content-before.jpg</code></div>
-            <img src="assets/projects/adhd-uk-solution-content-before.jpg" alt="Structured content solution: before" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-solution-content-before.jpg" alt="Structured content solution: before" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
           </div>
         </div>
         <div>
           <p class="cs-compare-label">After</p>
           <div class="cs-image-block cs-image-compare">
             <div class="cs-image-placeholder">Add <code>adhd-uk-solution-content-after.jpg</code></div>
-            <img src="assets/projects/adhd-uk-solution-content-after.jpg" alt="Structured content solution: after" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-solution-content-after.jpg" alt="Structured content solution: after" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
           </div>
         </div>
       </div>
-      <div class="md:order-2 md:col-span-3">
+      <div class="md:order-2">
         <p class="cs-eyebrow cs-eyebrow-uncapped cs-eyebrow-gap-64">Structured Content</p>
         <h3 class="cs-compare-title mb-6">Well-structured content makes complex information easier to understand.</h3>
         <ul class="cs-bullet-list">
@@ -782,8 +784,8 @@
       </div>
     </div>
 
-    <div class="grid md:grid-cols-5 gap-16 items-center" data-reveal>
-      <div class="md:col-span-3">
+    <div class="grid md:grid-cols-2 gap-16 items-center" data-reveal>
+      <div>
         <p class="cs-eyebrow cs-eyebrow-uncapped cs-eyebrow-gap-64">Easier Access to Support</p>
         <h3 class="cs-compare-title mb-6">A redesigned homepage guides users to the information they need faster.</h3>
         <ul class="cs-bullet-list">
@@ -792,19 +794,19 @@
           <li class="fs-body">Guides users to relevant support based on their individual needs.</li>
         </ul>
       </div>
-      <div class="md:col-span-2 flex flex-col gap-6">
+      <div class="flex flex-col gap-6">
         <div>
           <p class="cs-compare-label">Before</p>
           <div class="cs-image-block cs-image-compare">
             <div class="cs-image-placeholder">Add <code>adhd-uk-solution-support-before.jpg</code></div>
-            <img src="assets/projects/adhd-uk-solution-support-before.jpg" alt="Access to support solution: before" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-solution-support-before.jpg" alt="Access to support solution: before" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
           </div>
         </div>
         <div>
           <p class="cs-compare-label">After</p>
           <div class="cs-image-block cs-image-compare">
-            <div class="cs-image-placeholder">Add <code>adhd-uk-solution-support-after.jpg</code></div>
-            <img src="assets/projects/adhd-uk-solution-support-after.jpg" alt="Access to support solution: after" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            <div class="cs-image-placeholder">Add <code>adhd-uk-solution-support-after.mp4</code></div>
+            <video preload="metadata" src="assets/projects/adhd-uk-solution-support-after.mp4" muted loop autoplay playsinline onloadeddata="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'"></video>
           </div>
         </div>
       </div>
@@ -819,47 +821,36 @@
 
     <div class="cs-image-block cs-image-wide mb-6" data-reveal>
       <div class="cs-image-placeholder">Add <code>adhd-uk-final-1.jpg</code> to <code>assets/projects/</code></div>
-      <img src="assets/projects/adhd-uk-final-1.jpg" alt="Final product screen 1" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-final-1.jpg" alt="Final product screen 1" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
     </div>
 
     <div class="grid md:grid-cols-2 gap-6 mb-6">
       <div class="cs-image-block cs-image-sub" data-reveal>
         <div class="cs-image-placeholder">Add <code>adhd-uk-final-2.jpg</code></div>
-        <img src="assets/projects/adhd-uk-final-2.jpg" alt="Final product screen 2" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-final-2.jpg" alt="Final product screen 2" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
       </div>
       <div class="cs-image-block cs-image-sub" data-reveal>
         <div class="cs-image-placeholder">Add <code>adhd-uk-final-3.jpg</code></div>
-        <img src="assets/projects/adhd-uk-final-3.jpg" alt="Final product screen 3" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-      </div>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-6 mb-6">
-      <div class="cs-image-block cs-image-sub" data-reveal>
-        <div class="cs-image-placeholder">Add <code>adhd-uk-final-4.jpg</code></div>
-        <img src="assets/projects/adhd-uk-final-4.jpg" alt="Final product screen 4" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-      </div>
-      <div class="cs-image-block cs-image-sub" data-reveal>
-        <div class="cs-image-placeholder">Add <code>adhd-uk-final-5.jpg</code></div>
-        <img src="assets/projects/adhd-uk-final-5.jpg" alt="Final product screen 5" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-final-3.jpg" alt="Final product screen 3" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
       </div>
     </div>
 
     <div class="grid md:grid-cols-4 gap-6">
       <div class="cs-image-block cs-image-square" data-reveal>
+        <div class="cs-image-placeholder" style="font-size: 0.7rem;">Add <code>adhd-uk-final-4.jpg</code></div>
+        <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-final-4.jpg" alt="Final product screen 4" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      </div>
+      <div class="cs-image-block cs-image-square" data-reveal>
+        <div class="cs-image-placeholder" style="font-size: 0.7rem;">Add <code>adhd-uk-final-5.jpg</code></div>
+        <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-final-5.jpg" alt="Final product screen 5" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+      </div>
+      <div class="cs-image-block cs-image-square" data-reveal>
         <div class="cs-image-placeholder" style="font-size: 0.7rem;">Add <code>adhd-uk-final-6.jpg</code></div>
-        <img src="assets/projects/adhd-uk-final-6.jpg" alt="Final product screen 6" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-final-6.jpg" alt="Final product screen 6" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
       </div>
       <div class="cs-image-block cs-image-square" data-reveal>
         <div class="cs-image-placeholder" style="font-size: 0.7rem;">Add <code>adhd-uk-final-7.jpg</code></div>
-        <img src="assets/projects/adhd-uk-final-7.jpg" alt="Final product screen 7" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-      </div>
-      <div class="cs-image-block cs-image-square" data-reveal>
-        <div class="cs-image-placeholder" style="font-size: 0.7rem;">Add <code>adhd-uk-final-8.jpg</code></div>
-        <img src="assets/projects/adhd-uk-final-8.jpg" alt="Final product screen 8" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-      </div>
-      <div class="cs-image-block cs-image-square" data-reveal>
-        <div class="cs-image-placeholder" style="font-size: 0.7rem;">Add <code>adhd-uk-final-9.jpg</code></div>
-        <img src="assets/projects/adhd-uk-final-9.jpg" alt="Final product screen 9" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-final-7.jpg" alt="Final product screen 7" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
       </div>
     </div>
   </div>
@@ -872,7 +863,7 @@
     <h2 class="cs-section-title mb-6" data-reveal>
       User feedback showed measurable improvements across the redesigned experience.
     </h2>
-    <p class="fs-body text-muted mb-14" data-reveal>
+    <p class="fs-body text-muted mb-16" data-reveal>
       Comparing feedback from the original ADHD UK website with the redesigned prototype demonstrated improvements in navigation, readability and overall user experience.
     </p>
 
@@ -880,7 +871,7 @@
       <div class="md:col-span-3">
         <div class="cs-image-block cs-image-chart">
           <div class="cs-image-placeholder" style="font-size: 0.7rem;">Add <code>adhd-uk-chart-nav.jpg</code></div>
-          <img src="assets/projects/adhd-uk-chart-nav.jpg" alt="Navigation clarity rating chart" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-chart-nav.jpg" alt="Navigation clarity rating chart" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
         </div>
       </div>
       <div class="md:col-span-9">
@@ -900,7 +891,7 @@
       <div class="md:col-span-3">
         <div class="cs-image-block cs-image-chart">
           <div class="cs-image-placeholder" style="font-size: 0.7rem;">Add <code>adhd-uk-chart-read.jpg</code></div>
-          <img src="assets/projects/adhd-uk-chart-read.jpg" alt="Readability rating chart" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-chart-read.jpg" alt="Readability rating chart" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
         </div>
       </div>
       <div class="md:col-span-9">
@@ -920,7 +911,7 @@
       <div class="md:col-span-3">
         <div class="cs-image-block cs-image-chart">
           <div class="cs-image-placeholder" style="font-size: 0.7rem;">Add <code>adhd-uk-chart-return.jpg</code></div>
-          <img src="assets/projects/adhd-uk-chart-return.jpg" alt="Likelihood to return rating chart" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          <img loading="lazy" decoding="async" src="assets/projects/adhd-uk-chart-return.jpg" alt="Likelihood to return rating chart" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
         </div>
       </div>
       <div class="md:col-span-9">
