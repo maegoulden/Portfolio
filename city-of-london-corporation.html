@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>City of London Corporation Case Study — Mae Goulden</title>
+<meta name="description" content="Designed, tested and shipped the PDF MVP for Turn to Tech, a career-change course for women moving into digital roles, then built a website version to pitch what it could become." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  /* ---------- Minimal reset ---------- */
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { line-height: 1.5; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: none; padding: 0; cursor: pointer; }
+  img, svg { display: block; max-width: 100%; }
+  ul { list-style: none; padding: 0; }
+
+  :root {
+    --bg: #F4F4F4;
+    --surface: #FFFFFF;
+    --text: #1A1A1A;
+    --text-muted: #6E6E6C;
+    --text-faint: #9A9A97;
+    --pill-bg: #141414;
+    --pill-text: #FFFFFF;
+    --border: #DBDBD7;
+    --placeholder-bg: #EAEAE7;
+    --placeholder-border: #C7C7C3;
+    --accent: #B51021;
+    --rating-red: #D14343;
+    --rating-amber: #D9A441;
+    --rating-green: #3E9B5C;
+  }
+
+  * { -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  }
+
+  ::selection { background: var(--text); color: var(--bg); }
+
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; border-radius: 2px; }
+
+  .container-page { margin-inline: auto; padding-inline: 1.5rem; max-width: 1400px; }
+  @media (min-width: 768px) { .container-page { padding-inline: 140px; } }
+
+  .text-muted { color: var(--text-muted); }
+  .fs-body { font-size: 20px; line-height: 30px; }
+
+  /* ---------- Nav ---------- */
+  .nav-wrap { background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(10px); }
+  .nav-link { position: relative; color: var(--text); opacity: 0.72; transition: opacity 0.2s ease; font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; font-size: 20px; }
+  .nav-link:hover { opacity: 1; }
+  .pill-btn {
+    background: var(--pill-bg); color: var(--pill-text);
+    padding: 8px 20px; border-radius: 999px; font-weight: 500;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; font-size: 20px;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .logo-mark {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 24px; font-weight: 500; letter-spacing: -0.02em; color: var(--text);
+  }
+  .pill-btn:hover { transform: translateY(-1px); opacity: 0.88; }
+  .toggle-btn {
+    width: 2.5rem; height: 2.5rem; border-radius: 999px;
+    border: 1px solid var(--border); background: transparent;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mobile-panel { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .mobile-panel.open { max-height: 16rem; }
+
+  /* ---------- Case study hero ---------- */
+  .cs-eyebrow {
+    font-family: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
+    font-size: 24px; line-height: 1.2; color: var(--accent); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.02em;
+  }
+  .cs-title {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: clamp(2.25rem, 6vw, 60px); letter-spacing: -0.025em; line-height: 1.1;
+    color: #1A1A1A; font-weight: 500; text-wrap: balance;
+  }
+  .cs-btn-outline {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1.5px solid var(--accent); color: var(--accent);
+    padding: 12px 28px; border-radius: 999px; font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+  .cs-btn-outline:hover { background: var(--accent); color: #fff; }
+  .cs-meta-box-item {
+    border: 1px solid var(--border); border-radius: 14px; padding: 20px 24px;
+  }
+  .cs-meta-label {
+    color: var(--accent); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
+    font-weight: 700; margin-bottom: 8px;
+  }
+
+  /* ---------- Section titles (below eyebrows, throughout the page) ---------- */
+  .cs-section-title {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    color: #1A1A1A; font-size: 40px; line-height: 48px; font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  /* ---------- Full-screen prototype image ---------- */
+  .cs-full-image {
+    position: relative; width: 100%; min-height: 320px;
+    background: var(--placeholder-bg); overflow: hidden; border-radius: 14px;
+  }
+  .cs-full-image img { position: relative; z-index: 1; width: 100%; height: auto; display: block; }
+  .cs-full-placeholder {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center;
+    padding: 1rem; border: 1.5px dashed var(--placeholder-border); border-radius: 14px;
+    font-size: 0.85rem; color: var(--text-faint); line-height: 1.6;
+  }
+  .cs-full-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
+
+  [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }
+
+  /* ---------- Section rhythm: 240px top + 240px bottom ---------- */
+  .cs-section-pad { padding-top: 240px; padding-bottom: 240px; }
+  .cs-eyebrow-left { text-align: left; }
+  .cs-eyebrow-gap-64 { margin-bottom: 64px; }
+
+  /* ---------- Stats with progress rings ---------- */
+  .cs-stat-ring { display: block; margin-inline: auto; margin-bottom: 24px; }
+  .cs-stat-number {
+    font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 56px; line-height: 1.1; font-weight: 500; color: #1A1A1A; margin-bottom: 8px;
+  }
+
+  /* ---------- Comparison table ---------- */
+  .cs-table-wrap { border: 1px solid var(--border); border-radius: 14px; overflow-x: auto; }
+  .cs-table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  .cs-table th, .cs-table td { text-align: left; padding: 18px 24px; font-size: 18px; line-height: 26px; }
+  @media (max-width: 767px) {
+    .cs-table { min-width: 0; table-layout: fixed; }
+    .cs-table th, .cs-table td { padding: 8px 6px; font-size: 12px; line-height: 16px; overflow-wrap: break-word; }
+  }
+  .cs-table thead th {
+    background: #F9F9F9; color: var(--text); font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+  .cs-table tbody td { color: var(--text-muted); border-bottom: 1px solid var(--border); }
+  .cs-table tbody tr:last-child td { border-bottom: none; }
+
+  /* ---------- Generic image placeholder (reused across sections) ---------- */
+  .cs-image-block { position: relative; background: var(--placeholder-bg); border-radius: 14px; overflow: hidden; min-height: 220px; }
+  .cs-image-block img { position: relative; z-index: 1; width: 100%; height: auto; display: block; }
+  .cs-image-placeholder {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center;
+    padding: 16px; border: 1.5px dashed var(--placeholder-border); border-radius: 14px;
+    font-size: 0.8rem; color: var(--text-faint); line-height: 1.5;
+  }
+  .cs-image-placeholder code { background: rgba(0,0,0,0.06); padding: 0.1rem 0.35rem; border-radius: 4px; color: var(--text-muted); }
+
+  /* ---------- Layout utility classes ---------- */
+  .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  .fixed { position: fixed; }
+  .relative { position: relative; }
+  .hidden { display: none; }
+  .flex { display: flex; }
+  .grid { display: grid; }
+  .flex-col { flex-direction: column; }
+  .items-center { align-items: center; }
+  .items-start { align-items: flex-start; }
+  .justify-between { justify-content: space-between; }
+  .text-center { text-align: center; }
+  .mx-auto { margin-left: auto; margin-right: auto; }
+  .inset-x-0 { left: 0; right: 0; }
+  .top-0 { top: 0; }
+  .z-50 { z-index: 50; }
+  .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+  .border-t { border-top-width: 1px; border-top-style: solid; }
+  .h-16 { height: 4rem; }
+  .h-5 { height: 1.25rem; }
+  .w-5 { width: 1.25rem; }
+  .gap-4 { gap: 1rem; }
+  .gap-6 { gap: 1.5rem; }
+  .gap-8 { gap: 2rem; }
+  .mb-3 { margin-bottom: 0.75rem; }
+  .mb-4 { margin-bottom: 1rem; }
+  .mb-6 { margin-bottom: 1.5rem; }
+  .mb-14 { margin-bottom: 3.5rem; }
+  .mb-16 { margin-bottom: 4rem; }
+  .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+  .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+  .pt-36 { padding-top: 9rem; }
+
+  @media (min-width: 640px) {
+    .sm\:flex-row { flex-direction: row; }
+    .sm\:inline-flex { display: inline-flex; }
+  }
+
+  @media (min-width: 768px) {
+    .md\:flex { display: flex; }
+    .md\:hidden { display: none; }
+    .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .md\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .md\:col-span-4 { grid-column: span 4 / span 4; }
+    .md\:col-span-8 { grid-column: span 8 / span 8; }
+    .md\:h-20 { height: 5rem; }
+    .md\:gap-8 { gap: 2rem; }
+    .md\:gap-12 { gap: 3rem; }
+    .md\:pt-48 { padding-top: 12rem; }
+  }
+</style>
+</head>
+
+<body class="antialiased">
+
+<!-- ================= NAV ================= -->
+<header id="nav" class="nav-wrap fixed top-0 inset-x-0 z-50">
+  <div class="container-page flex items-center justify-between h-16 md:h-20">
+    <a href="index.html#home" class="logo-mark">Mæ.</a>
+    <div class="flex items-center gap-6 md:gap-8">
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="index.html#work" class="nav-link">Work</a>
+        <a href="index.html#about" class="nav-link">About</a>
+      </nav>
+      <a href="index.html#contact" class="pill-btn hidden sm:inline-flex" style="font-weight: 400;">Contact</a>
+      <button id="mobile-toggle" class="md:hidden toggle-btn" aria-label="Open menu" aria-expanded="false" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" /></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-panel" class="mobile-panel md:hidden border-t" style="border-color: var(--border);">
+    <nav class="container-page flex flex-col py-4 gap-4">
+      <a href="index.html#work" class="nav-link">Work</a>
+      <a href="index.html#about" class="nav-link">About</a>
+      <a href="index.html#contact" class="nav-link">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= CASE STUDY HERO ================= -->
+<section class="pt-36 md:pt-48" style="padding-bottom: 56px;">
+  <div class="container-page">
+    <p class="cs-eyebrow" style="margin-bottom: 64px;" data-reveal>City of London Corporation</p>
+
+    <div class="grid md:grid-cols-12 gap-8 md:gap-12 items-start">
+      <div class="md:col-span-8" data-reveal>
+        <h1 class="cs-title mb-6">Shipping the MVP, Then Building the Case for What's Next</h1>
+        <p class="fs-body text-muted" style="max-width: 62ch;">
+          Designed, tested and shipped the PDF MVP for Turn to Tech, a career-change course for women moving into digital roles. I then built a website version to pitch what it could become.
+        </p>
+      </div>
+
+      <div class="md:col-span-4 flex flex-col gap-4" data-reveal>
+        <div class="cs-meta-box-item">
+          <p class="cs-meta-label">Role</p>
+          <p>Intern</p>
+        </div>
+        <div class="cs-meta-box-item">
+          <p class="cs-meta-label">Partners</p>
+          <p>Nationwide, Lloyds Banking Group + more</p>
+        </div>
+        <div class="cs-meta-box-item">
+          <p class="cs-meta-label">Impact</p>
+          <p>500+ pre-launch sign-ups</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FULL SCREEN PROTOTYPE IMAGE ================= -->
+<section class="py-10">
+  <div class="container-page">
+    <div class="cs-full-image">
+      <div class="cs-full-placeholder">Add <code>city-of-london-corporation-prototype.jpg</code> to <code>assets/projects/</code></div>
+      <img loading="lazy" decoding="async" src="assets/projects/city-of-london-corporation-prototype.jpg" alt="Turn to Tech prototype" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROBLEM DISCOVERY ================= -->
+<section class="cs-section-pad" style="padding-top: 56px;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>Problem Discovery</p>
+    <h2 class="cs-section-title mb-6" data-reveal>
+      Women interested in digital careers face barriers that make career transitions more difficult.
+    </h2>
+    <p class="fs-body text-muted" data-reveal>
+      The Women Pivoting to Digital Taskforce's report, Recruiting and Retaining Female Digital Talent: Insights for Employers, explored the experiences of over 1,000 women who had either transitioned into digital roles or were considering doing so. The findings informed the development of the Turn to Tech programme.
+    </p>
+  </div>
+</section>
+
+<!-- ================= RESEARCH FINDINGS ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>Research Findings</p>
+    <h2 class="cs-section-title mb-6" data-reveal>
+      Many women are motivated to move into digital careers but face barriers to making the transition.
+    </h2>
+    <p class="fs-body text-muted mb-16" data-reveal>
+      The course was informed by two reports published by the City of London Corporation's Women Pivoting to Digital Taskforce. Untapped Digital Talent: The £3bn Opportunity explored the UK's digital skills shortage, while Recruiting and Retaining Female Digital Talent: Insights for Employers surveyed 1,013 women to understand the barriers and opportunities shaping digital career transitions.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-8 text-center">
+      <div data-reveal>
+        <svg class="cs-stat-ring" width="72" height="72" viewBox="0 0 72 72">
+          <circle cx="36" cy="36" r="30" stroke="#E4E1D9" stroke-width="6" fill="none" />
+          <circle cx="36" cy="36" r="30" stroke="var(--accent)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="20.7" transform="rotate(-90 36 36)" />
+        </svg>
+        <p class="cs-stat-number">89%</p>
+        <p class="fs-body text-muted">Women interested in a digital career would reskill if offered the opportunity.</p>
+      </div>
+      <div data-reveal>
+        <svg class="cs-stat-ring" width="72" height="72" viewBox="0 0 72 72">
+          <circle cx="36" cy="36" r="30" stroke="#E4E1D9" stroke-width="6" fill="none" />
+          <circle cx="36" cy="36" r="30" stroke="var(--accent)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="77.3" transform="rotate(-90 36 36)" />
+        </svg>
+        <p class="cs-stat-number">59%</p>
+        <p class="fs-body text-muted">Women who want to career change said it was unclear how to secure a digital role.</p>
+      </div>
+      <div data-reveal>
+        <svg class="cs-stat-ring" width="72" height="72" viewBox="0 0 72 72">
+          <circle cx="36" cy="36" r="30" stroke="#E4E1D9" stroke-width="6" fill="none" />
+          <circle cx="36" cy="36" r="30" stroke="var(--accent)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="128.2" transform="rotate(-90 36 36)" />
+        </svg>
+        <p class="cs-stat-number">32%</p>
+        <p class="fs-body text-muted">Women interested in a digital career have been given the opportunity to reskill within their current organisation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE SOLUTION ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>The Solution</p>
+    <h2 class="cs-section-title mb-6" data-reveal>
+      Turn to Tech - The Digital Career Change Course
+    </h2>
+    <p class="fs-body text-muted" data-reveal>
+      In response to the challenges identified through the Taskforce's research, the City of London Corporation developed Turn to Tech - a digital career transition programme designed to help women explore digital careers, recognise their transferable skills, build confidence and understand the practical steps towards employment.
+    </p>
+  </div>
+</section>
+
+<!-- ================= MY ROLE ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>My Role</p>
+    <h2 class="cs-section-title mb-6" data-reveal>
+      Transforming an early concept into a tested learner experience.
+    </h2>
+    <p class="fs-body text-muted" data-reveal>
+      I joined the project after the research, course content and initial concept had already been developed. My role was to review the existing prototype and design the learner experience: the journey, course flow, and interactive activities, presented clearly and accessibly. Shortly after I joined, the brief shifted to a PDF as the MVP so I designed the learner experience for that format instead. As new sections were developed, they were evaluated through usability testing with 15 participants, allowing feedback to shape ongoing iterations throughout the design process.
+    </p>
+  </div>
+</section>
+
+<!-- ================= THE PIVOT ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>The Pivot</p>
+    <h2 class="cs-section-title mb-6" data-reveal>
+      COLC changed the brief to a PDF just after I joined, I kept believing the website was the better long-term fit.
+    </h2>
+    <p class="fs-body text-muted mb-16" data-reveal>
+      The PDF was the right call for a first version: faster to produce, easier to circulate to partners like Nationwide and Lloyds, and lower-risk if sections needed to change. I delivered it to that brief. But de-risking the release doesn't solve the problem long-term, so I kept building the website version alongside it, on my own initiative.
+    </p>
+
+    <div class="cs-table-wrap mb-16" data-reveal>
+      <table class="cs-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Full website</th>
+            <th>The MVP shipped</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Format</td>
+            <td>Original plan</td>
+            <td>PDF</td>
+          </tr>
+          <tr>
+            <td>Why</td>
+            <td>Reach &amp; conversion</td>
+            <td>Speed &amp; lower risk</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MY INITIATIVE ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>My Initiative</p>
+    <h2 class="cs-section-title mb-6" data-reveal>
+      A PDF couldn't reach the group who needed it most: The Curious.
+    </h2>
+    <p class="fs-body text-muted mb-16" data-reveal>
+      The Curious are women unsure digital is "for them". The group least likely to open a static document and most in need of something that feels inviting before they've committed to anything. I did competitive research into how other reskilling programmes handle that same first step, and used it alongside the Taskforce's own findings to build the case for a website.
+    </p>
+
+    <div class="cs-table-wrap mb-16" data-reveal>
+      <table class="cs-table">
+        <thead>
+          <tr>
+            <th>User group</th>
+            <th>How well does the PDF serve them?</th>
+            <th>Priority for the website</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>The Curious</td>
+            <td>Poorly. A PDF asks for commitment before they're convinced there's anything in it for them</td>
+            <td>Highest. The group a PDF structurally can't reach</td>
+          </tr>
+          <tr>
+            <td>The Career Changer</td>
+            <td>Reasonably. Content works, but no structure or sense of progress</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td>The Returner</td>
+            <td>Fine. Mainly needs flexible pacing, which either format can offer</td>
+            <td>Lower</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE TRADE-OFF ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>The Trade-Off</p>
+    <h2 class="cs-section-title mb-6" data-reveal>
+      Ship fast and safe, or build for reach and iteration.
+    </h2>
+    <p class="fs-body text-muted mb-16" data-reveal>
+      This wasn't "website beats PDF", both sides had a real case, and I tried to weigh them honestly rather than just advocate for the option I preferred.
+    </p>
+
+    <div class="cs-table-wrap mb-16" data-reveal>
+      <table class="cs-table">
+        <thead>
+          <tr>
+            <th>Ship the PDF</th>
+            <th>Build the website</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Faster, cheaper to change</td>
+            <td>Testable and instrumented</td>
+          </tr>
+          <tr>
+            <td>No buy-in needed before content is proven</td>
+            <td>Can measure conversion by user group</td>
+          </tr>
+          <tr>
+            <td>Lower risk for a first release</td>
+            <td>Higher upfront investment</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="fs-body text-muted" data-reveal>
+      Rather than pick a side, I built the second option far enough that COLC could make the call with something real in front of them.
+    </p>
+  </div>
+</section>
+
+<!-- ================= WHERE IT STANDS ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>Where It Stands</p>
+    <h2 class="cs-section-title mb-6" data-reveal>
+      The PDF is ready with 500+ pre-launch sign-ups; the website is built and ready to pitch.
+    </h2>
+    <p class="fs-body text-muted mb-16" data-reveal>
+      The PDF has done what an MVP should before launch: validate the content and the demand without over-investing before either was proven. The website is built as the proposal for what comes next, grounded in the same research and testing, plus the competitive research I did to make the case for going digital.
+    </p>
+
+    <div class="cs-image-block cs-image-wide" data-reveal>
+      <div class="cs-image-placeholder">Add <code>city-of-london-corporation-website-proposal.jpg</code> to <code>assets/projects/</code></div>
+      <img loading="lazy" decoding="async" src="assets/projects/city-of-london-corporation-website-proposal.jpg" alt="Turn to Tech website proposal" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+    </div>
+  </div>
+</section>
+
+<!-- ================= REFLECTION ================= -->
+<section class="cs-section-pad" style="padding-top: 0;">
+  <div class="container-page">
+    <p class="cs-eyebrow cs-eyebrow-left cs-eyebrow-gap-64" data-reveal>Reflection</p>
+    <h2 class="cs-section-title mb-6" data-reveal>
+      Delivering to the brief doesn't mean the job stops there.
+    </h2>
+    <p class="fs-body text-muted" data-reveal>
+      The easy version of this project is "I designed a course." What I learned more from was deciding what to do when the brief changed, respecting COLC's call while still building the case for the format I believed in. That's the instinct I want in a product role: not overriding a decision, but not stopping at "that's the brief" either.
+    </p>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="py-10">
+  <div class="container-page flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="text-muted text-sm">&copy; <span id="year"></span> Mae Goulden. All rights reserved.</p>
+    <div class="flex gap-6">
+      <a href="https://www.linkedin.com/in/maegoulden/" target="_blank" rel="noopener" class="nav-link">LinkedIn</a>
+      <a href="mailto:hello@maegoulden.com" class="nav-link">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    "use strict";
+    var mobileToggle = document.getElementById("mobile-toggle");
+    var mobilePanel = document.getElementById("mobile-panel");
+    mobileToggle.addEventListener("click", function () {
+      var isOpen = mobilePanel.classList.toggle("open");
+      mobileToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    var revealEls = document.querySelectorAll("[data-reveal]");
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+      revealEls.forEach(function (el) { observer.observe(el); });
+    } else {
+      revealEls.forEach(function (el) { el.classList.add("is-visible"); });
+    }
+  })();
+</script>
+
+</body>
+</html>
