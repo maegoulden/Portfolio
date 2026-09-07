@@ -79,13 +79,6 @@
   .fs-lead { font-size: clamp(1.85rem, 4.4vw, 48px); font-weight: 500; line-height: 1.2083; }
   .fs-body { font-size: 20px; line-height: 30px; max-width: 46ch; }
 
-  /* ---------- Hero inline links ---------- */
-  .hero-inline-link {
-    color: color-mix(in srgb, var(--text-muted) 40%, var(--text) 60%);
-    font-weight: 500; transition: opacity 0.2s ease;
-  }
-  .hero-inline-link:hover { opacity: 0.7; }
-
   /* ---------- Nav ---------- */
   .nav-wrap {
     background: color-mix(in srgb, var(--bg) 85%, transparent);
@@ -340,15 +333,10 @@
   <canvas id="wave-canvas" class="wave-canvas" aria-hidden="true"></canvas>
 
   <div class="container-page relative" style="width: 100%;">
-    <h1 class="fs-display font-display mb-5" data-reveal>
-      Hi, I'm Mae Goulden!
+    <p class="fs-body text-muted mb-5" style="max-width: none;" data-reveal>Hello, I'm Mae Goulden!</p>
+    <h1 class="fs-display font-display" data-reveal>
+      I understand people and design accessible products that actually help them
     </h1>
-    <p class="fs-body text-muted" style="max-width: none;" data-reveal>
-      I'm currently a Product Intern at
-      <a href="https://xaltexperiences.com/" target="_blank" rel="noopener" class="hero-inline-link">XALT</a>, a next generation interactive live sports broadcast platform, and recently interned at the
-      <a href="https://www.cityoflondon.gov.uk/about-us/about-the-city-of-london-corporation" target="_blank" rel="noopener" class="hero-inline-link">City of London Corporation</a>.
-      Before product, I spent four years in inclusion within education.
-    </p>
   </div>
 
   <a href="#work" class="scroll-cue" aria-label="Scroll to work" data-reveal>
@@ -455,17 +443,21 @@
       </div>
 
       <div data-reveal>
-        <p class="font-display mb-4" style="font-size: 32px; font-weight: 500; line-height: 1.25;">
-          Hi, I'm Mae! I love solving problems for people.
-        </p>
         <p class="fs-body text-muted" style="max-width:none;">
-          Born in Woking, I spent a lot of my youth travelling the country playing academy football, going on to represent England at U15s and Greece in the U19s Euros! Football taught me so much; feedback, collaboration, striving to improve and always wanting to learn more - qualities that shaped how I approached my next chapter.
+          Hi, I'm Mae! I'm a designer who loves all things <span class="em-word">creative</span> and all things <span class="em-word">sport</span>!
         </p>
         <p class="fs-body text-muted mt-5" style="max-width:none;">
-          Whilst playing semi-professional football, I started my career in inclusion within education, where I saw first-hand how systems either include people or leave them behind. That's the same thinking I now bring as an Intern at the City of London Corporation and a Product Intern at XALT: understand what people actually need, test assumptions, and adjust based on evidence.
+          Born in Woking, I spent a lot of my youth travelling the country playing academy football. Football led me to some amazing opportunities, such as representing both England at U15s and Greece in the U19s Euros!
         </p>
       </div>
     </div>
+
+    <p class="fs-body text-muted" style="max-width:none;" data-reveal>
+      Whilst playing semi-professional football, I started my career in inclusion within education. I saw first hand how systems can either include people or leave them behind. Every day was about understanding different needs, removing barriers and adapting my approach when the first one didn't work. Most products don't fail because they look wrong; they fail because they assume everyone arrives with the same confidence, context, and capability. That's the assumption I design against.
+    </p>
+    <p class="fs-body text-muted mt-5" style="max-width:none;" data-reveal>
+      I'm now a Product Intern at XALT, an interactive live sports broadcast platform, and recently a design intern at the City of London Corporation.
+    </p>
   </div>
 </section>
 
